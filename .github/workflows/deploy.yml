@@ -1,0 +1,71 @@
+name: Deploy to Remote Server via SSH
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 시크릿 설정 파일 생성
+      - name: Add secret configuration
+        run: |
+          mkdir -p src/main/resources
+          echo '${{ secrets.APPLICATION_SECRET }}' > src/main/resources/application-secret.yml
+
+      # Gradle 빌드 실행
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build -x test
+
+      # 설정 파일 확인
+      - name: Verify config file
+        run: |
+          ls -la src/main/resources/
+          cat src/main/resources/application.yml
+
+      # 프로젝트 전체 압축
+      - name: Create ZIP archive
+        run: |
+          zip -r salehero.zip . -x ".git/*" ".github/*" "node_modules/*" ".gradle/*" ".idea/*" "*.iml" ".gitignore"
+          ls -la salehero.zip
+
+      # SSH 접근 설정
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+
+      # ZIP 파일 전송
+      - name: Copy ZIP to remote server
+        run: |
+          scp -i ~/.ssh/id_rsa salehero.zip ${{ secrets.REMOTE_UESR }}@${{ secrets.REMOTE_HOST }}:/salehero/
+
+      # 배포 스크립트 실행
+      - name: Deploy on remote server
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+            cd /salehero &&
+            rm -rf app || true &&
+            mkdir -p app &&
+            unzip -o salehero.zip -d app &&
+            docker build -t salehero:latest . &&
+            if docker ps -a | grep -q salehero-container; then
+            docker stop salehero-container && docker rm salehero-container
+            fi &&
+            docker-compose up -d salehero
+          "
+#            docker-compose up -d
+
+      # 배포 완료 알림
+      - name: Deployment notification
+        run: echo "✅ Deployment completed successfully!"
