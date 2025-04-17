@@ -48,7 +48,7 @@ jobs:
       # ZIP 파일 전송
       - name: Copy ZIP to remote server
         run: |
-          scp -i ~/.ssh/id_rsa salehero.zip ${{ secrets.REMOTE_UESR }}@${{ secrets.REMOTE_HOST }}:/salehero/
+          scp -i ~/.ssh/id_rsa salehero.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/salehero/
 
       # 배포 스크립트 실행
       - name: Deploy on remote server
