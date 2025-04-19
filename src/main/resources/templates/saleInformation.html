@@ -1,0 +1,126 @@
+<html xmlns:th="http://www.thymeleaf.org" data-theme="light">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="color-scheme" content="only">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <title>세일히어로 - 오늘의 할인정보</title>
+</head>
+<body style="margin: 0; padding: 0">
+<section class="mail-preview" aria-hidden="true">
+        <span
+                style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden">
+            오늘의 핫딜이 도착했습니다. 놓치지 마세요!
+        </span>
+</section>
+
+<div style="
+        height: 100%;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        user-select: none;
+      ">
+    <div style="
+          background-color: #ffffff;
+          border-radius: 5px;
+          border: 1px solid #e1e1e1;
+          max-width: 480px;
+          width: 100%;
+          margin: 20px auto;
+        ">
+
+        <a href="http://salehero.kr/" style="
+            display: block;
+            text-decoration: none;
+            width: 5.5rem;
+            font-weight: bold;
+            padding: 21px 16px 16px 40px;
+          ">
+            <div style="display: flex; align-items: center; width: 400px">
+                <img src="../static/sale_hero_ico.png" alt="logo" width="50px"/>
+                <span style="font-size: 24px; color: #FF3B30; font-weight: bold;">세일</span>
+                <span style="font-size: 24px; color: #333333; font-weight: bold;">히어로</span>
+            </div>
+        </a>
+        <section style="text-align: center;">
+            <p style="font-size: 19px; color: #333333; font-weight: bold;">
+                오늘의 할인 정보는?
+            </p>
+            {{}}
+            <p style="
+            font-size: 14px;
+            color: #666666;
+            text-align: center;
+            word-break: keep-all;
+            line-height: 1.5;
+            font-weight: 350;
+            padding: 40px 30px 24px 30px;
+            margin: 0px;
+            ">
+                지금 바로 확인하고 특별한 할인 혜택을 놓치지 마세요!<br/>
+                아래 버튼을 눌러 자세한 정보를 확인해보세요.
+            </p>
+            <div style="margin: 0 auto; width: fit-content;">
+                <a th:href="@{http://salehero.kr/deal/{id}(id = ${dealId})}" style="
+                display: inline-block;
+                padding: 12px 32px;
+                background-color: #FF3B30;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                line-height: 1.5;
+                margin-bottom: 44px;
+                width: fit-content;
+                cursor: pointer;
+                ">
+                    할인정보 보기
+                </a>
+            </div>
+            <div style="height: 1px; width: 90%; background: #e1e1e1; margin: 0 auto;"></div>
+            <table role="presentation" style="
+              width: 100%;
+              border-collapse: collapse;
+              max-width: 400px;
+              margin: 0 auto;
+              padding: 0 47px;
+              ">
+                <tr>
+                    <td style="margin-top: 5rem; font-size: 14px; padding-bottom: 30px; color: #888888; width: auto; white-space: nowrap; text-align: center;">
+                        <table width="75%" style="margin: 0 auto;">
+                            <tr>
+                                <td width="100px" style="text-align: center; padding-top: 34px;">
+                                    <a th:href="@{http://salehero.kr/unsubscribe(email=${email}, token=${token})}"
+                                       style="
+                                        color: #888888;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                        ">
+                                        <div style="text-align: center; font-size: 12px;">
+                                            <img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png"
+                                                 style="width: 28px; display: inline; cursor: pointer;"/>
+                                            <p style="margin: 5px 0 0 0;">구독취소</p>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; padding: 10px 0 30px 0;">
+                        <p style="font-size: 12px; color: #888888; margin: 0;">
+                            © 2025 세일히어로 | 서울시 관악구 남현동
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </div>
+</div>
+</body>
+</html>
