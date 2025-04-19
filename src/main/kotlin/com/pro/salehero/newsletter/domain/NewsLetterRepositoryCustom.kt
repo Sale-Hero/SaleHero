@@ -13,5 +13,9 @@ interface NewsLetterRepositoryCustom {
 
     fun remove(idx: Long): Long
 
+    // 오늘 보낼 뉴스레터 조회
     fun findTodayNewsLetter(today: LocalDateTime): List<NewsLetterResponseDTO>?
+
+    // 보냄 처리
+    fun updateToSent(dto: NewsLetterResponseDTO)
 }
