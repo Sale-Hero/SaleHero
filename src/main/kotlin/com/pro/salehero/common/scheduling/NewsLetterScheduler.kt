@@ -20,7 +20,7 @@ class NewsLetterScheduler(
 
     @Transactional
 //    @Scheduled(cron = "*/10 * * * * *")
-        @Scheduled(cron = "0 0 10 * * * ") // at 12:00
+    @Scheduled(cron = "0 0 10 * * *", zone = "Asia/Seoul")  // at 12:00
     fun sendMail() {
         val todayNewLetters = newsLetterRepository.findTodayNewsLetter(LocalDate.now().atStartOfDay())
 
@@ -36,8 +36,10 @@ class NewsLetterScheduler(
             helper.setTo("pnci1029@gmail.com")
             helper.setSubject(title)
             helper.setText(subject, true)
-        }
 
-        javaMailSender.send(mimeMessage)
+            javaMailSender.send(mimeMessage)
+                .also { newsLetterRepository.updateToSent(newsLetter) }
+                .also { println("send complete") }
+        }
     }
 }
