@@ -93,7 +93,7 @@ class NewsLetterRepositoryImpl(
         .where(
             newsLetter.sentAt.goe(today),
             newsLetter.sentAt.loe(today.plusDays(1)),
-            newsLetter.isSent.eq("Y")
+            newsLetter.isSent.eq("N")
         )
         .fetch()
 
@@ -102,8 +102,9 @@ class NewsLetterRepositoryImpl(
     ) {
         queryFactory
             .update(newsLetter)
-            .set(newsLetter.isSent, "T")
+            .set(newsLetter.isSent, "Y")
             .where(newsLetter.id.eq(dto.id))
+            .execute()
     }
 
     // 검색어를 타이틀이나 컨텐츠에서 찾는 조건 함수
