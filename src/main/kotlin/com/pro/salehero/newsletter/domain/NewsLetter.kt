@@ -18,8 +18,7 @@ data class NewsLetter(
     @Column(nullable = true, length = 1)
     val isSent: String = "N",
 
-    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    val sentAt: LocalDateTime,
+    val sentAt: LocalDateTime?,
 
 ) : CreateAndUpdateAudit()

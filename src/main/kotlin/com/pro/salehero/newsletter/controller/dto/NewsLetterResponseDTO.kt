@@ -7,6 +7,6 @@ data class NewsLetterResponseDTO(
     val title: String,
     val content: String,
     val isSent: String,
-    val sentAt: LocalDateTime,
+    val sentAt: LocalDateTime?,
     val createdAt: LocalDateTime
 )
