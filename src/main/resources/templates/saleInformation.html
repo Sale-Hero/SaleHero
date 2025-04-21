@@ -10,10 +10,10 @@
 </head>
 <body style="margin: 0; padding: 0">
 <section class="mail-preview" aria-hidden="true">
-    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden">
+    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden">
         오늘의 핫딜이 도착했습니다. 놓치지 마세요!
     </span>
-    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden">
+    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden">
         &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj;
         &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy;
         &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp;
@@ -37,7 +37,7 @@
           margin: 20px auto;
         ">
 
-        <a href="http://salehero.kr/" style="
+        <a href="https://salehero.kr/" style="
             display: block;
             text-decoration: none;
             width: 5.5rem;
@@ -63,13 +63,13 @@
             line-height: 1.5;
             font-weight: 350;
             padding: 40px 30px 24px 30px;
-            margin: 0px;
+            margin: 0;
             ">
                 지금 바로 확인하고 특별한 할인 혜택을 놓치지 마세요!<br/>
                 아래 버튼을 눌러 자세한 정보를 확인해보세요.
             </p>
             <div style="margin: 0 auto; width: fit-content;">
-                <a th:href="@{http://salehero.kr/deal/{id}(id = ${dealId})}" style="
+                <a th:href="@{https://salehero.kr/deal/{id}(id = ${dealId})}" style="
                 display: inline-block;
                 padding: 12px 32px;
                 background-color: #FF3B30;
@@ -82,7 +82,6 @@
                 line-height: 1.5;
                 margin-bottom: 44px;
                 width: fit-content;
-                cursor: pointer;
                 ">
                     할인정보 보기
                 </a>
@@ -100,7 +99,7 @@
                         <table width="75%" style="margin: 0 auto;">
                             <tr>
                                 <td width="100px" style="text-align: center; padding-top: 34px;">
-                                    <a th:href="@{http://salehero.kr/unsubscribe(email=${email}, token=${token})}"
+                                    <a th:href="@{https://salehero.kr/unsubscribe(email=${email}, token=${token})}"
                                        style="
                                         color: #888888;
                                         text-decoration: none;
@@ -108,6 +107,7 @@
                                         ">
                                         <div style="text-align: center; font-size: 12px;">
                                             <img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png"
+                                                 alt="unsubscribed"
                                                  style="width: 28px; display: inline; cursor: pointer;"/>
                                             <p style="margin: 5px 0 0 0;">구독취소</p>
                                         </div>
