@@ -1,6 +1,7 @@
 package com.pro.salehero.newsletter.domain
 
 import com.pro.salehero.common.PageResponseDTO
+import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPutDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterResponseDTO
 import com.pro.salehero.newsletter.domain.QNewsLetter.newsLetter
@@ -11,14 +12,14 @@ import org.springframework.data.domain.Pageable
 import java.time.LocalDateTime
 
 class NewsLetterRepositoryImpl(
-    private val queryFactory: JPAQueryFactory
-) : NewsLetterRepositoryCustom {
+    queryFactory: JPAQueryFactory
+) : QueryDslSupport(queryFactory), NewsLetterRepositoryCustom {
 
     override fun searchNewsLetter(
         pageable: Pageable,
         query: String?
     ): PageResponseDTO<NewsLetterResponseDTO> {
-        val result = queryFactory
+        val contentQuery = queryFactory
             .select(
                 Projections.constructor(
                     NewsLetterResponseDTO::class.java,
@@ -35,10 +36,6 @@ class NewsLetterRepositoryImpl(
                 searchKeywordContains(query)
             )
             .orderBy(newsLetter.createdAt.desc())
-            .offset(pageable.offset)
-            .limit(pageable.pageSize.toLong())
-
-        val content = result.fetch()
 
         val countQuery = queryFactory
             .select(newsLetter.count())
@@ -47,14 +44,7 @@ class NewsLetterRepositoryImpl(
                 searchKeywordContains(query)
             )
 
-        val total = countQuery.fetchOne() ?: 0L
-        val totalPages = getTotalPages(total, pageable.pageSize)
-
-        return PageResponseDTO(
-            totalPages = totalPages,
-            totalElement = total,
-            content = content
-        )
+        return fetchPageResponse(contentQuery, countQuery, pageable)
     }
 
     override fun updateNewsLetter(
