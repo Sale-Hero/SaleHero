@@ -55,3 +55,17 @@ CREATE TABLE users
 alter table subscriber
     add is_marketing_agreed varchar(1) default 'N' null;
 
+CREATE TABLE community (
+    id BIGINT AUTO_INCREMENT,
+    created_at TIMESTAMP(6),
+    updated_at TIMESTAMP(6),
+    category TINYINT CHECK (category BETWEEN 0 AND 1),
+    content VARCHAR(255),
+    title VARCHAR(255),
+    view_count BIGINT NOT NULL,
+    writer_id BIGINT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE community
+    ADD COLUMN is_deleted VARCHAR(1);
