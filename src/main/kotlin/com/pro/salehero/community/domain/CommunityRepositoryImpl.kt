@@ -4,9 +4,11 @@ import com.pro.salehero.common.PageResponseDTO
 import com.pro.salehero.community.controller.dto.CommunityResponseDTO
 import com.pro.salehero.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.community.domain.QCommunity.community
+import com.pro.salehero.community.domain.enums.CommunityCategory
 import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.user.domain.QUser.user
 import com.querydsl.core.types.Projections
+import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Pageable
 
@@ -29,6 +31,9 @@ class CommunityRepositoryImpl(
             )
             .from(community)
             .join(user).on(community.writerId.eq(user.id))
+            .where(
+                searchByCategory(dto.category)
+            )
             .orderBy(community.createdAt.desc())
 
         val countQuery = queryFactory
@@ -37,5 +42,13 @@ class CommunityRepositoryImpl(
             .join(user).on(community.writerId.eq(user.id))
 
         return fetchPageResponse(contentQuery, countQuery, pageable)
+    }
+
+    private fun searchByCategory(query: CommunityCategory?): BooleanExpression? {
+        return if (query != null) {
+            community.category.eq(query)
+        } else {
+            null
+        }
     }
 }
