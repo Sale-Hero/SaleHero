@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.net.URLEncoder
 
 @Service
-class SignupService (
+class AuthService (
     val userRepository: UserRepository,
     private val jwtTokenProvider: JwtTokenProvider,
     @Value("\${target.origins}") private val origin: String,
@@ -58,4 +58,8 @@ class SignupService (
         val authUrl = "$origin/success?$queryString"
         response.sendRedirect(authUrl)
     }
+
+    fun createNewTokenByRefreshToken(
+        refreshToken: String
+    ) = jwtTokenProvider.createNewAccessToken(refreshToken)
 }
