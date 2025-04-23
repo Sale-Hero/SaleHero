@@ -17,6 +17,7 @@ class CommunityRepositoryImpl(
 ) : QueryDslSupport(queryFactory), CommunityRepositoryCustom {
 
     override fun getArticles(dto: CommunitySearchDTO, pageable: Pageable): PageResponseDTO<CommunityResponseDTO> {
+        //todo 풀스캔 2번 개선하세요. 패버리기전에
         val contentQuery = queryFactory
             .select(
                 Projections.constructor(
@@ -39,6 +40,9 @@ class CommunityRepositoryImpl(
         val countQuery = queryFactory
             .select(community.count())
             .from(community)
+            .where(
+                searchByCategory(dto.category)
+            )
             .join(user).on(community.writerId.eq(user.id))
 
         return fetchPageResponse(contentQuery, countQuery, pageable)
