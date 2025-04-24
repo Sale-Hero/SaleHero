@@ -38,8 +38,7 @@ class NewsLetterService(
     fun getNewsLetters(
         pageable: Pageable,
         query: String?,
-    ) = getCurrentUser()
-        .let { newsLetterRepository.searchNewsLetter(pageable, query) }
+    ) = newsLetterRepository.searchNewsLetter(pageable, query)
 
     @Transactional
     fun updateNewsLetter(

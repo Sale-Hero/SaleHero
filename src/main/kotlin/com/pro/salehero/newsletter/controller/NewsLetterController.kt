@@ -26,7 +26,7 @@ class NewsLetterController(
             sort = ["createAt"],
             direction = Sort.Direction.DESC,
             size = 7,
-            page = 0
+            page = 1
         ) pageable: Pageable,
     ) = newsLetterService.getNewsLetters(pageable, query)
 
