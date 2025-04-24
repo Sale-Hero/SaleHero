@@ -1,6 +1,6 @@
 package com.pro.salehero.newsletter.service
 
-import com.pro.salehero.common.ResponseDTO
+import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterDeleteDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPostDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPutDTO

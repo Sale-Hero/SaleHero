@@ -1,6 +1,6 @@
 package com.pro.salehero.subscribe.service
 
-import com.pro.salehero.common.ResponseDTO
+import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.subscribe.controller.dto.SubscribePostDTO
 import com.pro.salehero.subscribe.controller.dto.SubscriberResponseDTO
 import com.pro.salehero.subscribe.domain.SubscribeRepository

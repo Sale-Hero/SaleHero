@@ -1,6 +1,6 @@
 package com.pro.salehero.newsletter.domain
 
-import com.pro.salehero.common.PageResponseDTO
+import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPutDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterResponseDTO

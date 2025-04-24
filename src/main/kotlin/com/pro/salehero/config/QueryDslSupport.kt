@@ -1,6 +1,6 @@
 package com.pro.salehero.config
 
-import com.pro.salehero.common.PageResponseDTO
+import com.pro.salehero.common.dto.PageResponseDTO
 import com.querydsl.jpa.impl.JPAQuery
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.PageRequest
