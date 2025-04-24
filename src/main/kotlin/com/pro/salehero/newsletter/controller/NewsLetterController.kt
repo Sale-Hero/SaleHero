@@ -30,6 +30,11 @@ class NewsLetterController(
         ) pageable: Pageable,
     ) = newsLetterService.getNewsLetters(pageable, query)
 
+    @GetMapping("/{id}")
+    fun getNewsLetter(
+        @PathVariable("id") id: Long
+    ) = newsLetterService.getNewsLetter(id)
+
     @PutMapping("/{idx}")
     fun updateNewsLetter(
         @RequestBody dto: NewsLetterPutDTO,

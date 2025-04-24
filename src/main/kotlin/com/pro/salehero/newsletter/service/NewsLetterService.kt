@@ -4,6 +4,7 @@ import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterDeleteDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPostDTO
 import com.pro.salehero.newsletter.controller.dto.NewsLetterPutDTO
+import com.pro.salehero.newsletter.controller.dto.NewsLetterResponseDTO
 import com.pro.salehero.newsletter.domain.NewsLetter
 import com.pro.salehero.newsletter.domain.NewsLetterRepository
 import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
@@ -39,6 +40,13 @@ class NewsLetterService(
         pageable: Pageable,
         query: String?,
     ) = newsLetterRepository.searchNewsLetter(pageable, query)
+
+    @Transactional(readOnly = true)
+    fun getNewsLetter(
+        id: Long
+    ): NewsLetterResponseDTO = newsLetterRepository.findById(id)
+        .orElseThrow { CustomException(ErrorCode.CODE_404) }
+        .let { NewsLetterResponseDTO.of(newsLetter = it) }
 
     @Transactional
     fun updateNewsLetter(
