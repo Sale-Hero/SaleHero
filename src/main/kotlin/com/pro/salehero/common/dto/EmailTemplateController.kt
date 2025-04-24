@@ -1,4 +1,4 @@
-package com.pro.salehero.common
+package com.pro.salehero.common.dto
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

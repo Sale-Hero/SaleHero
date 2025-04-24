@@ -1,4 +1,4 @@
-package com.pro.salehero.common
+package com.pro.salehero.common.dto
 
 data class ResponseDTO<T>(
     val success: Boolean,

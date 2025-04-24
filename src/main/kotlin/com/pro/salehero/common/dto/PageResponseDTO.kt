@@ -1,4 +1,4 @@
-package com.pro.salehero.common
+package com.pro.salehero.common.dto
 
 data class PageResponseDTO<T>(
     val totalPages: Int,
