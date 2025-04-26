@@ -54,7 +54,23 @@
             <p style="font-size: 19px; color: #333333; font-weight: bold;">
                 오늘의 할인 정보는?
             </p>
-            {{}}
+            <div style="
+        background-color: #FFF8E1;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 0 20px 25px 20px;
+        border: 1px solid #FFE0B2;
+    ">
+                <p style="
+            font-size: 16px;
+            color: #FF3B30;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.5;
+        " th:text="${dealTitle}">
+                    할인 정보 제목
+                </p>
+            </div>
             <p style="
             font-size: 14px;
             color: #666666;
