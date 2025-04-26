@@ -34,6 +34,7 @@ class UserService(
                     id = user.id ?: 0L,
                     userEmail = user.userEmail,
                     userName = user.userName,
+                    nickName = user.nickName,
                     role = user.role
                 )
             }

@@ -37,6 +37,7 @@ class JwtTokenProvider(
                 "id" to user.id,
                 "userEmail" to user.userEmail,
                 "userName" to user.userName,
+                "nickName" to user.nickName,
                 "role" to user.role.name
             )
 
@@ -89,6 +90,7 @@ class JwtTokenProvider(
                 "id" to user.id,
                 "userEmail" to user.userEmail,
                 "userName" to user.userName,
+                "nickName" to user.nickName,
                 "role" to user.role.name
             )
 
