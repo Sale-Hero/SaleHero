@@ -17,6 +17,9 @@ data class User (
     @Column(nullable = false, length = 50)
     val userName: String,
 
+    @Column(nullable = false, length = 10)
+    val nickName: String,
+
     @Column(nullable = true, length = 1)
     val isActive: String = "Y",
 

@@ -6,6 +6,7 @@ import com.pro.salehero.user.domain.UserRepository
 import com.pro.salehero.user.domain.enums.UserRole
 import com.pro.salehero.auth.service.dto.OauthUserInfo
 import com.pro.salehero.auth.service.dto.TokenResponseDTO
+import com.pro.salehero.util.comfortutil.ComfortUtil
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -14,7 +15,8 @@ import java.net.URLEncoder
 
 @Service
 class AuthService (
-    val userRepository: UserRepository,
+    private val userRepository: UserRepository,
+    private val comfortUtil: ComfortUtil,
     private val jwtTokenProvider: JwtTokenProvider,
     @Value("\${target.origins}") private val origin: String,
 ){
@@ -34,6 +36,7 @@ class AuthService (
             userEmail = userInfo.email,
             userName = userInfo.name,
             isActive = "Y",
+            nickName = comfortUtil.nickNameCreator(),
             role = userRole
         )
 

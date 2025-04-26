@@ -29,9 +29,10 @@ class SecurityUtil {
             val id = oAuth2User.getAttribute<Int>("id")?.toLong() ?: 0L
             val userEmail = oAuth2User.getAttribute<String>("userEmail") ?: ""
             val userName = oAuth2User.getAttribute<String>("userName") ?: ""
+            val nickName = oAuth2User.getAttribute<String>("nickName") ?: ""
             val role = oAuth2User.getAttribute<String>("role") ?: "USER"
 
-            return User(id, userEmail, userName, "Y", UserRole.valueOf(role))
+            return User(id, userEmail, userName, nickName,"Y", UserRole.valueOf(role))
         }
     }
 
