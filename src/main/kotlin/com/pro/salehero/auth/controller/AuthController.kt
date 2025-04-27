@@ -1,5 +1,7 @@
 package com.pro.salehero.auth.controller
 
+import com.pro.salehero.auth.controller.dto.MailRequestDTO
+import com.pro.salehero.auth.controller.dto.MailVerifyDTO
 import com.pro.salehero.auth.controller.dto.TokenChangeDTO
 import com.pro.salehero.auth.service.GoogleAuthService
 import com.pro.salehero.auth.service.AuthService
@@ -46,4 +48,14 @@ class AuthController(
     fun createNewToken(
         @RequestBody dto: TokenChangeDTO
     ) = authService.createNewTokenByRefreshToken(dto.refreshToken)
+
+    @PostMapping("/mail-request")
+    fun createAuthCode(
+        @RequestBody dto: MailRequestDTO,
+    ) = authService.createCodeByEmail(dto)
+
+    @PostMapping("/mail-verify")
+    fun verifyAuthCode(
+        @RequestBody dto: MailVerifyDTO,
+    ) = authService.verifyAuthCode(dto)
 }
