@@ -1,4 +1,4 @@
-package com.pro.salehero.subscribe.domain
+package com.pro.salehero.subscribe.domain.subscriber
 
 import org.springframework.data.jpa.repository.JpaRepository
 

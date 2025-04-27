@@ -1,4 +1,4 @@
-package com.pro.salehero.subscribe.domain
+package com.pro.salehero.subscribe.domain.subscriber
 
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
@@ -17,8 +17,5 @@ data class Subscriber(
 
     @Column(nullable = true, length = 1)
     val isMarketingAgreed: String = "N",
-
-    @Enumerated(EnumType.STRING)
-    val frequency: NewsLetterFrequency ,
 
 ) : CreateAndUpdateAudit()
