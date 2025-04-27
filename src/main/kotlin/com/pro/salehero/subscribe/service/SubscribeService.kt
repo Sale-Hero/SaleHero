@@ -3,8 +3,8 @@ package com.pro.salehero.subscribe.service
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.subscribe.controller.dto.SubscribePostDTO
 import com.pro.salehero.subscribe.controller.dto.SubscriberResponseDTO
-import com.pro.salehero.subscribe.domain.SubscribeRepository
-import com.pro.salehero.subscribe.domain.Subscriber
+import com.pro.salehero.subscribe.domain.subscriber.SubscribeRepository
+import com.pro.salehero.subscribe.domain.subscriber.Subscriber
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
@@ -36,13 +36,11 @@ class SubscribeService(
     ): ResponseEntity<SubscriberResponseDTO> =
         dto.userEmail
             .also { comfortUtil.validateEmail(it) }
-            .also { println("dto.isMarketingAgreed = ${dto.isMarketingAgreed}") }
             .takeIf { subscribeRepository.findByUserEmail(it).isEmpty() }
             ?.let {
                 Subscriber(
                     isSubscribed = "Y",
                     userEmail = it,
-                    frequency = dto.frequency,
                     isMarketingAgreed = if (dto.isMarketingAgreed) "Y" else "N",
                 )
             }
