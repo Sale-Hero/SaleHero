@@ -31,6 +31,7 @@ class AuthService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userAuthenticationRepository: UserAuthenticationRepository,
     private val subscribeRepository: SubscribeRepository,
+    @Value("\${smtp.email}") private val sender: String,
     @Value("\${target.origins}") private val origin: String,
 ) {
 
