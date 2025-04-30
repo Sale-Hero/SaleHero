@@ -15,8 +15,8 @@ class NewsLetterScheduler(
 ) {
 
     @Transactional
-//    @Scheduled(cron = "0 0 11 * * *", zone = "Asia/Seoul")  // at 11:00 AM
-    @Scheduled(cron = "0/10 * * * * *", zone = "Asia/Seoul")
+//    @Scheduled(cron = "0/10 * * * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 11 * * *", zone = "Asia/Seoul")  // at 11:00 AM
     fun sendSaleInformationMail() {
         val todayNewLetters = newsLetterRepository.findTodayNewsLetter(LocalDate.now().atStartOfDay())
 
