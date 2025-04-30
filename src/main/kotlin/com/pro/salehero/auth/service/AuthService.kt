@@ -7,6 +7,7 @@ import com.pro.salehero.auth.domain.UserAuthenticationRepository
 import com.pro.salehero.auth.service.dto.OauthUserInfo
 import com.pro.salehero.auth.service.dto.TokenResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
+import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.config.JwtTokenProvider
 import com.pro.salehero.subscribe.domain.subscriber.SubscribeRepository
 import com.pro.salehero.subscribe.domain.subscriber.Subscriber
@@ -31,7 +32,7 @@ class AuthService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userAuthenticationRepository: UserAuthenticationRepository,
     private val subscribeRepository: SubscribeRepository,
-    @Value("\${smtp.email}") private val sender: String,
+    private val mailSenderService: MailSenderService,
     @Value("\${target.origins}") private val origin: String,
 ) {
 
@@ -93,7 +94,11 @@ class AuthService(
                 .also { userAuthenticationRepository.save(it) }
 
         auth.code = createAuthCode()
-//        auth.updatedAt = LocalDateTime.now()
+
+        mailSenderService.sendVerificationEmail(
+            to = dto.userEmail,
+            verificationCode = auth.code
+        )
 
         return ResponseDTO(
             success = true,
