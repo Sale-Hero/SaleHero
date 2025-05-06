@@ -35,7 +35,7 @@ class CommunityService(
             result.content,
             result.createdAt,
             result.viewCount,
-            user.userName,
+            user.nickName,
         )
     }
 

@@ -27,7 +27,7 @@ class CommunityRepositoryImpl(
                     community.content,
                     community.createdAt,
                     community.viewCount,
-                    user.userName
+                    user.nickName
                 )
             )
             .from(community)
