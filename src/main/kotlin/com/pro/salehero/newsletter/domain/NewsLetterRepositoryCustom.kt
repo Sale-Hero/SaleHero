@@ -7,7 +7,11 @@ import org.springframework.data.domain.Pageable
 import java.time.LocalDateTime
 
 interface NewsLetterRepositoryCustom {
-    fun searchNewsLetter(pageable: Pageable, query: String?): PageResponseDTO<NewsLetterResponseDTO>?
+    // 유저용 조회
+    fun searchUserNewsLetter(pageable: Pageable, query: String?): PageResponseDTO<NewsLetterResponseDTO>?
+
+    // 관리자용 전체 조회
+    fun searchAdminNewsLetter(pageable: Pageable, query: String?): PageResponseDTO<NewsLetterResponseDTO>?
 
     fun updateNewsLetter(dto: NewsLetterPutDTO):Long
 

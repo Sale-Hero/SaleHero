@@ -15,7 +15,7 @@ class NewsLetterRepositoryImpl(
     queryFactory: JPAQueryFactory
 ) : QueryDslSupport(queryFactory), NewsLetterRepositoryCustom {
 
-    override fun searchNewsLetter(
+    override fun searchUserNewsLetter(
         pageable: Pageable,
         query: String?
     ): PageResponseDTO<NewsLetterResponseDTO> {
@@ -27,13 +27,48 @@ class NewsLetterRepositoryImpl(
                     newsLetter.title,
                     newsLetter.content,
                     newsLetter.isSent,
+                    newsLetter.isPublic,
                     newsLetter.sentAt,
                     newsLetter.createdAt
                 )
             )
             .from(newsLetter)
             .where(
+                searchKeywordContains(query),
+                newsLetter.isPublic.eq("Y")
+            )
+            .orderBy(newsLetter.createdAt.desc())
+
+        val countQuery = queryFactory
+            .select(newsLetter.count())
+            .from(newsLetter)
+            .where(
                 searchKeywordContains(query)
+            )
+
+        return fetchPageResponse(contentQuery, countQuery, pageable)
+    }
+
+    override fun searchAdminNewsLetter(
+        pageable: Pageable,
+        query: String?
+    ): PageResponseDTO<NewsLetterResponseDTO> {
+        val contentQuery = queryFactory
+            .select(
+                Projections.constructor(
+                    NewsLetterResponseDTO::class.java,
+                    newsLetter.id,
+                    newsLetter.title,
+                    newsLetter.content,
+                    newsLetter.isSent,
+                    newsLetter.isPublic,
+                    newsLetter.sentAt,
+                    newsLetter.createdAt
+                )
+            )
+            .from(newsLetter)
+            .where(
+                searchKeywordContains(query),
             )
             .orderBy(newsLetter.createdAt.desc())
 
