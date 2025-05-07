@@ -59,6 +59,9 @@ dependencies {
 
     // thymeleaf
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    // aws ses
+    implementation("software.amazon.awssdk:ses:2.25.40")
 }
 
 kotlin {
