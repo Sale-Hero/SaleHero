@@ -19,40 +19,24 @@ class NewsLetterRepositoryImpl(
         pageable: Pageable,
         query: String?
     ): PageResponseDTO<NewsLetterResponseDTO> {
-        val contentQuery = queryFactory
-            .select(
-                Projections.constructor(
-                    NewsLetterResponseDTO::class.java,
-                    newsLetter.id,
-                    newsLetter.title,
-                    newsLetter.content,
-                    newsLetter.isSent,
-                    newsLetter.isPublic,
-                    newsLetter.sentAt,
-                    newsLetter.createdAt
-                )
-            )
-            .from(newsLetter)
-            .where(
-                searchKeywordContains(query),
-                newsLetter.isPublic.eq("Y")
-            )
-            .orderBy(newsLetter.createdAt.desc())
-
-        val countQuery = queryFactory
-            .select(newsLetter.count())
-            .from(newsLetter)
-            .where(
-                searchKeywordContains(query)
-            )
-
-        return fetchPageResponse(contentQuery, countQuery, pageable)
+        // isPublic이 'Y'인 뉴스레터만 검색하도록 조건 추가
+        return searchNewsLetter(pageable, query, true)
     }
 
     override fun searchAdminNewsLetter(
         pageable: Pageable,
         query: String?
     ): PageResponseDTO<NewsLetterResponseDTO> {
+        // 관리자는 모든 뉴스레터를 볼 수 있도록 isPublic 조건 없이 검색
+        return searchNewsLetter(pageable, query, false)
+    }
+
+    private fun searchNewsLetter(
+        pageable: Pageable,
+        query: String?,
+        onlyPublic: Boolean
+    ): PageResponseDTO<NewsLetterResponseDTO> {
+        // 공통 프로젝션 설정
         val contentQuery = queryFactory
             .select(
                 Projections.constructor(
@@ -69,14 +53,17 @@ class NewsLetterRepositoryImpl(
             .from(newsLetter)
             .where(
                 searchKeywordContains(query),
+                if (onlyPublic) newsLetter.isPublic.eq("Y") else null
             )
             .orderBy(newsLetter.createdAt.desc())
 
+        // 카운트 쿼리
         val countQuery = queryFactory
             .select(newsLetter.count())
             .from(newsLetter)
             .where(
-                searchKeywordContains(query)
+                searchKeywordContains(query),
+                if (onlyPublic) newsLetter.isPublic.eq("Y") else null
             )
 
         return fetchPageResponse(contentQuery, countQuery, pageable)
