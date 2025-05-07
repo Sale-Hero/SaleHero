@@ -62,6 +62,9 @@ dependencies {
 
     // aws ses
     implementation("software.amazon.awssdk:ses:2.25.40")
+
+    // html parsing
+    implementation("org.jsoup:jsoup:1.16.2")
 }
 
 kotlin {
