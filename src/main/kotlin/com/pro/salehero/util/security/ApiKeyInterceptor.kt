@@ -13,7 +13,7 @@ class ApiKeyInterceptor(
 
         if (apiKey == null || apiKey != apiSecret) {
             response.status = HttpServletResponse.SC_UNAUTHORIZED
-            response.writer.write("Unauthorized: Invalid API key")
+            response.writer.write("Unauthorized: X-API key를 확인하세요.")
             return false
         }
 
