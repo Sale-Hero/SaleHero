@@ -13,7 +13,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtAuthenticationFilter: JwtAuthenticationFilter
+    private val jwtAuthenticationFilter: JwtAuthenticationFilter,
+    private val securityDebugFilter: SecurityDebugFilter
 ) {
 
     @Bean
@@ -35,6 +36,7 @@ class SecurityConfig(
                     .requestMatchers("/**").permitAll()
                     .anyRequest().authenticated()
             }
+            .addFilterBefore(securityDebugFilter, UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
