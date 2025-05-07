@@ -1,5 +1,6 @@
 package com.pro.salehero.common.service
 
+import com.pro.salehero.config.aws.AwsProperties
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
@@ -9,13 +10,21 @@ import org.thymeleaf.spring6.SpringTemplateEngine
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import java.util.concurrent.CompletableFuture
-
+import software.amazon.awssdk.services.ses.SesClient
+import software.amazon.awssdk.services.ses.model.Body
+import software.amazon.awssdk.services.ses.model.Content
+import software.amazon.awssdk.services.ses.model.Destination
+import software.amazon.awssdk.services.ses.model.Message
+import software.amazon.awssdk.services.ses.model.SendEmailRequest
 @Service
 class MailSenderService(
     @Value("\${smtp.email}") private val sender: String,
     @Value("\${smtp.noreply-email}") private val noReplySender: String,
-    private val javaMailSender: JavaMailSender
-) {
+    private val javaMailSender: JavaMailSender,
+    private val awsProperties: AwsProperties,
+    private val sesClient: SesClient,
+
+    ) {
     // 이메일 템플릿 엔진 초기화 (싱글톤으로 한 번만 생성)
     private val templateEngine: SpringTemplateEngine by lazy {
         setupThymeleafTemplate()
@@ -79,17 +88,72 @@ class MailSenderService(
         to: String,
         verificationCode: String
     ): Boolean {
-        val context = Context()
-        context.setVariable("verificationCode", verificationCode)
+        try {
+            // Context 설정
+            val context = Context()
+            context.setVariable("verificationCode", verificationCode)
 
-        return sendEmail(
-            to = to,
-            subject = "세일히어로 - 이메일 인증",
-            templateName = "mailAuthentication",
-            context = context,
-            mailSender = noReplySender
-        )
+            // 템플릿 엔진으로 HTML 생성
+            val htmlBody = templateEngine.process("mailAuthentication", context)
+
+            // 이메일 내용 설정
+            val emailContent = Content.builder()
+                .data(htmlBody)
+                .charset("UTF-8")
+                .build()
+
+            val subject = Content.builder()
+                .data("세일히어로 - 이메일 인증")
+                .charset("UTF-8")
+                .build()
+
+            val body = Body.builder()
+                .html(emailContent)
+                .build()
+
+            val message = Message.builder()
+                .subject(subject)
+                .body(body)
+                .build()
+
+            // 이메일 요청 생성
+            val request = SendEmailRequest.builder()
+                .source(awsProperties.sourceEmail) // 발신자 이메일 (AWS SES에 인증된 이메일)
+                .destination(
+                    Destination.builder()
+                        .toAddresses(to)
+                        .build()
+                )
+                .message(message)
+                .build()
+
+            println("awsProperties = ${awsProperties.sourceEmail}")
+            // SES 클라이언트를 통해 이메일 전송
+            println("Sending email request: ${request}")
+            val response = sesClient.sendEmail(request)
+            println("Email sent successfully. Response: ${response}")
+            return response.messageId() != null
+        } catch (e: Exception) {
+            println("Exception occurred: ${e.javaClass.name}: ${e.message}")
+            e.printStackTrace()
+            return false
+        }
     }
+//    fun sendVerificationEmail(
+//        to: String,
+//        verificationCode: String
+//    ): Boolean {
+//        val context = Context()
+//        context.setVariable("verificationCode", verificationCode)
+//
+//        return sendEmail(
+//            to = to,
+//            subject = "세일히어로 - 이메일 인증",
+//            templateName = "mailAuthentication",
+//            context = context,
+//            mailSender = noReplySender
+//        )
+//    }
 
     /**
      * 할인 정보 이메일 발송 편의 메서드
