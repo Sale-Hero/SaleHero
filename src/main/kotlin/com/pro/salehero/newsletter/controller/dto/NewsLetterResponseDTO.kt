@@ -8,6 +8,7 @@ data class NewsLetterResponseDTO(
     val title: String,
     val content: String,
     val isSent: String,
+    val isPublic: String,
     val sentAt: LocalDateTime?,
     val createdAt: LocalDateTime
 ){
@@ -18,6 +19,7 @@ data class NewsLetterResponseDTO(
                 title = newsLetter.title,
                 content = newsLetter.content,
                 isSent = "",
+                isPublic = "",
                 sentAt = null,
                 createdAt = newsLetter.createdAt,
             )

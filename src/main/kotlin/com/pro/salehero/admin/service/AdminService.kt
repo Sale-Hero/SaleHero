@@ -18,6 +18,7 @@ class AdminService(
             title = dto.title,
             content = objectMapper.writeValueAsString(dto.content),
             isSent = "N",
+            isPublic = "N",
             sentAt = dto.sentAt
         )
     ) }
