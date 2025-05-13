@@ -31,6 +31,7 @@ class AdminNewsLetterService(
                 sentAt = null
             )
         }
+        .also { println(dto.sentAt) }
         .let { newsLetterRepository.save(it) }
         .also { ResponseEntity.ok() }
 
