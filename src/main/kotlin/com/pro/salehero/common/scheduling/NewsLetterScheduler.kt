@@ -1,7 +1,7 @@
 package com.pro.salehero.common.scheduling
 
 import com.pro.salehero.common.service.MailSenderService
-import com.pro.salehero.newsletter.domain.NewsLetterRepository
+import com.pro.salehero.users.newsletter.domain.NewsLetterRepository
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional

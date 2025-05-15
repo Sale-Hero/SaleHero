@@ -1,7 +1,7 @@
 package com.pro.salehero.util.security
 
-import com.pro.salehero.user.domain.User
-import com.pro.salehero.user.domain.enums.UserRole
+import com.pro.salehero.users.user.domain.User
+import com.pro.salehero.users.user.domain.enums.UserRole
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.security.core.context.SecurityContextHolder
@@ -25,7 +25,7 @@ class SecurityUtil {
             return userConverter(oAuth2User)
         }
 
-        private fun userConverter(oAuth2User: OAuth2User):User {
+        private fun userConverter(oAuth2User: OAuth2User): User {
             val id = oAuth2User.getAttribute<Int>("id")?.toLong() ?: 0L
             val userEmail = oAuth2User.getAttribute<String>("userEmail") ?: ""
             val userName = oAuth2User.getAttribute<String>("userName") ?: ""

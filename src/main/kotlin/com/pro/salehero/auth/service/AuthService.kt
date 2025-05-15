@@ -11,9 +11,9 @@ import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.config.JwtTokenProvider
 import com.pro.salehero.subscribe.domain.subscriber.SubscribeRepository
 import com.pro.salehero.subscribe.domain.subscriber.Subscriber
-import com.pro.salehero.user.domain.User
-import com.pro.salehero.user.domain.UserRepository
-import com.pro.salehero.user.domain.enums.UserRole
+import com.pro.salehero.users.user.domain.User
+import com.pro.salehero.users.user.domain.UserRepository
+import com.pro.salehero.users.user.domain.enums.UserRole
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
