@@ -1,10 +1,10 @@
 package com.pro.salehero.users.community.service
 
-import com.pro.salehero.community.controller.dto.CommunityPostDTO
-import com.pro.salehero.community.controller.dto.CommunityResponseDTO
-import com.pro.salehero.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.community.domain.Community
-import com.pro.salehero.community.domain.CommunityRepository
+import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
+import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
+import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
+import com.pro.salehero.users.community.domain.Community
+import com.pro.salehero.users.community.domain.CommunityRepository
 import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

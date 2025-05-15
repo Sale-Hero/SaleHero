@@ -1,8 +1,8 @@
 package com.pro.salehero.users.community.controller
 
-import com.pro.salehero.community.controller.dto.CommunityPostDTO
-import com.pro.salehero.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.community.service.CommunityService
+import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
+import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
+import com.pro.salehero.users.community.service.CommunityService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault

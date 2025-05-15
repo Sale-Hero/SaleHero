@@ -1,7 +1,6 @@
 package com.pro.salehero.users.subscribe.controller
 
-import com.pro.salehero.subscribe.controller.dto.SubscribePostDTO
-import com.pro.salehero.users.subscribe.service.SubscribeService
+import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
 import org.springframework.web.bind.annotation.*
 
 @RestController

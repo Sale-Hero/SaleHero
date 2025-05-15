@@ -6,10 +6,10 @@ import com.aallam.openai.api.chat.ChatMessage
 import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAI
-import com.pro.salehero.chatbot.doomain.ChatHistory
-import com.pro.salehero.chatbot.doomain.ChatHistoryRepository
-import com.pro.salehero.chatbot.doomain.ChatbotConversation
-import com.pro.salehero.chatbot.doomain.ChatbotConversationRepository
+import com.pro.salehero.users.chatbot.doomain.ChatHistory
+import com.pro.salehero.users.chatbot.doomain.ChatHistoryRepository
+import com.pro.salehero.users.chatbot.doomain.ChatbotConversation
+import com.pro.salehero.users.chatbot.doomain.ChatbotConversationRepository
 import jakarta.servlet.http.HttpServletRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

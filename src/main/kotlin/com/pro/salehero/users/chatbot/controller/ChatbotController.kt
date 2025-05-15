@@ -1,6 +1,6 @@
 package com.pro.salehero.users.chatbot.controller
 
-import com.pro.salehero.chatbot.service.ChatbotService
+import com.pro.salehero.users.chatbot.service.ChatbotService
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

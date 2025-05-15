@@ -1,7 +1,6 @@
 package com.pro.salehero.users.subscribe.domain.weekday
 
-import com.pro.salehero.subscribe.domain.DayOfWeek
-import com.pro.salehero.util.CreateAndUpdateAudit
+import com.pro.salehero.users.subscribe.domain.DayOfWeek
 import com.pro.salehero.util.CreateAudit
 import jakarta.persistence.*
 

@@ -1,6 +1,6 @@
 package com.pro.salehero.users.subscribe.domain.subscriber
 
-import com.pro.salehero.subscribe.domain.subscriber.QSubscriber.subscriber
+import com.pro.salehero.users.subscribe.domain.subscriber.QSubscriber.subscriber
 import com.querydsl.jpa.impl.JPAQueryFactory
 
 class SubscribeRepositoryImpl(

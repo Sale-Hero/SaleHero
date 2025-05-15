@@ -4,7 +4,7 @@ import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterResponseDTO
-import com.pro.salehero.newsletter.domain.QNewsLetter.newsLetter
+import com.pro.salehero.users.newsletter.domain.QNewsLetter.newsLetter
 import com.querydsl.core.types.Projections
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory

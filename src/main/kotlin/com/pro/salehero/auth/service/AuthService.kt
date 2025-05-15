@@ -9,8 +9,8 @@ import com.pro.salehero.auth.service.dto.TokenResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.config.JwtTokenProvider
-import com.pro.salehero.subscribe.domain.subscriber.SubscribeRepository
-import com.pro.salehero.subscribe.domain.subscriber.Subscriber
+import com.pro.salehero.users.subscribe.domain.subscriber.SubscribeRepository
+import com.pro.salehero.users.subscribe.domain.subscriber.Subscriber
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole

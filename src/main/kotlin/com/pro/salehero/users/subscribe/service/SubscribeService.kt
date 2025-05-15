@@ -1,10 +1,10 @@
 package com.pro.salehero.users.subscribe.service
 
 import com.pro.salehero.common.dto.ResponseDTO
-import com.pro.salehero.subscribe.controller.dto.SubscribePostDTO
-import com.pro.salehero.subscribe.controller.dto.SubscriberResponseDTO
-import com.pro.salehero.subscribe.domain.subscriber.SubscribeRepository
-import com.pro.salehero.subscribe.domain.subscriber.Subscriber
+import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
+import com.pro.salehero.users.subscribe.controller.dto.SubscriberResponseDTO
+import com.pro.salehero.users.subscribe.domain.subscriber.SubscribeRepository
+import com.pro.salehero.users.subscribe.domain.subscriber.Subscriber
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
