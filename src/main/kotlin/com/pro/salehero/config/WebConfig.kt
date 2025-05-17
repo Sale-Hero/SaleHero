@@ -20,7 +20,7 @@ class WebConfig(
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(ApiKeyInterceptor(apiSecret))
             .addPathPatterns("/api/admin/news-letter/**") // 관리자 API 경로에만 적용
-            .addPathPatterns("/api/admin/raw/**") // 관리자 API 경로에만 적용
+            .addPathPatterns("/api/admin/raw/generate") // 관리자 API 경로에만 적용
     }
 
     override fun addCorsMappings(registry: CorsRegistry) {
