@@ -39,3 +39,8 @@ out/
 ### Kotlin ###
 .kotlin
 application-secret.yml
+# 모든 query.sql 파일 무시
+query.sql
+
+# 특정 경로의 query.sql 파일 무시 (더 명확함)
+src/main/resources/query.sql
