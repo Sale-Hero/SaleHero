@@ -1,19 +1,22 @@
 package com.pro.salehero.admins.rawnewsletter.service
 
-import com.pro.salehero.admins.newsletter.controller.dto.RawNewsLetterPostDTO
+import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterPostDTO
 import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterDTO
 import com.pro.salehero.admins.rawnewsletter.domain.RawNewsLetter
 import com.pro.salehero.admins.rawnewsletter.domain.RawNewsLetterRepository
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
+import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RawNewsLetterService(
     private val rawNewsLetterRepository: RawNewsLetterRepository
 ) {
+    @Transactional
     fun generateRawNewsLetter(
         rawNewsLetterPostDTO: RawNewsLetterPostDTO
     ): ResponseDTO<Boolean> = RawNewsLetter(
@@ -40,4 +43,13 @@ class RawNewsLetterService(
         )
     }
 
+    @Transactional
+    fun modifyRawNewsLetter(
+        dto: RawNewsLetterPostDTO
+    ) = rawNewsLetterRepository.updateTitleAndContent(dto.id!!.toLong(), dto.title, dto.content)
+
+    @Transactional
+    fun deleteRawNewsLetter(
+        dto: NewsLetterDeleteDTO
+    ) = dto.idxList.forEach { rawNewsLetterRepository.deleteById(it) }
 }
