@@ -22,6 +22,8 @@ class RawNewsLetterService(
     ): ResponseDTO<Boolean> = RawNewsLetter(
         title = rawNewsLetterPostDTO.title,
         content = rawNewsLetterPostDTO.content,
+        category = rawNewsLetterPostDTO.category,
+        articleUrl = rawNewsLetterPostDTO.articleUrl,
     )
         .also { rawNewsLetterRepository.save(it) }
         .let { ResponseDTO(false, "데이터 추가 완료", false) }
