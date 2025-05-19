@@ -3,7 +3,7 @@ package com.pro.salehero.admins.rawnewsletter.controller.dto
 import com.pro.salehero.admins.rawnewsletter.domain.RawNewsLetter
 
 data class RawNewsLetterDTO(
-    val idx: Long,
+    val id: Long,
     val title: String,
     val content: String,
     val createdAt: String,
@@ -11,7 +11,7 @@ data class RawNewsLetterDTO(
     companion object {
         fun of(rawNewsLetter: RawNewsLetter): RawNewsLetterDTO {
             return RawNewsLetterDTO(
-                idx = rawNewsLetter.id!!,
+                id = rawNewsLetter.id!!,
                 title = rawNewsLetter.title,
                 content = rawNewsLetter.content,
                 createdAt = rawNewsLetter.createdAt.toString()
