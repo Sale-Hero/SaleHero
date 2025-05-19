@@ -1,5 +1,6 @@
 package com.pro.salehero.admins.rawnewsletter.domain
 
+import com.pro.salehero.admins.rawnewsletter.domain.enums.NewsLetterCategory
 import com.pro.salehero.util.CreateAudit
 import jakarta.persistence.*
 
@@ -13,4 +14,8 @@ data class RawNewsLetter (
     @Lob // text
     val content: String,
 
-): CreateAudit()
+    @Enumerated(EnumType.STRING)
+    val category: NewsLetterCategory,
+    val articleUrl: String,
+
+    ): CreateAudit()
