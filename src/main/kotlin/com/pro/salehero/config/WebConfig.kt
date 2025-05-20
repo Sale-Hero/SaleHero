@@ -1,5 +1,6 @@
 package com.pro.salehero.config
 
+import com.pro.salehero.util.security.AdminAuthInterceptor
 import com.pro.salehero.util.security.ApiKeyInterceptor
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -11,7 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class WebConfig(
-    @Value("\${admin.newsletter.key}") private val apiSecret: String
+    @Value("\${admin.newsletter.key}") private val apiSecret: String,
+    private val adminAuthInterceptor: AdminAuthInterceptor
 ) : WebMvcConfigurer {
 
     @Bean
@@ -19,8 +21,11 @@ class WebConfig(
 
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(ApiKeyInterceptor(apiSecret))
-            .addPathPatterns("/api/admin/news-letter/**") // 관리자 API 경로에만 적용
-            .addPathPatterns("/api/admin/raw/generate") // 관리자 API 경로에만 적용
+            .addPathPatterns("/api/automate/**")
+
+        // 관리자 권한 체크 인터셉터
+        registry.addInterceptor(adminAuthInterceptor)
+            .addPathPatterns("/api/admin/**") // 모든 관리자 API에 적용
     }
 
     override fun addCorsMappings(registry: CorsRegistry) {
