@@ -1,7 +1,7 @@
 package com.pro.salehero.admins.rawnewsletter.controller
 
-import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterPostDTO
 import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterDTO
+import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterPostDTO
 import com.pro.salehero.admins.rawnewsletter.service.RawNewsLetterService
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO

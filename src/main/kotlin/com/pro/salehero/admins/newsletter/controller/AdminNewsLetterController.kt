@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/admin/news")
-class AdminNewsLetterController (
+class AdminNewsLetterController(
     private val adminNewsLetterService: AdminNewsLetterService
-){
+) {
     @PostMapping
     fun createNewsLetter(
         @RequestBody dto: NewsLetterPostDTO
