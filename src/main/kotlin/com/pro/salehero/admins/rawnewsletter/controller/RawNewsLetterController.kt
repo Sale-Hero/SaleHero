@@ -16,11 +16,6 @@ class RawNewsLetterController(
     private val rawNewsLetterService: RawNewsLetterService
 ) {
 
-    @PostMapping("/generate")
-    fun generate(
-        @RequestBody rawNewsLetterPostDTO: RawNewsLetterPostDTO
-    ) = rawNewsLetterService.generateRawNewsLetter(rawNewsLetterPostDTO)
-
     @GetMapping
     fun getRawNewsLetters(
         @PageableDefault(
