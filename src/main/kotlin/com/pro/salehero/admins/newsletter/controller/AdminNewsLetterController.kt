@@ -1,5 +1,6 @@
 package com.pro.salehero.newsletter.controller
 
+import com.pro.salehero.admins.newsletter.controller.dto.SendTestMailDTO
 import com.pro.salehero.newsletter.service.AdminNewsLetterService
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
@@ -52,4 +53,9 @@ class AdminNewsLetterController (
     fun removeNewsLetter(
         @RequestBody dto: NewsLetterDeleteDTO,
     ) = adminNewsLetterService.removeNewsLetters(dto)
+
+    @PostMapping("/mock")
+    fun sendToMeTestMail(
+        @RequestBody dto: SendTestMailDTO,
+    ) = adminNewsLetterService.sendMockMail(dto)
 }

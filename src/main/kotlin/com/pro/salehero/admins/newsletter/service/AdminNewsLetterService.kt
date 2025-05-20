@@ -1,5 +1,6 @@
 package com.pro.salehero.newsletter.service
 
+import com.pro.salehero.admins.newsletter.controller.dto.SendTestMailDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
@@ -67,5 +68,11 @@ class AdminNewsLetterService(
             message = "뉴스레터 삭제가 완료되었습니다.",
             data = deletedCount
         )
+    }
+
+    fun sendMockMail(
+        dto: SendTestMailDTO
+    ) =  {
+        println("hello world")
     }
 }
