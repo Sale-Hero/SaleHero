@@ -90,7 +90,7 @@ class AdminNewsLetterService(
         mailSenderService.sendEmail(
             to = dto.target ?:"pnci1029@gmail.com",
             subject = "테스트용 메일입니다.",
-            templateName = "saleInformation",
+            templateName = "saleInformationV2",
             context = context,
             mailSender = sender
         )
