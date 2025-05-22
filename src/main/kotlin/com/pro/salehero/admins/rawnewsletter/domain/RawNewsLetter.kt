@@ -17,5 +17,6 @@ data class RawNewsLetter (
     @Enumerated(EnumType.STRING)
     val category: NewsLetterCategory,
     val articleUrl: String,
+    val keyword: String
 
     ): CreateAudit()

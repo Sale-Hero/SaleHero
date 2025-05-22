@@ -19,4 +19,5 @@ data class RawNewsLetterPostDTO(
     val category: NewsLetterCategory,
 
     val articleUrl: String,
+    val keyword: String
 )
