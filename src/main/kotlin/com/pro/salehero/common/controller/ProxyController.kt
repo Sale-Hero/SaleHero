@@ -27,6 +27,7 @@ class ProxyController {
         request.addHeader("User-Agent", "Mozilla/5.0")
         request.addHeader("Accept-Encoding", "gzip, deflate, br")
 
+        println("decodedUrl = ${decodedUrl}")
         return try {
             client.execute(request).use { response ->
                 val entity = response.entity
@@ -38,6 +39,7 @@ class ProxyController {
                 val bytes = EntityUtils.toByteArray(entity)
                 val decodedBody = String(bytes, charset)
 
+                println("decodedBody = ${decodedBody}")
                 ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(decodedBody)
