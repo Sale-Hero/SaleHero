@@ -24,6 +24,7 @@ class RawNewsLetterService(
         content = rawNewsLetterPostDTO.content,
         category = rawNewsLetterPostDTO.category,
         articleUrl = rawNewsLetterPostDTO.articleUrl,
+        keyword = rawNewsLetterPostDTO.keyword,
     )
         .also { rawNewsLetterRepository.save(it) }
         .let { ResponseDTO(false, "데이터 추가 완료", false) }
