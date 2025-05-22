@@ -39,7 +39,6 @@ class ProxyController {
                 val bytes = EntityUtils.toByteArray(entity)
                 val decodedBody = String(bytes, charset)
 
-                println("decodedBody = ${decodedBody}")
                 ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(decodedBody)
