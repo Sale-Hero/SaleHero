@@ -4,6 +4,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.core5.http.io.entity.EntityUtils
 import org.apache.hc.core5.http.ContentType
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -37,7 +38,10 @@ class ProxyController {
                 val bytes = EntityUtils.toByteArray(entity)
                 val decodedBody = String(bytes, charset)
 
-                ResponseEntity.ok(decodedBody)
+                ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(decodedBody)
+
             }
         } catch (e: Exception) {
             ResponseEntity.internalServerError().body("실패: ${e.message}")
