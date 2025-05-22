@@ -1,10 +1,97 @@
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="color-scheme" content="only">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <title>세일히어로 - 일일 할인 정보</title>
 </head>
-<body>
+<body style="margin: 0; padding: 0">
+<section class="mail-preview" aria-hidden="true">
+    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden">
+        오늘의 추천 할인 정보: BBQ, 대구국제 뮤지컬 페스티벌 외 2건
+    </span>
+    <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden">
+        &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj;
+        &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy;
+        &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp;
+        &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj;
+        &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy; &zwnj; &nbsp; &shy;
+    </span>
+</section>
 
+<div style="height: 100%; width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; user-select: none;">
+    <div style="background-color: #ffffff; border-radius: 10px; border: 1px solid #e1e1e1; max-width: 480px; width: 100%; margin: 10px auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <!-- 헤더 - 패딩 제거하고 내부 요소에 적용 -->
+        <div style="display: flex; align-items: center;">
+            <div style="padding: 15px;">
+                <img src="https://salehero.kr/images/sale_hero_ico.png" alt="logo" style="width: 50px; height: 50px;"/>
+            </div>
+            <div style="padding: 15px 15px 15px 0;">
+                <div style="font-size: 18px; color: #333333; font-weight: bold;">세일히어로 일일 할인 정보</div>
+                <div style="font-size: 14px; color: #666666; margin-top: 3px;">2025년 5월 20일 화요일</div>
+            </div>
+        </div>
+
+        <!-- 본문 - 패딩 제거하고 내부 요소에 적용 -->
+        <div>
+            <p style="font-size: 18px; color: #333333; font-weight: bold; margin: 0; padding: 0 20px 15px 20px;">
+                오늘의 추천 할인 정보
+            </p>
+
+            <!-- 하이라이트 박스 -->
+            <div style="margin: 0 20px 20px 20px;">
+                <div style="background-color: #FFF5E6; border-radius: 8px; padding: 20px; border: 1px solid #FFE0B2;">
+                    <p style="font-size: 16px; color: #F29727; font-weight: 600; margin: 0 0 5px 0; line-height: 1.5;">
+                        BBQ, 대구국제 뮤지컬 페스티벌 외 2건
+                    </p>
+                    <p style="font-size: 14px; color: #555555; margin: 0; line-height: 1.4;">
+                        대구국제 뮤지컬 페스티벌 티켓 소지자 한정, 5월 30일까지
+                    </p>
+                </div>
+            </div>
+
+            <!-- 할인 항목들 -->
+            <div style="margin: 0 20px 10px 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                    <div style="display: flex; align-items: center;">
+                        <span style="color: #2e7d32; margin-right: 8px; font-size: 18px;">✓</span>
+                        <span style="font-size: 15px; color: #333333;">편의점 할인: CU 아메리카노 1+1</span>
+                    </div>
+                    <div style="font-size: 14px; color: #666666;">~5/25</div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                    <div style="display: flex; align-items: center;">
+                        <span style="color: #2e7d32; margin-right: 8px; font-size: 18px;">✓</span>
+                        <span style="font-size: 15px; color: #333333;">롯데마트 신선식품 20% 할인</span>
+                    </div>
+                    <div style="font-size: 14px; color: #666666;">~5/26</div>
+                </div>
+            </div>
+
+            <!-- 버튼 -->
+            <div style="margin: 15px 20px 20px 20px;">
+                <a href="https://salehero.kr/deals/today" th:href="@{https://salehero.kr/deals/today}" style="display: block; background-color: #F29727; color: white; text-align: center; padding: 14px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600;">
+                    할인정보 더보기
+                </a>
+            </div>
+        </div>
+
+        <!-- 푸터 - 패딩 제거하고 내부 요소에 적용 -->
+        <div style="border-top: 1px solid #e1e1e1;">
+            <div style="padding: 15px; text-align: center;">
+                <p style="font-size: 12px; color: #888888; margin: 0 0 8px 0;">
+                    © 2025 세일히어로 | 서울시 관악구
+                </p>
+                <a href="https://salehero.kr/unsubscribe" th:href="@{https://salehero.kr/unsubscribe(email=${email}, token=${token})}" style="font-size: 12px; color: #888888; text-decoration: underline;">
+                    구독 취소
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
