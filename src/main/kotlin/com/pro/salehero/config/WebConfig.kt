@@ -22,6 +22,7 @@ class WebConfig(
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(ApiKeyInterceptor(apiSecret))
             .addPathPatterns("/api/automate/**")
+            .addPathPatterns("/api/proxy")
 
         // 관리자 권한 체크 인터셉터
         registry.addInterceptor(adminAuthInterceptor)
