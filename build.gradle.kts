@@ -65,6 +65,9 @@ dependencies {
 
     // html parsing
     implementation("org.jsoup:jsoup:1.16.2")
+
+    // proxy용 client
+    implementation("org.apache.httpcomponents.client5:httpclient5:5.3")
 }
 
 kotlin {
