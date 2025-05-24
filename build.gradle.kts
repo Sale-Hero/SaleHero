@@ -68,6 +68,10 @@ dependencies {
 
     // proxy용 client
     implementation("org.apache.httpcomponents.client5:httpclient5:5.3")
+
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
 }
 
 kotlin {

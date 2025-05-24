@@ -19,6 +19,10 @@ spring:
     init:
       continue-on-error: 'true'
       mode: always
+  redis:
+    host: localhost
+    port: 6379
+    password:
 
 target:
   origins: http://localhost:3000
