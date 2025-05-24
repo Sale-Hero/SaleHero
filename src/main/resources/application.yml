@@ -26,11 +26,6 @@ spring:
           auth: true
           starttls:
             enable: true
-  redis:
-    redis:
-      host: ${redis.host}
-      port: ${redis.port}
-      password: ${redis.password}
 
 server:
   port: 8880

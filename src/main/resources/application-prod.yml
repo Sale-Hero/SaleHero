@@ -14,5 +14,12 @@ spring:
     hibernate:
       ddl-auto: validate
 
+  redis:
+    host: ${redis.host}
+    password: ${redis.password}
+  data:
+    redis:
+      port: ${redis.port}
+
 target:
   origins: ${google.auth.SUCCESS_REDIRECT}
