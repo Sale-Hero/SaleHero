@@ -34,7 +34,8 @@ class AdminNewsLetterService(
                 content = dto.content,
                 isSent = "N",
                 isPublic = "N",
-                sentAt = null
+                sentAt = null,
+                viewCount = 0,
             )
         }
         .let { newsLetterRepository.save(it) }

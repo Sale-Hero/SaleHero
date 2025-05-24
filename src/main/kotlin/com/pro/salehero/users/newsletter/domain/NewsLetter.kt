@@ -24,4 +24,5 @@ data class NewsLetter(
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     val sentAt: LocalDateTime?,
 
+    val viewCount: Long,
 ) : CreateAndUpdateAudit()
