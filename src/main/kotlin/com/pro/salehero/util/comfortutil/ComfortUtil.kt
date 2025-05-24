@@ -2,6 +2,7 @@ package com.pro.salehero.util.comfortutil
 
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,6 +19,12 @@ class ComfortUtil {
         if (!emailRegex.matches(email)) {
             throw CustomException(ErrorCode.CODE_4000)
         }
+    }
+
+    fun getUserIdentifier(request: HttpServletRequest): String {
+        return request.getHeader("X-Forwarded-For")
+            ?: request.getHeader("X-Real-IP")
+            ?: request.remoteAddr
     }
 
     fun nickNameCreator(): String {
