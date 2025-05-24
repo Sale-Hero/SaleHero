@@ -16,10 +16,8 @@ spring:
 
   redis:
     host: ${redis.host}
+    port: ${redis.port}
     password: ${redis.password}
-  data:
-    redis:
-      port: ${redis.port}
 
 target:
   origins: ${google.auth.SUCCESS_REDIRECT}
