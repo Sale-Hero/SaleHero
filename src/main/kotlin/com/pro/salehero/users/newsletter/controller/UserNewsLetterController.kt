@@ -1,6 +1,7 @@
 package com.pro.salehero.users.newsletter.controller
 
 import com.pro.salehero.users.newsletter.service.UserNewsLetterService
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -24,7 +25,8 @@ class UserNewsLetterController(
 
     @GetMapping("/{id}")
     fun getNewsLetter(
-        @PathVariable("id") id: Long
-    ) = userNewsLetterService.getNewsLetter(id)
+        @PathVariable("id") id: Long,
+        request: HttpServletRequest
+    ) = userNewsLetterService.getNewsLetter(id, request)
 
 }
