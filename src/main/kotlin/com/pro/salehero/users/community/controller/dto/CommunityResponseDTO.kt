@@ -1,5 +1,6 @@
 package com.pro.salehero.users.community.controller.dto
 
+import com.pro.salehero.users.community.domain.Community
 import java.time.LocalDateTime
 
 data class CommunityResponseDTO(
@@ -10,4 +11,17 @@ data class CommunityResponseDTO(
     val viewCount: Long,
 
     val writerName: String,
-    )
+){
+    companion object {
+        fun of(community: Community): CommunityResponseDTO {
+            return CommunityResponseDTO(
+                id = community.id!!,
+                title = community.title,
+                content = community.content,
+                viewCount = community.viewCount,
+                writerName = "히히",
+                createdAt = community.createdAt
+            )
+        }
+    }
+}
