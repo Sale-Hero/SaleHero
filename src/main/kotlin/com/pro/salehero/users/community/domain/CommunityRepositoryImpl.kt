@@ -1,6 +1,7 @@
 package com.pro.salehero.users.community.domain
 
 import com.pro.salehero.common.dto.PageResponseDTO
+import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
@@ -46,6 +47,15 @@ class CommunityRepositoryImpl(
             .join(user).on(community.writerId.eq(user.id))
 
         return fetchPageResponse(contentQuery, countQuery, pageable)
+    }
+
+    override fun updateViewCount(viewCount: ViewCount) {
+        println(viewCount.id)
+        queryFactory
+            .update(community)
+            .set(community.viewCount, viewCount.viewCount)
+            .where(community.id.eq(viewCount.id))
+            .execute()
     }
 
     private fun searchByCategory(query: CommunityCategory?): BooleanExpression? {
