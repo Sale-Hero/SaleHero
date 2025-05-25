@@ -3,6 +3,7 @@ package com.pro.salehero.users.community.controller
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.service.CommunityService
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -29,4 +30,10 @@ class CommunityController (
         ) pageable: Pageable,
         @ModelAttribute dto: CommunitySearchDTO,
     ) = communityService.getArticles(dto, pageable)
+
+    @GetMapping("/{id}")
+    fun getArticle(
+        @PathVariable("id") id: Long,
+        request: HttpServletRequest
+    ) = communityService.getArticle(id, request)
 }
