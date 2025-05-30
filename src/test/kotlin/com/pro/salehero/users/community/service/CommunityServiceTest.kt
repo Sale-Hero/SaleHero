@@ -6,8 +6,10 @@ import com.pro.salehero.users.community.domain.Community
 import com.pro.salehero.users.community.domain.CommunityRepository
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.user.domain.User
+import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
 import com.pro.salehero.users.user.service.UserService
+import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
@@ -18,60 +20,40 @@ import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.test.context.support.WithMockUser
 import kotlin.test.Test
 
-@ExtendWith(MockitoExtension::class)
+@SpringBootTest
 class CommunityServiceTest {
 
-    @Mock
-    private lateinit var communityRepository: CommunityRepository
-
-    @Mock
-    private lateinit var userService: UserService
-
-    @Mock
+    @Autowired
     private lateinit var communityService: CommunityService
 
-    @Mock
-    private lateinit var viewCountService: ViewCountService
+    @Autowired
+    private lateinit var userRepository: UserRepository
 
 
     @Test
+    @WithMockUser(username = "test@test.com")
     fun `createArticle - 성공`() {
         // given
-        val mockUser = User(
-            id = 1L,
-            userEmail = "test@test.com",
-            userName = "test",
-            nickName = "test",
-            isActive = "Y",
-            role = UserRole.USER
+        val user = User(
+            1L, "test@test.com", "test", "test","Y", UserRole.USER
         )
+        userRepository.save(user)
+
         val communityPostDTO = CommunityPostDTO(
             title = "테스트 제목",
             content = "테스트 내용",
             category = CommunityCategory.COMMUNITY
         )
-        val savedCommunity = Community(
-            id = 1L,
-            title = "테스트 제목",
-            content = "테스트 내용",
-            category = CommunityCategory.COMMUNITY,
-            writerId = 1L,
-            viewCount = 0,
-            isDeleted = "N"
-        )
-
-        `when`(getCurrentUser()).thenReturn(mockUser)
-        `when`(communityRepository.save(any(Community::class.java))).thenReturn(savedCommunity)
 
         // when
         val result = communityService.createArticle(communityPostDTO)
 
         // then
-        assertThat(result.id).isEqualTo(1L)
         assertThat(result.title).isEqualTo("테스트 제목")
-        verify(communityRepository).save(any(Community::class.java))
-        verify(getCurrentUser())
     }
 }
