@@ -72,6 +72,9 @@ dependencies {
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
+    // test
+    testImplementation("org.springframework.security:spring-security-test")
+
 }
 
 kotlin {
