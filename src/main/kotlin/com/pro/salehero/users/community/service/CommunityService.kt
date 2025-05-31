@@ -18,7 +18,8 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Service @Transactional
+@Service
+@Transactional
 class CommunityService(
     private val communityRepository: CommunityRepository,
     private val viewCountService: ViewCountService,
@@ -32,27 +33,30 @@ class CommunityService(
     fun createArticleWithUser(
         user: User,
         communityPostDTO: CommunityPostDTO
-    ): CommunityResponseDTO {
-        val community = Community(
-            title = communityPostDTO.title,
-            content = communityPostDTO.content,
-            category = communityPostDTO.category,
-            writerId = user.id!!,
-            viewCount = 0,
-            isDeleted = "N"
-        )
+    ): CommunityResponseDTO =
+        validatePostDTO(communityPostDTO)
+            .let {
+                Community(
+                    title = communityPostDTO.title,
+                    content = communityPostDTO.content,
+                    category = communityPostDTO.category,
+                    writerId = user.id!!,
+                    viewCount = 0,
+                    isDeleted = "N"
+                )
+            }
+            .let { communityRepository.save(it) }
+            .let {
+                CommunityResponseDTO(
+                    it.id!!,
+                    it.title,
+                    it.content,
+                    it.createdAt,
+                    it.viewCount,
+                    user.nickName
+                )
+            }
 
-        val result = communityRepository.save(community)
-
-        return CommunityResponseDTO(
-            result.id!!,
-            result.title,
-            result.content,
-            result.createdAt,
-            result.viewCount,
-            user.nickName
-        )
-    }
 
     @Transactional(readOnly = true)
     fun getArticles(
@@ -64,7 +68,7 @@ class CommunityService(
     fun getArticle(
         id: Long,
         request: HttpServletRequest
-    ):CommunityResponseDTO  {
+    ): CommunityResponseDTO {
         val article = communityRepository.findById(id)
         if (article.isEmpty) {
             throw CustomException(ErrorCode.CODE_404)
@@ -72,11 +76,22 @@ class CommunityService(
         if (article.get().isDeleted == "Y") {
             throw CustomException(ErrorCode.CODE_4042)
         }
-        viewCountService.increaseViewCount(RedisContentType.COMMUNITY, article.get().id!!, comfortUtil.getUserIdentifier(request))
+        viewCountService.increaseViewCount(
+            RedisContentType.COMMUNITY,
+            article.get().id!!,
+            comfortUtil.getUserIdentifier(request)
+        )
 
         return CommunityResponseDTO.of(article.get())
     }
 
     fun updateViewCount(viewCount: ViewCount) = communityRepository.updateViewCount(viewCount)
+
+    private fun validatePostDTO(communityPostDTO: CommunityPostDTO) {
+        require(communityPostDTO.title.isNotEmpty()) { throw CustomException(ErrorCode.CODE_4043) }
+        require(communityPostDTO.title.isNotBlank()) { throw CustomException(ErrorCode.CODE_4043) }
+        require(communityPostDTO.content.isNotEmpty()) { throw CustomException(ErrorCode.CODE_4043) }
+        require(communityPostDTO.content.isNotBlank()) { throw CustomException(ErrorCode.CODE_4043) }
+    }
 
 }
