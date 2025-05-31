@@ -5,8 +5,9 @@ import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.util.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.test.context.support.WithMockUser
@@ -21,19 +22,12 @@ class CommunityServiceTest {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    @BeforeEach
-    fun setUp() {
-        val user = User(1L, "test@test.com", "test", "test","Y", UserRole.USER)
-        userRepository.save(user)
-    }
-
 
     @Test
     @WithMockUser(username = "test@test.com")
     fun `createArticle - 성공`() {
         // given
-//        val user = User(1L, "test@test.com", "test", "test","Y", UserRole.USER)
-        val user = userRepository.findById(1L).get()
+        val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
         val communityPostDTO = CommunityPostDTO(
             title = "테스트 제목",
@@ -49,12 +43,21 @@ class CommunityServiceTest {
     }
 
     @Test
-    fun `createArticle - 실패`() {
+    fun `createArticle - 제목이 빈 문자인 경우 실패`() {
         // given
+        val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
-        // when
+        val communityPostDTO = CommunityPostDTO(
+            title = " ",
+            content = "테스트 내용",
+            category = CommunityCategory.COMMUNITY
+        )
 
-        // then
+        // when, then
+        assertThrows<CustomException> {
+            communityService.createArticleWithUser(user, communityPostDTO)
+
+        }
     }
 
 
