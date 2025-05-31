@@ -8,6 +8,7 @@ import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.Community
 import com.pro.salehero.users.community.domain.CommunityRepository
+import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
@@ -25,16 +26,20 @@ class CommunityService(
 ) {
     fun createArticle(
         communityPostDTO: CommunityPostDTO
-    ): CommunityResponseDTO {
-        val user = getCurrentUser()
+    ): CommunityResponseDTO = getCurrentUser()
+        .let { createArticleWithUser(it, communityPostDTO) }
 
+    fun createArticleWithUser(
+        user: User,
+        communityPostDTO: CommunityPostDTO
+    ): CommunityResponseDTO {
         val community = Community(
             title = communityPostDTO.title,
             content = communityPostDTO.content,
             category = communityPostDTO.category,
             writerId = user.id!!,
             viewCount = 0,
-            isDeleted = "N",
+            isDeleted = "N"
         )
 
         val result = communityRepository.save(community)
@@ -45,7 +50,7 @@ class CommunityService(
             result.content,
             result.createdAt,
             result.viewCount,
-            user.nickName,
+            user.nickName
         )
     }
 
