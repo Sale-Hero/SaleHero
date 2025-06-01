@@ -1,6 +1,8 @@
 package com.pro.salehero.users.community.service
 
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
+import com.pro.salehero.users.community.domain.Community
+import com.pro.salehero.users.community.domain.CommunityRepository
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
@@ -17,6 +19,9 @@ import kotlin.test.Test
 class CommunityServiceTest {
 
     @Autowired
+    private lateinit var communityRepository: CommunityRepository
+
+    @Autowired
     private lateinit var communityService: CommunityService
 
     @Autowired
@@ -29,7 +34,7 @@ class CommunityServiceTest {
         // given
         val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
-        val communityPostDTO = createCommuinity("테스트 제목", "테스트 내용")
+        val communityPostDTO = createCommunityDTO("테스트 제목", "테스트 내용")
 
         // when
         val result = communityService.createArticleWithUser(user, communityPostDTO)
@@ -43,7 +48,7 @@ class CommunityServiceTest {
         // given
         val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
-        val communityPostDTO = createCommuinity(" ", "테스트 내용")
+        val communityPostDTO = createCommunityDTO(" ", "테스트 내용")
 
         // when, then
         assertThrows<CustomException> {
@@ -52,13 +57,26 @@ class CommunityServiceTest {
         }
     }
 
-    private fun createCommuinity(
-        title: String ,
-        content: String ,
+    private fun createCommunityDTO(
+        title: String,
+        content: String,
     ) = CommunityPostDTO(
         title = title,
         content = content,
         category = CommunityCategory.COMMUNITY
+    )
+
+    private fun createCommunity(
+        title: String,
+        content: String,
+        user: User
+    ) = Community (
+        title = title,
+        content = content,
+        category = CommunityCategory.COMMUNITY,
+        writerId = user.id!!,
+        viewCount = 0,
+        isDeleted = "N"
     )
 
 
