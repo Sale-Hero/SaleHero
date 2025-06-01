@@ -37,7 +37,7 @@ abstract class QueryDslSupport(
         pageable: Pageable
     ): Pageable {
         return PageRequest.of(
-            pageable.pageNumber - 1,
+            maxOf(0, pageable.pageNumber - 1),
             pageable.pageSize,
             pageable.sort
         )
