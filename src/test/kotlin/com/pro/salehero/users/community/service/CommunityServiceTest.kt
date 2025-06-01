@@ -67,8 +67,7 @@ class CommunityServiceTest {
     @Test
     fun `getArticles - 전체 조회 성공`() {
         // given
-        val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
-        val user = userRepository.save(userDTO)
+        val user = createUser()
 
         createCommunity("타이틀 1", "내용 1", user)
         createCommunity("타이틀 2", "내용 2", user)
@@ -100,8 +99,7 @@ class CommunityServiceTest {
     @Test
     fun `getArticles - 페이지를 초과하는 결과 조회`() {
         // given
-        val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
-        val user = userRepository.save(userDTO)
+        val user = createUser()
 
         createCommunity("타이틀 1", "내용 1", user)
         createCommunity("타이틀 2", "내용 2", user)
@@ -114,6 +112,17 @@ class CommunityServiceTest {
 
         // then
         assertThat(result.content).isEmpty()
+    }
+
+
+    @Test
+    fun `getArticle - 상세 조회 성공`() {
+        // given
+
+
+        // when
+
+        // then
     }
 
     private fun createCommunityDTO(
@@ -139,5 +148,10 @@ class CommunityServiceTest {
     )
         .also { communityRepository.save(it) }
 
+    private fun createUser(): User {
+        val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
+        val user = userRepository.save(userDTO)
+        return user
+    }
 
 }
