@@ -29,11 +29,7 @@ class CommunityServiceTest {
         // given
         val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
-        val communityPostDTO = CommunityPostDTO(
-            title = "테스트 제목",
-            content = "테스트 내용",
-            category = CommunityCategory.COMMUNITY
-        )
+        val communityPostDTO = createCommuinity("테스트 제목", "테스트 내용")
 
         // when
         val result = communityService.createArticleWithUser(user, communityPostDTO)
@@ -47,11 +43,7 @@ class CommunityServiceTest {
         // given
         val user = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
 
-        val communityPostDTO = CommunityPostDTO(
-            title = " ",
-            content = "테스트 내용",
-            category = CommunityCategory.COMMUNITY
-        )
+        val communityPostDTO = createCommuinity(" ", "테스트 내용")
 
         // when, then
         assertThrows<CustomException> {
@@ -59,6 +51,15 @@ class CommunityServiceTest {
 
         }
     }
+
+    private fun createCommuinity(
+        title: String ,
+        content: String ,
+    ) = CommunityPostDTO(
+        title = title,
+        content = content,
+        category = CommunityCategory.COMMUNITY
+    )
 
 
 }
