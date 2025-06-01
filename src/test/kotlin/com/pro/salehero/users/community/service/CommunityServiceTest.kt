@@ -65,7 +65,6 @@ class CommunityServiceTest {
         }
     }
 
-
     @Test
     fun `getArticles - 전체 조회 성공`() {
         // given
@@ -85,6 +84,20 @@ class CommunityServiceTest {
         // then
         assertThat(result.content).hasSize(2)
             .extracting("content").containsOnly(post1.content, post2.content)
+    }
+
+    @Test
+    fun `getArticles - 전체 빈 결과 조회`() {
+        // given
+
+        val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
+        val pageable = PageRequest.of(0, 15)
+
+        // when
+        val result = communityService.getArticles(searchDTO, pageable)
+
+        // then
+        assertThat(result.content).isEmpty()
     }
 
     private fun createCommunityDTO(
