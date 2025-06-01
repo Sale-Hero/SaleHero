@@ -35,7 +35,6 @@ class CommunityServiceTest {
         communityRepository.deleteAllInBatch()
     }
 
-
     @Test
     @WithMockUser(username = "test@test.com")
     fun `createArticle - 성공`() {
@@ -71,9 +70,8 @@ class CommunityServiceTest {
         val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
         val user = userRepository.save(userDTO)
 
-        val post1 = createCommunity("타이틀 1", "내용 1", user)
-        val post2 = createCommunity("타이틀 2", "내용 2", user)
-        val community = communityRepository.saveAll(listOf(post1, post2))
+        createCommunity("타이틀 1", "내용 1", user)
+        createCommunity("타이틀 2", "내용 2", user)
 
         val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
         val pageable = PageRequest.of(0, 15)
@@ -83,15 +81,33 @@ class CommunityServiceTest {
 
         // then
         assertThat(result.content).hasSize(2)
-            .extracting("content").containsOnly(post1.content, post2.content)
+            .extracting("content").containsOnly("내용 1", "내용 2")
     }
 
     @Test
     fun `getArticles - 전체 빈 결과 조회`() {
         // given
-
         val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
         val pageable = PageRequest.of(0, 15)
+
+        // when
+        val result = communityService.getArticles(searchDTO, pageable)
+
+        // then
+        assertThat(result.content).isEmpty()
+    }
+
+    @Test
+    fun `getArticles - 페이지를 초과하는 결과 조회`() {
+        // given
+        val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
+        val user = userRepository.save(userDTO)
+
+        createCommunity("타이틀 1", "내용 1", user)
+        createCommunity("타이틀 2", "내용 2", user)
+
+        val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
+        val pageable = PageRequest.of(3, 15)
 
         // when
         val result = communityService.getArticles(searchDTO, pageable)
@@ -113,7 +129,7 @@ class CommunityServiceTest {
         title: String,
         content: String,
         user: User
-    ) = Community (
+    ) = Community(
         title = title,
         content = content,
         category = CommunityCategory.COMMUNITY,
@@ -121,6 +137,7 @@ class CommunityServiceTest {
         viewCount = 0,
         isDeleted = "N"
     )
+        .also { communityRepository.save(it) }
 
 
 }
