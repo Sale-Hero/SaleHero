@@ -1,6 +1,7 @@
 package com.pro.salehero.users.community.service
 
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
+import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.Community
 import com.pro.salehero.users.community.domain.CommunityRepository
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
@@ -9,9 +10,11 @@ import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
 import com.pro.salehero.util.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.domain.PageRequest
 import org.springframework.security.test.context.support.WithMockUser
 import kotlin.test.Test
 
@@ -26,6 +29,11 @@ class CommunityServiceTest {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+
+    @AfterEach
+    fun tearDown() {
+        communityRepository.deleteAllInBatch()
+    }
 
 
     @Test
@@ -55,6 +63,28 @@ class CommunityServiceTest {
             communityService.createArticleWithUser(user, communityPostDTO)
 
         }
+    }
+
+
+    @Test
+    fun `getArticles - 전체 조회 성공`() {
+        // given
+        val userDTO = User(1L, "test@test.com", "test", "test", "Y", UserRole.USER)
+        val user = userRepository.save(userDTO)
+
+        val post1 = createCommunity("타이틀 1", "내용 1", user)
+        val post2 = createCommunity("타이틀 2", "내용 2", user)
+        val community = communityRepository.saveAll(listOf(post1, post2))
+
+        val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
+        val pageable = PageRequest.of(0, 15)
+
+        // when
+        val result = communityService.getArticles(searchDTO, pageable)
+
+        // then
+        assertThat(result.content).hasSize(2)
+            .extracting("content").containsOnly(post1.content, post2.content)
     }
 
     private fun createCommunityDTO(
