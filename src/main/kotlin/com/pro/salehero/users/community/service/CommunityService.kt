@@ -76,6 +76,7 @@ class CommunityService(
         if (article.get().isDeleted == "Y") {
             throw CustomException(ErrorCode.CODE_4042)
         }
+
         viewCountService.increaseViewCount(
             RedisContentType.COMMUNITY,
             article.get().id!!,

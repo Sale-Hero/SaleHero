@@ -74,6 +74,8 @@ dependencies {
 
     // test
     testImplementation("org.springframework.security:spring-security-test")
+//    testImplementation ("it.ozimov:embedded-redis:0.7.3")
+
 
 }
 
