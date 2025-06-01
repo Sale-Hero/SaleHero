@@ -1,5 +1,6 @@
 package com.pro.salehero.users.community.service
 
+import com.pro.salehero.common.service.ViewCountService
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.Community
@@ -14,11 +15,15 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.data.domain.PageRequest
+import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.security.test.context.support.WithMockUser
 import kotlin.test.Test
 
 @SpringBootTest
+@MockBean(ViewCountService::class)
+//@Import(TestRedisConfiguration::class)
 class CommunityServiceTest {
 
     @Autowired
@@ -33,6 +38,7 @@ class CommunityServiceTest {
     @AfterEach
     fun tearDown() {
         communityRepository.deleteAllInBatch()
+        userRepository.deleteAllInBatch()
     }
 
     @Test
@@ -118,11 +124,21 @@ class CommunityServiceTest {
     @Test
     fun `getArticle - 상세 조회 성공`() {
         // given
+        val title = "제목 1"
+        val content = "내용 1"
 
+        val user = createUser()
+        val post = createCommunity(title, content, user)
+        val postResult = communityRepository.save(post)
+
+        val mockRequest = MockHttpServletRequest()
+        mockRequest.remoteAddr = "127.0.0.1"
 
         // when
+        val result = communityService.getArticle(postResult.id!!, mockRequest)
 
         // then
+        assertThat(result.title).isEqualTo(title)
     }
 
     private fun createCommunityDTO(
