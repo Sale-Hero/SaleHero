@@ -179,11 +179,14 @@ class CommunityServiceTest {
         // given
         val user = createUser()
         val community = createCommunity("제목 12", "내용 12", user)
+        val initialViewCount = community.viewCount
+
+        val increasedViewCount = 10L
 
         val viewCount = ViewCount(
             type = RedisContentType.COMMUNITY,
             id = community.id!!,
-            viewCount = 10L
+            viewCount = increasedViewCount
             )
 
         // when
@@ -191,7 +194,7 @@ class CommunityServiceTest {
         val result = communityRepository.findById(community.id!!)
 
         // then
-        assertThat(result.get().viewCount).isEqualTo(10)
+        assertThat(result.get().viewCount).isEqualTo(initialViewCount + increasedViewCount)
     }
 
     private fun createCommunityDTO(
