@@ -1,6 +1,8 @@
 package com.pro.salehero.users.community.service
 
+import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
+import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.Community
@@ -170,6 +172,26 @@ class CommunityServiceTest {
 
         // when // then
         assertThrows<CustomException> { communityService.getArticle(createdCommunity.id!!, request = mockRequest) }
+    }
+
+    @Test
+    fun `updateViewCount - 조회수 증가 성공`() {
+        // given
+        val user = createUser()
+        val community = createCommunity("제목 12", "내용 12", user)
+
+        val viewCount = ViewCount(
+            type = RedisContentType.COMMUNITY,
+            id = community.id!!,
+            viewCount = 10L
+            )
+
+        // when
+        communityService.updateViewCount(viewCount)
+        val result = communityRepository.findById(community.id!!)
+
+        // then
+        assertThat(result.get().viewCount).isEqualTo(10)
     }
 
     private fun createCommunityDTO(
