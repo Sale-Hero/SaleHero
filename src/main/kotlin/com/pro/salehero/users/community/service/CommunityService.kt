@@ -73,6 +73,7 @@ class CommunityService(
         if (article.isEmpty) {
             throw CustomException(ErrorCode.CODE_404)
         }
+
         if (article.get().isDeleted == "Y") {
             throw CustomException(ErrorCode.CODE_4042)
         }

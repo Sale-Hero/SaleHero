@@ -141,6 +141,16 @@ class CommunityServiceTest {
         assertThat(result.title).isEqualTo(title)
     }
 
+    @Test
+    fun `getArticle - 존재하지 않는 상세 조회`() {
+        // given
+        val mockRequest = MockHttpServletRequest()
+        mockRequest.remoteAddr = "127.0.0.1"
+
+        // when // then
+        assertThrows<CustomException> { communityService.getArticle(1L, mockRequest) }
+    }
+
     private fun createCommunityDTO(
         title: String,
         content: String,
