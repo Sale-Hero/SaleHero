@@ -151,6 +151,27 @@ class CommunityServiceTest {
         assertThrows<CustomException> { communityService.getArticle(1L, mockRequest) }
     }
 
+    @Test
+    fun `getArticle - 삭제된 데이터 조회`() {
+        // given
+        val user = createUser()
+        val community = Community(
+            title = "제목 1",
+            content = "내용 1",
+            category = CommunityCategory.COMMUNITY,
+            writerId = user.id!!,
+            viewCount = 0,
+            isDeleted = "Y"
+        )
+
+        val createdCommunity = communityRepository.save(community)
+        val mockRequest = MockHttpServletRequest()
+        mockRequest.remoteAddr = "127.0.0.1"
+
+        // when // then
+        assertThrows<CustomException> { communityService.getArticle(createdCommunity.id!!, request = mockRequest) }
+    }
+
     private fun createCommunityDTO(
         title: String,
         content: String,
