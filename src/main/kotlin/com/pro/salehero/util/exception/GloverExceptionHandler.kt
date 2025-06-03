@@ -3,6 +3,7 @@ package com.pro.salehero.util.exception
 import net.minidev.json.JSONObject
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -18,6 +19,12 @@ class GlobalExceptionHandler {
         return errorMessage(e.code, e.bindingErrors, e.data)
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationException(e: MethodArgumentNotValidException): ResponseEntity<ErrorCodeResult> {
+        generateErrorLog(e)
+        return errorMessage(ErrorCode.CODE_404, emptyList(), e.bindingResult.allErrors.get(0).defaultMessage)
+    }
+
     private fun errorMessage(errorCode: ErrorCode, bindingErrors: List<FieldBindingError> = emptyList(), data: Any? = null): ResponseEntity<ErrorCodeResult> {
         val jsonObject = JSONObject()
         jsonObject.put("errorMsg", data)
@@ -28,7 +35,7 @@ class GlobalExceptionHandler {
 
     }
 
-    private fun generateErrorLog(e: CustomException) {
+    private fun generateErrorLog(e: Exception) {
         logger.error("CustomException 발생: ${e.message}", e)
     }
 }
