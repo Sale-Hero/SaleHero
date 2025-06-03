@@ -4,6 +4,7 @@ import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.service.CommunityService
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -17,7 +18,7 @@ class CommunityController (
 
     @PostMapping
     fun postArticle(
-        @RequestBody communityPostDTO: CommunityPostDTO
+        @Valid @RequestBody communityPostDTO: CommunityPostDTO
     ) = communityService.createArticle(communityPostDTO)
 
     @GetMapping

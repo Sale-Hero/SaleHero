@@ -13,7 +13,6 @@ data class CommunityPostDTO(
     @field:NotNull
     val content: String,
 
-    @field:NotBlank
     @field:NotNull
     val category: CommunityCategory
 )
