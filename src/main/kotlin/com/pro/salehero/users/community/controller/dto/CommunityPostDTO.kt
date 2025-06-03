@@ -5,14 +5,12 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
 data class CommunityPostDTO(
-    @field:NotBlank
-    @field:NotNull
+    @field:NotBlank(message = "제목은 필수입니다.")
     val title: String,
 
-    @field:NotBlank
-    @field:NotNull
+    @field:NotBlank(message = "내용은 필수입니다.")
     val content: String,
 
-    @field:NotNull
+    @field:NotNull(message = "카테고리는 필수입니다.")
     val category: CommunityCategory
 )
