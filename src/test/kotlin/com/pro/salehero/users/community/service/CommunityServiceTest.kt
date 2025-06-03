@@ -3,6 +3,7 @@ package com.pro.salehero.users.community.service
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
 import com.pro.salehero.common.service.dto.ViewCount
+import com.pro.salehero.config.IntegrationTestSupport
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.Community
@@ -23,10 +24,8 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.security.test.context.support.WithMockUser
 import kotlin.test.Test
 
-@SpringBootTest
 @MockBean(ViewCountService::class)
-//@Import(TestRedisConfiguration::class)
-class CommunityServiceTest {
+class CommunityServiceTest: IntegrationTestSupport() {
 
     @Autowired
     private lateinit var communityRepository: CommunityRepository
