@@ -18,10 +18,10 @@ import org.springframework.context.annotation.Import
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
+import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -86,6 +86,31 @@ class CommunityControllerTest {
         // when // then
         mockMvc.perform(
             get("/api/community")
+        )
+            .andDo(print())
+            .andExpect(status().isOk)
+    }
+
+    @Test
+    fun `getArticle - 특정 게시글 조회 성공`() {
+        // given
+        val articleId = 1L
+        val mockRequest = MockHttpServletRequest()
+        val expectedResult = CommunityResponseDTO(
+            id = 1L,
+            title = "제목",
+            content = "내용",
+            createdAt = LocalDateTime.now(),
+            viewCount = 1L,
+            writerName = "나"
+        )
+
+        given(communityService.getArticle(articleId, mockRequest)).willReturn(expectedResult)
+        println(objectMapper.writeValueAsString(expectedResult))
+
+        // when & then
+        mockMvc.perform(
+            get("/api/community/{id}", articleId)
         )
             .andDo(print())
             .andExpect(status().isOk)
