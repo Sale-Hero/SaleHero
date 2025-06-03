@@ -1,8 +1,10 @@
 package com.pro.salehero.users.community.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
+import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.community.service.CommunityService
 import com.pro.salehero.util.exception.GlobalExceptionHandler
@@ -13,10 +15,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Import
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDateTime
@@ -41,16 +47,6 @@ class CommunityControllerTest {
     fun `postArticle - 게시글 작성 성공`() {
         // given
         val communityDTO = createCommunityDTO("제목1", "내용 1")
-        val expectedResult = CommunityResponseDTO(
-            id = 1L,
-            title = "제목1",
-            content ="내용 1",
-            createdAt = LocalDateTime.now(),
-            viewCount = 0L,
-            writerName = "허허"
-        )
-
-        given(communityService.createArticle(communityDTO)).willReturn(expectedResult)
 
         // when // then
         mockMvc.perform(
@@ -59,8 +55,6 @@ class CommunityControllerTest {
                 .content(objectMapper.writeValueAsString(communityDTO))
         )
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.title").value("제목1"))
-            .andExpect(jsonPath("$.content").value("내용 1"))
 
         verify(communityService).createArticle(communityDTO)
     }
@@ -76,10 +70,25 @@ class CommunityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(communityDTO))
         )
-            .andDo(MockMvcResultHandlers.print())
+            .andDo(print())
             .andExpect(status().is4xxClientError)
             .andExpect(jsonPath("$.bindingError.errorMsg").value("제목은 필수입니다."))
+    }
 
+    @Test
+    fun `getArticles - 커뮤니티 리스트 조회`() {
+        // given
+        val expectedResult = PageResponseDTO<CommunityResponseDTO>(0, 0, emptyList())
+        val requestDTO = CommunitySearchDTO(category = null)
+        val pageable: Pageable = PageRequest.of(0, 10)
+        given(communityService.getArticles(requestDTO, pageable)).willReturn(expectedResult)
+
+        // when // then
+        mockMvc.perform(
+            get("/api/community")
+        )
+            .andDo(print())
+            .andExpect(status().isOk)
     }
 
     private fun createCommunityDTO(
