@@ -8,4 +8,9 @@ class TestController {
     @GetMapping("/")
     fun test(): String = "Hello World1"
 
+    @GetMapping("/kakao-test")
+    fun kakaoTest() {
+
+    }
+
 }
