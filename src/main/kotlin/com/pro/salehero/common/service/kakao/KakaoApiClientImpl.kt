@@ -28,7 +28,7 @@ class KakaoApiClientImpl(
         val headers = HttpHeaders().apply {
             accept = listOf(MediaType.parseMediaType("*/*"))
             contentType = MediaType.APPLICATION_FORM_URLENCODED
-            set("Authorization", "Basic ${Base64.getEncoder().encodeToString("$clientId:$clientSecret".toByteArray())}")
+            set("Authorization", "Basic $clientId $clientSecret")
         }
 
         val body: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
