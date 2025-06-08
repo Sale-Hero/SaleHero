@@ -39,7 +39,7 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
         communityRepository.saveAll(listOf(community1, community2, community3))
 
-        val searchDTO = CommunitySearchDTO(category = CommunityCategory.COMMUNITY)
+        val searchDTO = CommunitySearchDTO(null)
         val pageable = PageRequest.of(0, 15)
 
         // when
@@ -58,10 +58,27 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
     @Test
     fun `getArticles - 카테고리별 조회 테스트`() {
         // given
+        val user = createUser()
+        val communityPost1 = createCommunity("제목 1", "내용1", user, CommunityCategory.COMMUNITY)
+        val infomPost1 = createCommunity("제목 2", "내용2", user, CommunityCategory.INFORMATION)
+        val communityPost2 = createCommunity("제목 3", "내용3", user, CommunityCategory.COMMUNITY)
+        val infomPost2 = createCommunity("제목 4", "내용4", user, CommunityCategory.INFORMATION)
+
+        communityRepository.saveAll(listOf(communityPost1, communityPost2, infomPost1, infomPost2))
+
+        val searchDTO = CommunitySearchDTO(CommunityCategory.COMMUNITY)
+        val pageable = PageRequest.of(0, 15)
 
         // when
+        val result = communityRepository.getArticles(searchDTO, pageable)
 
         // then
+        assertThat(result.content).hasSize(2)
+            .extracting("title","content","writerName")
+            .containsExactlyInAnyOrder(
+                tuple("제목 1", "내용1", "허허"),
+                tuple("제목 3", "내용3", "허허"),
+            )
     }
 
     private fun createUser(): User {
