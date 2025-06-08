@@ -7,7 +7,6 @@ import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.groups.Tuple
 import org.assertj.core.groups.Tuple.tuple
 import org.junit.jupiter.api.AfterEach
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,9 +33,9 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
     fun `getArticles - 저장된 게시물들을 조회한다`() {
         // given
         val user = createUser()
-        val community1 = createCommunity("제목 1", "내용 1", user)
-        val community2 = createCommunity("제목 2", "내용 2", user)
-        val community3 = createCommunity("제목 3", "내용 3", user)
+        val community1 = createCommunity("제목 1", "내용 1", user, CommunityCategory.COMMUNITY)
+        val community2 = createCommunity("제목 2", "내용 2", user, CommunityCategory.COMMUNITY)
+        val community3 = createCommunity("제목 3", "내용 3", user, CommunityCategory.COMMUNITY)
 
         communityRepository.saveAll(listOf(community1, community2, community3))
 
@@ -56,6 +55,15 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
             )
     }
 
+    @Test
+    fun `getArticles - 카테고리별 조회 테스트`() {
+        // given
+
+        // when
+
+        // then
+    }
+
     private fun createUser(): User {
         val userDTO = User(1L, "test@test.com", "test", "허허", "Y", UserRole.USER)
         val user = userRepository.save(userDTO)
@@ -65,11 +73,12 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
     private fun createCommunity(
         title: String,
         content: String,
-        user: User
+        user: User,
+        category: CommunityCategory
     ): Community = Community(
         title = title,
         content = content,
-        category = CommunityCategory.COMMUNITY,
+        category = category,
         writerId =  user.id!!,
         viewCount =  0,
         isDeleted = "N"
