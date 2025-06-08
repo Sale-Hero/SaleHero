@@ -3,6 +3,7 @@ package com.pro.salehero.users.community.domain
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.IntegrationTestSupport
+import com.pro.salehero.config.TransactionHelper
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.user.domain.User
@@ -18,7 +19,6 @@ import org.springframework.test.annotation.Commit
 import org.springframework.transaction.annotation.Transactional
 import kotlin.test.Test
 
-@Transactional
 class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
     @Autowired
@@ -29,6 +29,9 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
     @Autowired
     private lateinit var entityManager: EntityManager
+
+    @Autowired
+    private lateinit var transactionHelper: TransactionHelper
 
     @AfterEach
     fun tearDown() {
@@ -99,12 +102,14 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
         val viewCount = ViewCount(RedisContentType.COMMUNITY, savedCommunity.id!!, updatedViewCount)
 
         // when
-        communityRepository.updateViewCount(viewCount)
-        entityManager.flush()
-        entityManager.clear()
+        transactionHelper.executeInNewTransaction {
+            communityRepository.updateViewCount(viewCount)
+        }
+
         val updatedCommunity = communityRepository.findById(savedCommunity.id!!)
 
         // then
+        assertThat(updatedCommunity).isNotNull
         assertThat(updatedCommunity.get().viewCount).isEqualTo(updatedViewCount)
     }
 
