@@ -1,5 +1,7 @@
 package com.pro.salehero.users.community.domain
 
+import com.pro.salehero.common.enums.RedisContentType
+import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.IntegrationTestSupport
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.domain.enums.CommunityCategory
@@ -79,6 +81,24 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
                 tuple("제목 1", "내용1", "허허"),
                 tuple("제목 3", "내용3", "허허"),
             )
+    }
+
+    @Test
+    fun `updateViewCount - 조회수 업데이트 성공 테스트`() {
+        // given
+        val updatedViewCount = 10L
+        val user = createUser()
+        val community = createCommunity("조회수 테스트용 제목1"," 조회수 테스트용 내용1", user, CommunityCategory.COMMUNITY)
+        val savedCommunity = communityRepository.save(community)
+
+        val viewCount = ViewCount(RedisContentType.COMMUNITY, savedCommunity.id!!, updatedViewCount)
+
+        // when
+        communityRepository.updateViewCount(viewCount)
+        val updatedCommunity = communityRepository.findById(savedCommunity.id!!)
+
+        // then
+        assertThat(updatedCommunity.get().viewCount).isEqualTo(updatedViewCount)
     }
 
     private fun createUser(): User {
