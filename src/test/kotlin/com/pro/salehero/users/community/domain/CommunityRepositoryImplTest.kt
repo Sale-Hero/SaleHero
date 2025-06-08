@@ -8,11 +8,13 @@ import com.pro.salehero.users.community.domain.enums.CommunityCategory
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
+import jakarta.persistence.EntityManager
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.groups.Tuple.tuple
 import org.junit.jupiter.api.AfterEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
+import org.springframework.test.annotation.Commit
 import org.springframework.transaction.annotation.Transactional
 import kotlin.test.Test
 
@@ -24,6 +26,9 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+
+    @Autowired
+    private lateinit var entityManager: EntityManager
 
     @AfterEach
     fun tearDown() {
@@ -95,6 +100,8 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
         // when
         communityRepository.updateViewCount(viewCount)
+        entityManager.flush()
+        entityManager.clear()
         val updatedCommunity = communityRepository.findById(savedCommunity.id!!)
 
         // then
