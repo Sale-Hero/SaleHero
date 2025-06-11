@@ -74,6 +74,7 @@ dependencies {
 
     // test
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 //    testImplementation ("it.ozimov:embedded-redis:0.7.3")
 
 
