@@ -23,6 +23,7 @@ class WebConfig(
         registry.addInterceptor(ApiKeyInterceptor(apiSecret))
             .addPathPatterns("/api/automate/**")
             .addPathPatterns("/api/proxy")
+            .addPathPatterns("/test/**")
 
         // 관리자 권한 체크 인터셉터
         registry.addInterceptor(adminAuthInterceptor)
