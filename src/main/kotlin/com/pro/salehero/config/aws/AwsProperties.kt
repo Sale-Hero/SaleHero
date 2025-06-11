@@ -7,5 +7,6 @@ data class AwsProperties(
     val region: String,
     val accessKey: String,
     val secretKey: String,
-    val sourceEmail: String
+    val sourceEmail: String,
+    val noReplyEmail: String
 )
