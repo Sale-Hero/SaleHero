@@ -13,5 +13,5 @@ import java.time.LocalDateTime
 abstract class CreateAudit(
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = LocalDateTime.now(),
 )
