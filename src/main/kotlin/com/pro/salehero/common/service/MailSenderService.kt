@@ -118,7 +118,7 @@ class MailSenderService(
 
             // 이메일 요청 생성
             val request = SendEmailRequest.builder()
-                .source(awsProperties.sourceEmail) // 발신자 이메일 (AWS SES에 인증된 이메일)
+                .source(awsProperties.noReplyEmail) // 발신자 이메일 (AWS SES에 인증된 이메일)
                 .destination(
                     Destination.builder()
                         .toAddresses(to)
@@ -127,11 +127,8 @@ class MailSenderService(
                 .message(message)
                 .build()
 
-            println("awsProperties = ${awsProperties.sourceEmail}")
             // SES 클라이언트를 통해 이메일 전송
-            println("Sending email request: ${request}")
             val response = sesClient.sendEmail(request)
-            println("Email sent successfully. Response: ${response}")
             return response.messageId() != null
         } catch (e: Exception) {
             println("Exception occurred: ${e.javaClass.name}: ${e.message}")
