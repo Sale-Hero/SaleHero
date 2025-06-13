@@ -4,7 +4,7 @@ import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 
 @Entity
-data class UserAuthentication(
+class UserAuthentication(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

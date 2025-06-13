@@ -6,7 +6,7 @@ import jakarta.persistence.*
 
 
 @Entity
-data class Community (
+class Community (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

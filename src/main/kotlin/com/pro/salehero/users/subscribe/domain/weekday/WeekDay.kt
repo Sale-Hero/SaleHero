@@ -8,7 +8,7 @@ import jakarta.persistence.*
 @Table(
     uniqueConstraints = [UniqueConstraint(columnNames = ["subscriberId", "days"])]
 )
-data class WeekDay(
+class WeekDay(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
