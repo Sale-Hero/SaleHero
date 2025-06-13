@@ -5,7 +5,7 @@ import com.pro.salehero.util.CreateAudit
 import jakarta.persistence.*
 
 @Entity
-data class RawNewsLetter (
+class RawNewsLetter (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
