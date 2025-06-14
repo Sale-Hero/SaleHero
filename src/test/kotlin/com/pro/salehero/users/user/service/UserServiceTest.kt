@@ -37,6 +37,21 @@ class UserServiceTest: IntegrationTestSupport() {
         assertThat(body.nickName).isEqualTo(user.nickName)
     }
 
+    @Test
+    fun `getUserInfo - principal이 null인 경우 401 에러 발생`() {
+        // given
+        val nullPrincipal: OAuth2User ?= null
+
+        // when
+        val result = userService.getUserInfo(nullPrincipal)
+
+        // then
+        assertThat(result.statusCode).isEqualTo(HttpStatus.UNAUTHORIZED)
+        val body = result.body as Map<String, String>
+        assertThat(body["error"]).isEqualTo("Unauthorized")
+        assertThat(body["message"]).isEqualTo("로그인이 필요합니다.")
+    }
+
     private fun createAndSaveUser(): User {
         val user = User(
             userEmail = "test@example.com",
