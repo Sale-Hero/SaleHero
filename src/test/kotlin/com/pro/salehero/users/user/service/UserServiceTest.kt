@@ -5,12 +5,17 @@ import com.pro.salehero.users.user.controller.dto.UserResponseDTO
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.util.exception.CustomException
+import com.pro.salehero.util.exception.ErrorCode
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.oauth2.core.user.OAuth2User
 import kotlin.test.Test
 
@@ -67,6 +72,19 @@ class UserServiceTest: IntegrationTestSupport() {
         val body = result.body as Map<String, String>
         assertThat(body["error"]).isEqualTo("Bad Request")
         assertThat(body["message"]).isEqualTo("사용자 ID가 유효하지 않습니다.")
+    }
+
+    @Test
+    fun `getUserInfo - 유저 id 가 없는 경우 400 에러 발생`() {
+        // given
+        val strangeId = 9999L
+        val mockPrincipal = mock<OAuth2User>()
+        given(mockPrincipal.getAttribute<Int>("id")).willReturn(strangeId.toInt())
+
+        // when // then
+        assertThatThrownBy { userService.getUserInfo(mockPrincipal) }
+            .isInstanceOf(CustomException::class.java)
+            .hasMessage( "존재하지 않는 데이터")
     }
 
     private fun createAndSaveUser(): User {
