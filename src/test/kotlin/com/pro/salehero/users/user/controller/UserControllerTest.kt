@@ -1,27 +1,48 @@
 package com.pro.salehero.users.user.controller
 
-import com.pro.salehero.users.user.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.web.servlet.MockMvc
-import kotlin.test.Test
 
-@WebMvcTest(controllers = [UserController::class])
+import com.pro.salehero.users.user.controller.dto.UserResponseDTO
+import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.users.user.service.UserService
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.BDDMockito.given
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito.mock
+import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.security.oauth2.core.user.OAuth2User
+
+@ExtendWith(MockitoExtension::class)
 class UserControllerTest {
 
-    @MockBean
+    @Mock
     private lateinit var userService: UserService
 
-    @Autowired
-    private lateinit var mockMvc: MockMvc
+    @InjectMocks
+    private lateinit var userController: UserController
 
     @Test
-    fun `getCurrentUser - `() {
+    fun `getCurrentUser - 현재 사용자 조회 성공`() {
         // given
+        val mockPrincipal = mock<OAuth2User>()
+        val response = UserResponseDTO(
+            1L,
+            "테스터",
+            "test@gmail.com",
+            "테스터 히히",
+            UserRole.USER
+        )
+        given(userService.getUserInfo(mockPrincipal))
+            .willReturn(ResponseEntity.ok(response))
 
         // when
+        val result = userController.getCurrentUser(mockPrincipal)
 
         // then
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
     }
 }
