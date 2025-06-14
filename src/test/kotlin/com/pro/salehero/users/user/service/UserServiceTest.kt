@@ -6,6 +6,7 @@ import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
 import org.assertj.core.api.Assertions.assertThat
+import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
@@ -50,6 +51,22 @@ class UserServiceTest: IntegrationTestSupport() {
         val body = result.body as Map<String, String>
         assertThat(body["error"]).isEqualTo("Unauthorized")
         assertThat(body["message"]).isEqualTo("로그인이 필요합니다.")
+    }
+
+    @Test
+    fun `getUserInfo -  principal에 id가 없는 경우 400 에러 발생`() {
+        // given
+        val mockPrincipal = mock<OAuth2User>()
+        given(mockPrincipal.getAttribute<Int>("id")).willReturn(null)
+
+        // when
+        val result = userService.getUserInfo(mockPrincipal)
+
+        // then
+        assertThat(result.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
+        val body = result.body as Map<String, String>
+        assertThat(body["error"]).isEqualTo("Bad Request")
+        assertThat(body["message"]).isEqualTo("사용자 ID가 유효하지 않습니다.")
     }
 
     private fun createAndSaveUser(): User {
