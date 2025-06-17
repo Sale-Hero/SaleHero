@@ -63,10 +63,10 @@ class ComfortUtil {
 
         val lastName = listOf("군", "양", "씨", "님", "공", "후", "장", "선생")
 
-        val shuffledFirstName = firstName.shuffled()
-        val shuffledMiddleName = middleName.shuffled()
-        val shuffledLastName = lastName.shuffled()
+        val first = firstName.random()
+        val middle = middleName.random()
+        val last = lastName.random()
 
-        return "${shuffledFirstName[0]}${shuffledMiddleName[0]}${shuffledLastName[0]}"
+        return "$first$middle$last"
     }
 }
