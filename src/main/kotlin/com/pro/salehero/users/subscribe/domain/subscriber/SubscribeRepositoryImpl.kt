@@ -16,4 +16,12 @@ class SubscribeRepositoryImpl(
             .fetch()
     }
 
+    override fun unSubscribe(email: String) {
+        queryFactory
+            .update(subscriber)
+            .set(subscriber.isSubscribed, "N")
+            .where(subscriber.userEmail.eq(email))
+            .execute()
+    }
+
 }

@@ -48,4 +48,9 @@ class SubscribeService(
             ?.let(SubscriberResponseDTO::of)
             ?.let { ResponseEntity.ok(it) }
             ?: throw CustomException(ErrorCode.CODE_4001)
+
+    @Transactional
+    fun unSubscribe(
+        email: String
+    ) = subscribeRepository.unSubscribe(email)
 }

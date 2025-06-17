@@ -18,4 +18,9 @@ class SubscribeController (
     fun addSubscriber(
         @RequestBody dto: SubscribePostDTO
     ) = subscribeService.addSubscriber(dto)
+
+    @PostMapping("/unsubscribe/{email}")
+    fun unSubscribe(
+        @PathVariable("email") email: String
+    ) = subscribeService.unSubscribe(email)
 }
