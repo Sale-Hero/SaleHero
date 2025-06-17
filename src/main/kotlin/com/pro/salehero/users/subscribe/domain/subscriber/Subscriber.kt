@@ -13,9 +13,15 @@ class Subscriber(
     val userEmail: String,
 
     @Column(nullable = true, length = 1)
-    val isSubscribed: String = "Y",
+    var isSubscribed: String = "Y",
 
     @Column(nullable = true, length = 1)
-    val isMarketingAgreed: String = "N",
+    var isMarketingAgreed: String = "N",
 
-) : CreateAndUpdateAudit()
+) : CreateAndUpdateAudit(){
+
+    fun update(marketingAgreed: Boolean) {
+        this.isSubscribed = "Y"
+        this.isMarketingAgreed = if (marketingAgreed) "Y" else "N"
+    }
+}
