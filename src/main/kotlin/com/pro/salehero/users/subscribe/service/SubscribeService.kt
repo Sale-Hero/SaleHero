@@ -33,21 +33,26 @@ class SubscribeService(
     @Transactional
     fun addSubscriber(
         dto: SubscribePostDTO
-    ): ResponseEntity<SubscriberResponseDTO> =
-        dto.userEmail
-            .also { comfortUtil.validateEmail(it) }
-            .takeIf { subscribeRepository.findByUserEmail(it).isEmpty() }
-            ?.let {
+    ): ResponseEntity<SubscriberResponseDTO> {
+        val email = dto.userEmail.also { comfortUtil.validateEmail(it) }
+        val existingSubscriber = subscribeRepository.findByUserEmail(email)
+
+        val subscriber =
+            if (existingSubscriber.isEmpty()) { // 새로 생성
                 Subscriber(
+                    userEmail = email,
                     isSubscribed = "Y",
-                    userEmail = it,
-                    isMarketingAgreed = if (dto.isMarketingAgreed) "Y" else "N",
+                    isMarketingAgreed = if (dto.isMarketingAgreed) "Y" else "N"
                 )
+            } else { // 기존 것 업데이트
+                existingSubscriber.first().apply {
+                    update(dto.isMarketingAgreed)
+                }
             }
-            ?.let(subscribeRepository::save)
-            ?.let(SubscriberResponseDTO::of)
-            ?.let { ResponseEntity.ok(it) }
-            ?: throw CustomException(ErrorCode.CODE_4001)
+
+        val savedSubscriber = subscribeRepository.save(subscriber)
+        return ResponseEntity.ok(SubscriberResponseDTO.of(savedSubscriber))
+    }
 
     @Transactional
     fun unSubscribe(
