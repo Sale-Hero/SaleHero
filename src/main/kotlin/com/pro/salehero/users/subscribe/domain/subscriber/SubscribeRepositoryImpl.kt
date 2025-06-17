@@ -11,9 +11,20 @@ class SubscribeRepositoryImpl(
             .selectFrom(subscriber)
             .where(
                 subscriber.userEmail.eq(email),
+//                subscriber.isSubscribed.eq("Y")
+            )
+            .fetch()
+    }
+
+    override fun isThisUserSubscribed(email: String): Boolean {
+        return queryFactory
+            .selectFrom(subscriber)
+            .where(
+                subscriber.userEmail.eq(email),
                 subscriber.isSubscribed.eq("Y")
             )
             .fetch()
+            .isNotEmpty()
     }
 
     override fun unSubscribe(email: String) {

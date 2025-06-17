@@ -84,8 +84,9 @@ class AuthService(
     @Transactional
     fun createCodeByEmail(dto: MailRequestDTO): ResponseDTO<Boolean> {
         // 이미 구독중인지
-        subscribeRepository.findByUserEmail(dto.userEmail)
-            .takeIf { it.isNotEmpty() }
+
+        subscribeRepository.isThisUserSubscribed(dto.userEmail)
+            .takeIf { it }
             ?.let { return ResponseDTO(false, "이미 구독중인 회원입니다.", false) }
 
         // 이미 코드를 받았는지
@@ -125,12 +126,12 @@ class AuthService(
             throw CustomException(ErrorCode.CODE_4002)
         }
 
-        subscribeRepository.save(
-            Subscriber(
-                userEmail = dto.userEmail,
-                isSubscribed = "Y"
-            )
-        )
+//        subscribeRepository.save(
+//            Subscriber(
+//                userEmail = dto.userEmail,
+//                isSubscribed = "Y"
+//            )
+//        )
         return ResponseDTO(true, "구독 완료했습니다.", true)
     }
 
@@ -156,7 +157,7 @@ class AuthService(
 
     private fun isAlreadySubscribed(
         userEmail: String
-    ) = subscribeRepository.findByUserEmail(userEmail).takeIf { it.isNotEmpty() }
+    ) = subscribeRepository.isThisUserSubscribed(userEmail).takeIf { it }
         ?.let { throw CustomException(ErrorCode.CODE_4001) }
 
     private fun isAuthTimeExceeded(authTime: LocalDateTime)
