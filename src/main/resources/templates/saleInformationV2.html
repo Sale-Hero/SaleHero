@@ -86,7 +86,8 @@
                 <p style="font-size: 12px; color: #888888; margin: 0 0 8px 0;">
                     © 2025 세일히어로 | 서울시 관악구
                 </p>
-                <a href="https://salehero.kr/unsubscribe" th:href="@{https://salehero.kr/unsubscribe(email=${email}, token=${token})}" style="font-size: 12px; color: #888888; text-decoration: underline;">
+                <a th:href="@{https://salehero.kr/unsubscribe/{email}(email=${email}, token=${token})}"
+                   style="font-size: 12px; color: #888888; text-decoration: underline;">
                     구독 취소
                 </a>
             </div>
