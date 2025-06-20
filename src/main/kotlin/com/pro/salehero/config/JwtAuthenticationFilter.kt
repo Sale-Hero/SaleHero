@@ -29,6 +29,12 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        // JWT 검증 제외 경로 확인
+        if (isExcludedPath(request)) {
+            filterChain.doFilter(request, response)
+            return
+        }
+
         val token = getTokenFromRequest(request)
 
         logger.debug("JWT 필터 실행: ${request.requestURI}, 토큰 존재: ${token != null}")
@@ -61,7 +67,7 @@ class JwtAuthenticationFilter(
             } catch (e: ExpiredJwtException) {
                 logger.error("만료된 JWT 토큰: ${e.message}")
             } catch (e: MalformedJwtException) {
-                logger.error("잘못된 형식의 JWT 토큰: ${e.message}")
+                logger.error("잘못된 형식의 JWT 토큰11: ${e.message}")
             } catch (e: SignatureException) {
                 logger.error("JWT 서명 검증 실패: ${e.message}")
             } catch (e: Exception) {
@@ -72,7 +78,15 @@ class JwtAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 
+    private fun isExcludedPath(request: HttpServletRequest): Boolean {
+        return request.requestURI.startsWith("/api/subscribe/unsubscribe")
+    }
+
     private fun getTokenFromRequest(request: HttpServletRequest): String? {
+        if (isExcludedPath(request)) {
+            return null
+        }
+
         val bearerToken = request.getHeader("Authorization")
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7)
