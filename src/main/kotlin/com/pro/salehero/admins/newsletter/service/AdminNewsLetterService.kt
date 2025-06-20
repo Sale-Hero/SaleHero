@@ -8,6 +8,7 @@ import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
 import com.pro.salehero.users.newsletter.domain.NewsLetter
 import com.pro.salehero.users.newsletter.domain.NewsLetterRepository
+import com.pro.salehero.users.subscribe.service.UnsubscribeTokenService
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
@@ -16,13 +17,14 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import javax.naming.Context
 
 @Service
 class AdminNewsLetterService(
     private val newsLetterRepository: NewsLetterRepository,
     private val mailSenderService: MailSenderService,
+    private val unsubscribeTokenService: UnsubscribeTokenService,
     @Value("\${smtp.email}") private val sender: String,
+    @Value("\${smtp.noreply-email}") private val noReplySender: String,
 ) {
     @Transactional
     fun createNewsLetter(
@@ -83,17 +85,21 @@ class AdminNewsLetterService(
         val newsLetter = newsLetterRepository.findById(dto.id)
             .orElseThrow { CustomException(ErrorCode.CODE_404) }
 
+        val token = unsubscribeTokenService.generateUnsubscribeToken(dto.target)
+
         val context = org.thymeleaf.context.Context()
         context.setVariable("dealTitle", newsLetter.title)
         context.setVariable("dealId", newsLetter.id)
         context.setVariable("email", dto.target)
+        context.setVariable("token", token)
+
 
         mailSenderService.sendEmail(
             to = dto.target ?:"pnci1029@gmail.com",
             subject = "테스트용 메일입니다.",
             templateName = "saleInformationV2",
             context = context,
-            mailSender = sender
+            mailSender = noReplySender
         )
         println("끝")
     }
