@@ -3,18 +3,18 @@ package com.pro.salehero.users.subscribe.service
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
 import com.pro.salehero.users.subscribe.controller.dto.SubscriberResponseDTO
+import com.pro.salehero.users.subscribe.controller.dto.UnSubscribeDTO
 import com.pro.salehero.users.subscribe.domain.subscriber.SubscribeRepository
 import com.pro.salehero.users.subscribe.domain.subscriber.Subscriber
 import com.pro.salehero.util.comfortutil.ComfortUtil
-import com.pro.salehero.util.exception.CustomException
-import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SubscribeService(
-    val subscribeRepository: SubscribeRepository,
+    private val subscribeRepository: SubscribeRepository,
+    private val unsubscribeTokenService: UnsubscribeTokenService,
     private val comfortUtil: ComfortUtil
 ) {
 
@@ -56,6 +56,18 @@ class SubscribeService(
 
     @Transactional
     fun unSubscribe(
-        email: String
-    ) = subscribeRepository.unSubscribe(email)
+        unSubscribeDTO: UnSubscribeDTO
+    ): ResponseDTO<String> {
+        val result = unsubscribeTokenService.validateUnsubscribeToken(
+            unSubscribeDTO.email,
+            unSubscribeDTO.token
+        )
+
+        return if (result) {
+            subscribeRepository.unSubscribe(unSubscribeDTO.email)
+            ResponseDTO.success("구독이 취소되었습니다.")
+        } else {
+            ResponseDTO.error("일시적인 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.")
+        }
+    }
 }

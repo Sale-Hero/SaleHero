@@ -1,12 +1,14 @@
 package com.pro.salehero.users.subscribe.controller
 
 import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
+import com.pro.salehero.users.subscribe.controller.dto.UnSubscribeDTO
+import com.pro.salehero.users.subscribe.service.SubscribeService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/subscribe")
 class SubscribeController (
-    val subscribeService: com.pro.salehero.users.subscribe.service.SubscribeService
+    val subscribeService: SubscribeService
 ){
 
     @GetMapping("/{email}")
@@ -19,8 +21,9 @@ class SubscribeController (
         @RequestBody dto: SubscribePostDTO
     ) = subscribeService.addSubscriber(dto)
 
-    @PostMapping("/unsubscribe/{email}")
+    @GetMapping("/unsubscribe")
     fun unSubscribe(
-        @PathVariable("email") email: String
-    ) = subscribeService.unSubscribe(email)
+        @RequestParam email: String,
+        @RequestParam token: String
+    ) = subscribeService.unSubscribe(UnSubscribeDTO(email, token))
 }
