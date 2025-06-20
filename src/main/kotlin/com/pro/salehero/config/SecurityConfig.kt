@@ -33,6 +33,7 @@ class SecurityConfig(
                     // H2 콘솔 접근 허용
                     .requestMatchers(AntPathRequestMatcher("/h2-console/**")).permitAll()
                     .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/subscribe/unsubscribe").permitAll() // 구독 취소
                     .requestMatchers("/**").permitAll()
                     .anyRequest().authenticated()
             }
