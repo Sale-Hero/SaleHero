@@ -22,7 +22,6 @@ class WebConfig(
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(ApiKeyInterceptor(apiSecret))
             .addPathPatterns("/api/automate/**") // 자동화
-            .addPathPatterns("/api/subscribe/unsubscribe/**") // 구독 취소
             .addPathPatterns("/api/proxy")
             .addPathPatterns("/test/**") // 테스트용
 
