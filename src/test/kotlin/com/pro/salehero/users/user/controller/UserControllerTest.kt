@@ -19,11 +19,11 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 @ExtendWith(MockitoExtension::class)
 class UserControllerTest {
 
-    @Mock
-    private lateinit var userService: UserService
-
     @InjectMocks
     private lateinit var userController: UserController
+
+    @Mock
+    private lateinit var userService: UserService
 
     @Test
     fun `getCurrentUser - 현재 사용자 조회 성공`() {
