@@ -2,6 +2,7 @@ package com.pro.salehero.users.community.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.common.dto.PageResponseDTO
+import com.pro.salehero.config.IntegrationControllerTestSupport
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
@@ -17,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Import
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext
 import org.springframework.http.MediaType
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.test.web.servlet.MockMvc
@@ -31,7 +33,7 @@ import kotlin.test.Test
 @WebMvcTest(controllers = [CommunityController::class])
 @AutoConfigureMockMvc(addFilters = false)
 @Import(GlobalExceptionHandler::class)
-class CommunityControllerTest {
+class CommunityControllerTest: IntegrationControllerTestSupport() {
 
     @MockBean
     private lateinit var communityService: CommunityService
