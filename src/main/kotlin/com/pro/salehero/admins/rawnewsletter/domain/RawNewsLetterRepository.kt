@@ -19,4 +19,6 @@ interface RawNewsLetterRepository : JpaRepository<RawNewsLetter, Long> {
         @Param("title") title: String,
         @Param("content") content: String
     ): Int
+
+    fun existsRawNewsLetterByArticleUrl(url: String): Boolean
 }

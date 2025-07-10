@@ -19,15 +19,25 @@ class RawNewsLetterService(
     @Transactional
     fun generateRawNewsLetter(
         rawNewsLetterPostDTO: RawNewsLetterPostDTO
-    ): ResponseDTO<Boolean> = RawNewsLetter(
-        title = rawNewsLetterPostDTO.title,
-        content = rawNewsLetterPostDTO.content,
-        category = rawNewsLetterPostDTO.category,
-        articleUrl = rawNewsLetterPostDTO.articleUrl,
-        keyword = rawNewsLetterPostDTO.keyword,
-    )
-        .also { rawNewsLetterRepository.save(it) }
-        .let { ResponseDTO(false, "데이터 추가 완료", false) }
+    ): ResponseDTO<Boolean> {
+        val exists = rawNewsLetterRepository.existsRawNewsLetterByArticleUrl(rawNewsLetterPostDTO.articleUrl)
+
+        if (exists) {
+            return ResponseDTO(false, "이미 존재하는 URL입니다", false)
+        }
+
+        val rawNewsLetter = RawNewsLetter(
+            title = rawNewsLetterPostDTO.title,
+            content = rawNewsLetterPostDTO.content,
+            category = rawNewsLetterPostDTO.category,
+            articleUrl = rawNewsLetterPostDTO.articleUrl,
+            keyword = rawNewsLetterPostDTO.keyword,
+        )
+
+        rawNewsLetterRepository.save(rawNewsLetter)
+
+        return ResponseDTO(false, "데이터 추가 완료", false)
+    }
 
     fun getRawNewsLetters(
         pageable: Pageable
