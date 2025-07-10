@@ -21,5 +21,5 @@ class Article (
     val isVisible: String = "N",
     @Column(nullable = true, length = 1)
     val isDeleted: String = "N",
-    val viewCount: Long,
+    val viewCount: Long = 0,
 ) : CreateAndUpdateAudit()
