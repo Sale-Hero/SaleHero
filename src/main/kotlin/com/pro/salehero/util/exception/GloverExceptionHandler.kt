@@ -3,6 +3,7 @@ package com.pro.salehero.util.exception
 import net.minidev.json.JSONObject
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestController
@@ -22,7 +23,13 @@ class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidationException(e: MethodArgumentNotValidException): ResponseEntity<ErrorCodeResult> {
         generateErrorLog(e)
-        return errorMessage(ErrorCode.CODE_404, emptyList(), e.bindingResult.allErrors.get(0).defaultMessage)
+        return errorMessage(ErrorCode.CODE_404, emptyList(), e.bindingResult.allErrors[0].defaultMessage)
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleJsonParseException(e: HttpMessageNotReadableException): ResponseEntity<ErrorCodeResult> {
+        generateErrorLog(e)
+        return errorMessage(ErrorCode.CODE_404, emptyList(), "JSON 형식이 올바르지 않습니다")
     }
 
     private fun errorMessage(errorCode: ErrorCode, bindingErrors: List<FieldBindingError> = emptyList(), data: Any? = null): ResponseEntity<ErrorCodeResult> {
