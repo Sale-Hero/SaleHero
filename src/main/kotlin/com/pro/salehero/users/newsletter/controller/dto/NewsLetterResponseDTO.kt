@@ -10,7 +10,7 @@ data class NewsLetterResponseDTO(
     val isSent: String,
     val isPublic: String,
     val sentAt: LocalDateTime?,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime?
 ){
     companion object {
         fun of(newsLetter: NewsLetter): NewsLetterResponseDTO {
