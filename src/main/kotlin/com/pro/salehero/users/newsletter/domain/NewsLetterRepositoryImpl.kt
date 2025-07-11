@@ -37,36 +37,28 @@ class NewsLetterRepositoryImpl(
         onlyPublic: Boolean
     ): PageResponseDTO<NewsLetterResponseDTO> {
         // 공통 프로젝션 설정
-        val contentQuery = queryFactory
-            .select(
-                Projections.constructor(
-                    NewsLetterResponseDTO::class.java,
-                    newsLetter.id,
-                    newsLetter.title,
-                    newsLetter.content,
-                    newsLetter.isSent,
-                    newsLetter.isPublic,
-                    newsLetter.sentAt,
-                    newsLetter.createdAt
+        return fetchPageResponse(
+            pageable,
+            queryFactory
+                .select(
+                    Projections.constructor(
+                        NewsLetterResponseDTO::class.java,
+                        newsLetter.id,
+                        newsLetter.title,
+                        newsLetter.content,
+                        newsLetter.isSent,
+                        newsLetter.isPublic,
+                        newsLetter.sentAt,
+                        newsLetter.createdAt
+                    )
                 )
-            )
-            .from(newsLetter)
-            .where(
-                searchKeywordContains(query),
-                if (onlyPublic) newsLetter.isPublic.eq("Y") else null
-            )
-            .orderBy(newsLetter.createdAt.desc())
-
-        // 카운트 쿼리
-        val countQuery = queryFactory
-            .select(newsLetter.count())
-            .from(newsLetter)
-            .where(
-                searchKeywordContains(query),
-                if (onlyPublic) newsLetter.isPublic.eq("Y") else null
-            )
-
-        return fetchPageResponse(contentQuery, countQuery, pageable)
+                .from(newsLetter)
+                .where(
+                    searchKeywordContains(query),
+                    if (onlyPublic) newsLetter.isPublic.eq("Y") else null
+                )
+                .orderBy(newsLetter.createdAt.desc())
+        )
     }
 
     override fun updateNewsLetter(
@@ -108,6 +100,7 @@ class NewsLetterRepositoryImpl(
             newsLetter.isSent.eq("N")
         )
         .fetch()
+
     override fun updateToSent(
         dto: NewsLetterResponseDTO
     ) {

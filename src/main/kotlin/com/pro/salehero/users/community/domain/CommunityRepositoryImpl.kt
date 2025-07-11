@@ -19,34 +19,25 @@ class CommunityRepositoryImpl(
 
     override fun getArticles(dto: CommunitySearchDTO, pageable: Pageable): PageResponseDTO<CommunityResponseDTO> {
         //todo 풀스캔 2번 개선하세요. 패버리기전에
-        val contentQuery = queryFactory
-            .select(
-                Projections.constructor(
-                    CommunityResponseDTO::class.java,
-                    community.id,
-                    community.title,
-                    community.content,
-                    community.createdAt,
-                    community.viewCount,
-                    user.nickName
+        return fetchPageResponse(
+            pageable,
+            queryFactory
+                .select(
+                    Projections.constructor(
+                        CommunityResponseDTO::class.java,
+                        community.id,
+                        community.title,
+                        community.content,
+                        community.createdAt,
+                        community.viewCount,
+                        user.nickName
+                    )
                 )
+                .from(community)
+                .join(user).on(community.writerId.eq(user.id))
+                .where(searchByCategory(dto.category))
+                .orderBy(community.createdAt.desc())
             )
-            .from(community)
-            .join(user).on(community.writerId.eq(user.id))
-            .where(
-                searchByCategory(dto.category)
-            )
-            .orderBy(community.createdAt.desc())
-
-        val countQuery = queryFactory
-            .select(community.count())
-            .from(community)
-            .where(
-                searchByCategory(dto.category)
-            )
-            .join(user).on(community.writerId.eq(user.id))
-
-        return fetchPageResponse(contentQuery, countQuery, pageable)
     }
 
     override fun updateViewCount(viewCount: ViewCount) {
