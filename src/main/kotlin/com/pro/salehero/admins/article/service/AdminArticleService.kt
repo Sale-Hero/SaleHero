@@ -1,6 +1,8 @@
 package com.pro.salehero.admins.article.service
 
+import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
+import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.article.domain.ArticleRepository
 import org.springframework.data.domain.Pageable
@@ -25,7 +27,9 @@ class AdminArticleService(
         )
     )
 
-    fun getAdminArticles(pageable: Pageable): Any {
-        TODO("Not yet implemented")
+    fun getAdminArticles(
+        pageable: Pageable
+    ): PageResponseDTO<AdminArticleDTO> {
+        return articleRepository.getArticles(pageable)
     }
 }
