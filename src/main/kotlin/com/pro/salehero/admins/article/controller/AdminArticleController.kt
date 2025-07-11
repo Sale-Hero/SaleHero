@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/admin/articles")
+@RequestMapping("/api/admin/article")
 class AdminArticleController (
     private val adminArticleService: AdminArticleService,
 ){
