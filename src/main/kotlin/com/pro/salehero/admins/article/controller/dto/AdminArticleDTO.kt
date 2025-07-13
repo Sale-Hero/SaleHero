@@ -1,5 +1,6 @@
 package com.pro.salehero.admins.article.controller.dto
 
+import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.community.domain.enums.ArticleCategory
 
 data class AdminArticleDTO (
@@ -11,4 +12,19 @@ data class AdminArticleDTO (
     val viewCount: Long,
     val isVisible: String,
     val isDeleted: String,
-)
+){
+    companion object {
+        fun of(article: Article): AdminArticleDTO {
+            return AdminArticleDTO(
+                id = article.id!!,
+                title = article.title,
+                content = article.content,
+                summary = article.summary,
+                category = article.category,
+                viewCount = article.viewCount,
+                isVisible = article.isVisible ?: "N",
+                isDeleted = article.isDeleted ?: "N"
+            )
+        }
+    }
+}

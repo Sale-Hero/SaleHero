@@ -1,27 +1,38 @@
 package com.pro.salehero.users.article.domain
 
+import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.users.community.domain.enums.ArticleCategory
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 
 @Entity
-class Article (
+class Article(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    val title: String,
+    var title: String,
     @Lob // text
-    val content: String,
-    val summary: String,
+    var content: String,
+    var summary: String,
 
     @Enumerated(EnumType.STRING)
-    val category: ArticleCategory,
+    var category: ArticleCategory,
 
     @Column(nullable = true, length = 1)
-    val isVisible: String? = "N",
+    var isVisible: String? = "N",
 
     @Column(nullable = true, length = 1)
     val isDeleted: String? = "N",
     val viewCount: Long = 0,
-) : CreateAndUpdateAudit()
+) : CreateAndUpdateAudit() {
+    fun update(
+        articlePostDTO: AdminArticlePostDTO
+    ) {
+        this.title = articlePostDTO.title
+        this.content = articlePostDTO.content
+        this.summary = articlePostDTO.summary
+        this.category = articlePostDTO.category
+        this.isVisible = articlePostDTO.isVisible
+    }
+}
