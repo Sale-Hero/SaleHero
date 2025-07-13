@@ -24,6 +24,7 @@ class AdminArticleService(
             content = dto.content,
             category = dto.category,
             summary = dto.summary,
+            isVisible = dto.isVisible,
         )
     )
 

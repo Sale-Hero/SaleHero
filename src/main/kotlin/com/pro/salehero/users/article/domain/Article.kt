@@ -17,9 +17,11 @@ class Article (
 
     @Enumerated(EnumType.STRING)
     val category: ArticleCategory,
+
     @Column(nullable = true, length = 1)
-    val isVisible: String = "N",
+    val isVisible: String? = "N",
+
     @Column(nullable = true, length = 1)
-    val isDeleted: String = "N",
+    val isDeleted: String? = "N",
     val viewCount: Long = 0,
 ) : CreateAndUpdateAudit()

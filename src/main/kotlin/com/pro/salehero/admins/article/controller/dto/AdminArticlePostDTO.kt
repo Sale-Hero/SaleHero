@@ -14,4 +14,6 @@ data class AdminArticlePostDTO (
 
     @field:NotNull
     val category: ArticleCategory,
+
+    val isVisible: String,
 )
