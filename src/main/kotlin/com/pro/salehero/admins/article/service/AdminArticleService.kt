@@ -5,6 +5,8 @@ import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.article.domain.ArticleRepository
+import com.pro.salehero.util.exception.CustomException
+import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -33,4 +35,20 @@ class AdminArticleService(
     ): PageResponseDTO<AdminArticleDTO> {
         return articleRepository.getArticles(pageable)
     }
+
+    @Transactional
+    fun modifyAdminArticle(
+        articleId: Long,
+        dto: AdminArticlePostDTO
+    ): AdminArticleDTO {
+        val article = existsArticle(articleId)
+        article.update(dto)
+
+        return AdminArticleDTO.of(article)
+    }
+
+    private fun existsArticle(
+        articleId: Long
+    ): Article = articleRepository.findById(articleId)
+        .orElseThrow { CustomException(ErrorCode.CODE_404) }
 }
