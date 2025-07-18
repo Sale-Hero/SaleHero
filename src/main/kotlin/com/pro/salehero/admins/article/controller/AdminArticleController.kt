@@ -34,4 +34,9 @@ class AdminArticleController (
         @PathVariable articleId: Long,
         @Valid @RequestBody dto: AdminArticlePostDTO,
     ) = ResponseEntity.ok(adminArticleService.modifyAdminArticle(articleId, dto))
+
+    @DeleteMapping("/{articleId}")
+    fun deleteArticle(
+        @PathVariable articleId: Long,
+    ) = ResponseEntity.ok(adminArticleService.deleteArticle(articleId))
 }

@@ -47,6 +47,12 @@ class AdminArticleService(
         return AdminArticleDTO.of(article)
     }
 
+    @Transactional
+    fun deleteArticle(
+        articleId: Long
+    ) = existsArticle(articleId)
+        .apply { isDeleted = "Y" }
+
     private fun existsArticle(
         articleId: Long
     ): Article = articleRepository.findById(articleId)
