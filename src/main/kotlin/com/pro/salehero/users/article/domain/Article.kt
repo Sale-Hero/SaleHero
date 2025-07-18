@@ -23,7 +23,7 @@ class Article(
     var isVisible: String? = "N",
 
     @Column(nullable = true, length = 1)
-    val isDeleted: String? = "N",
+    var isDeleted: String? = "N",
     val viewCount: Long = 0,
 ) : CreateAndUpdateAudit() {
     fun update(
