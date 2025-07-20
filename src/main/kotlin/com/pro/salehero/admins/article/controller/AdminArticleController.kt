@@ -1,5 +1,6 @@
 package com.pro.salehero.admins.article.controller
 
+import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.admins.article.service.AdminArticleService
 import jakarta.validation.Valid
@@ -35,8 +36,8 @@ class AdminArticleController (
         @Valid @RequestBody dto: AdminArticlePostDTO,
     ) = ResponseEntity.ok(adminArticleService.modifyAdminArticle(articleId, dto))
 
-    @DeleteMapping("/{articleId}")
+    @DeleteMapping
     fun deleteArticle(
-        @PathVariable articleId: Long,
-    ) = ResponseEntity.ok(adminArticleService.deleteArticle(articleId))
+        @RequestBody dto: AdminArticleDeleteDTO,
+    ) = ResponseEntity.ok(adminArticleService.deleteArticle(dto))
 }

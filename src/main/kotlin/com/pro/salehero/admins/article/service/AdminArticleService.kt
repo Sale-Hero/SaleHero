@@ -1,6 +1,7 @@
 package com.pro.salehero.admins.article.service
 
 import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
+import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.users.article.domain.Article
@@ -49,9 +50,9 @@ class AdminArticleService(
 
     @Transactional
     fun deleteArticle(
-        articleId: Long
-    ) = existsArticle(articleId)
-        .apply { isDeleted = "Y" }
+        dto: AdminArticleDeleteDTO,
+    ) = articleRepository.findAllById(dto.idxList)
+        .onEach { it.isDeleted = "Y" }
 
     private fun existsArticle(
         articleId: Long
