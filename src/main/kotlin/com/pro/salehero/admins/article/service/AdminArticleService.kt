@@ -1,6 +1,6 @@
 package com.pro.salehero.admins.article.service
 
-import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
+import com.pro.salehero.admins.article.controller.dto.ArticleDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
@@ -33,19 +33,17 @@ class AdminArticleService(
 
     fun getAdminArticles(
         pageable: Pageable
-    ): PageResponseDTO<AdminArticleDTO> {
-        return articleRepository.getArticles(pageable)
-    }
+    ): PageResponseDTO<ArticleDTO> = articleRepository.getArticles(pageable, isAdmin = true)
 
     @Transactional
     fun modifyAdminArticle(
         articleId: Long,
         dto: AdminArticlePostDTO
-    ): AdminArticleDTO {
+    ): ArticleDTO {
         val article = existsArticle(articleId)
         article.update(dto)
 
-        return AdminArticleDTO.of(article)
+        return ArticleDTO.of(article)
     }
 
     @Transactional
