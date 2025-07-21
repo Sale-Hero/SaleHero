@@ -3,7 +3,7 @@ package com.pro.salehero.admins.article.controller.dto
 import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.community.domain.enums.ArticleCategory
 
-data class AdminArticleDTO (
+data class ArticleDTO (
     val id: Long,
     val title: String,
     val content: String,
@@ -14,8 +14,8 @@ data class AdminArticleDTO (
     val isDeleted: String,
 ){
     companion object {
-        fun of(article: Article): AdminArticleDTO {
-            return AdminArticleDTO(
+        fun of(article: Article): ArticleDTO {
+            return ArticleDTO(
                 id = article.id!!,
                 title = article.title,
                 content = article.content,
