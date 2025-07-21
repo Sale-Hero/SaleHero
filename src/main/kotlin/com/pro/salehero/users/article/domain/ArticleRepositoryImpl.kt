@@ -26,6 +26,7 @@ class ArticleRepositoryImpl(
                     article.summary,
                     article.category,
                     article.viewCount,
+                    article.createdAt,
                     article.isVisible,
                     article.isDeleted,
                 )
