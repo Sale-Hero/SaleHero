@@ -5,5 +5,8 @@ import com.pro.salehero.common.dto.PageResponseDTO
 import org.springframework.data.domain.Pageable
 
 interface ArticleRepositoryCustom {
-    fun getArticles(pageable: Pageable): PageResponseDTO<AdminArticleDTO>
+
+    fun getAdminArticles(pageable: Pageable): PageResponseDTO<AdminArticleDTO>
+
+    fun getUserArticles(pageable: Pageable): PageResponseDTO<AdminArticleDTO>
 }
