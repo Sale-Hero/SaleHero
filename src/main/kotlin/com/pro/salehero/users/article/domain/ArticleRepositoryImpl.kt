@@ -13,7 +13,7 @@ class ArticleRepositoryImpl(
 ) : QueryDslSupport(queryFactory), ArticleRepositoryCustom {
 
 
-    override fun getArticles(
+    override fun getAdminArticles(
         pageable: Pageable
     ): PageResponseDTO<AdminArticleDTO> {
         return fetchPageResponse(
@@ -35,6 +35,33 @@ class ArticleRepositoryImpl(
                 .from(article)
                 .orderBy(article.createdAt.desc())
         )
+    }
+
+    override fun getUserArticles(pageable: Pageable): PageResponseDTO<AdminArticleDTO> {
+        return fetchPageResponse(
+            pageable,
+            queryFactory
+                .select(
+                    Projections.constructor(
+                        AdminArticleDTO::class.java,
+                        article.id,
+                        article.title,
+                        article.content,
+                        article.summary,
+                        article.category,
+                        article.viewCount,
+                        article.isVisible,
+                        article.isDeleted,
+                    )
+                )
+                .from(article)
+                .orderBy(article.createdAt.desc())
+                .where(
+                    article.isVisible.eq("Y"),
+                    article.isDeleted.ne("Y")
+                )
+        )
+
     }
 
 }
