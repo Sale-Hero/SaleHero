@@ -1,6 +1,7 @@
 package com.pro.salehero.users.article.controller
 
 import com.pro.salehero.users.article.service.UserArticleService
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -26,6 +27,7 @@ class UserArticleController(
 
     @GetMapping("/{articleId}")
     fun getUserArticleDetail(
-        @PathVariable("articleId") id: Long
-    ) = userArticleService.getArticleDetail(id)
+        @PathVariable("articleId") id: Long,
+        request: HttpServletRequest
+    ) = userArticleService.getArticleDetail(id, request)
 }
