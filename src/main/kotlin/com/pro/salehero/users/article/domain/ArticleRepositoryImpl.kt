@@ -2,6 +2,7 @@ package com.pro.salehero.users.article.domain
 
 import com.pro.salehero.admins.article.controller.dto.ArticleDTO
 import com.pro.salehero.common.dto.PageResponseDTO
+import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.users.article.domain.QArticle.article
 import com.querydsl.core.types.Projections
@@ -42,5 +43,13 @@ class ArticleRepositoryImpl(
         }
 
         return fetchPageResponse(pageable, query)
+    }
+
+    override fun updateViewCount(viewCount: ViewCount) {
+        queryFactory
+            .update(article)
+            .set(article.viewCount, viewCount.viewCount)
+            .where(article.id.eq(viewCount.id))
+            .execute()
     }
 }
