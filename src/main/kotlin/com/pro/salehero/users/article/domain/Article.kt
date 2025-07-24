@@ -1,7 +1,7 @@
 package com.pro.salehero.users.article.domain
 
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
-import com.pro.salehero.users.community.domain.enums.ArticleCategory
+import com.pro.salehero.users.community.domain.enums.ContentsCategory
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 
@@ -17,7 +17,7 @@ class Article(
     var summary: String,
 
     @Enumerated(EnumType.STRING)
-    var category: ArticleCategory,
+    var category: ContentsCategory,
 
     @Column(nullable = true, length = 1)
     var isVisible: String? = "N",
