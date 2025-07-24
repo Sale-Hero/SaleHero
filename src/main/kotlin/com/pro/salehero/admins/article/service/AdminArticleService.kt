@@ -4,6 +4,7 @@ import com.pro.salehero.admins.article.controller.dto.ArticleDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
+import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.article.domain.ArticleRepository
 import com.pro.salehero.util.exception.CustomException
@@ -51,6 +52,11 @@ class AdminArticleService(
         dto: AdminArticleDeleteDTO,
     ) = articleRepository.findAllById(dto.idxList)
         .onEach { it.isDeleted = "Y" }
+
+    @Transactional
+    fun updateViewCount(
+        viewCount: ViewCount
+    ) = articleRepository.updateViewCount(viewCount)
 
     private fun existsArticle(
         articleId: Long
