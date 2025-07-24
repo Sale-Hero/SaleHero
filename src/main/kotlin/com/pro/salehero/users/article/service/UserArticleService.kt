@@ -35,11 +35,7 @@ class UserArticleService(
         request: HttpServletRequest
     ): ArticleDTO {
         val article = getArticle(id)
-        viewCountService.increaseViewCount(
-            RedisContentType.ARTICLE,
-            id,
-            comfortUtil.getUserIdentifier(request)
-        )
+        increaseViewCount(id, request)
 
         return ArticleDTO.of(article)
     }
@@ -50,4 +46,13 @@ class UserArticleService(
         return userArticleRepository.findById(id)
             .orElseThrow { CustomException(ErrorCode.CODE_404) }
     }
+
+    private fun increaseViewCount(
+        id: Long,
+        request: HttpServletRequest
+    ) = viewCountService.increaseViewCount(
+        RedisContentType.ARTICLE,
+        id,
+        comfortUtil.getUserIdentifier(request)
+    )
 }
