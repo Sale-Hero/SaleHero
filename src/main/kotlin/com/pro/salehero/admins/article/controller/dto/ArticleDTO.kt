@@ -1,7 +1,7 @@
 package com.pro.salehero.admins.article.controller.dto
 
 import com.pro.salehero.users.article.domain.Article
-import com.pro.salehero.users.community.domain.enums.ArticleCategory
+import com.pro.salehero.users.community.domain.enums.ContentsCategory
 import java.time.LocalDateTime
 
 data class ArticleDTO (
@@ -9,7 +9,7 @@ data class ArticleDTO (
     val title: String,
     val content: String,
     val summary: String? = null,
-    val category: ArticleCategory,
+    val category: ContentsCategory,
     val viewCount: Long,
     val createdAt: LocalDateTime,
     val isVisible: String,

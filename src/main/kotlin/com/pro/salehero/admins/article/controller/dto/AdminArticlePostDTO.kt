@@ -1,6 +1,6 @@
 package com.pro.salehero.admins.article.controller.dto
 
-import com.pro.salehero.users.community.domain.enums.ArticleCategory
+import com.pro.salehero.users.community.domain.enums.ContentsCategory
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
@@ -13,7 +13,7 @@ data class AdminArticlePostDTO (
     val summary: String,
 
     @field:NotNull
-    val category: ArticleCategory,
+    val category: ContentsCategory,
 
     val isVisible: String,
 )
