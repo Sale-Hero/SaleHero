@@ -1,6 +1,7 @@
 package com.pro.salehero.users.article.service
 
-import com.pro.salehero.admins.article.controller.dto.ArticleDTO
+import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
+import com.pro.salehero.admins.article.controller.dto.UserArticleDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
@@ -25,19 +26,19 @@ class UserArticleService(
     @Transactional(readOnly = true)
     fun getUserArticles(
         pageable: Pageable
-    ): PageResponseDTO<ArticleDTO> {
-        return userArticleRepository.getArticles(pageable, isAdmin = false)
+    ): PageResponseDTO<UserArticleDTO> {
+        return userArticleRepository.getUserArticles(pageable)
     }
 
     @Transactional(readOnly = true)
     fun getArticleDetail(
         id: Long,
         request: HttpServletRequest
-    ): ArticleDTO {
+    ): UserArticleDTO {
         val article = getArticle(id)
         increaseViewCount(id, request)
 
-        return ArticleDTO.of(article)
+        return UserArticleDTO.of(article)
     }
 
     private fun getArticle(
