@@ -4,7 +4,7 @@ import com.pro.salehero.users.article.domain.Article
 import com.pro.salehero.users.community.domain.enums.ContentsCategory
 import java.time.LocalDateTime
 
-data class ArticleDTO (
+data class AdminArticleDTO (
     val id: Long,
     val title: String,
     val content: String,
@@ -16,8 +16,8 @@ data class ArticleDTO (
     val isDeleted: String,
 ){
     companion object {
-        fun of(article: Article): ArticleDTO {
-            return ArticleDTO(
+        fun of(article: Article): AdminArticleDTO {
+            return AdminArticleDTO(
                 id = article.id!!,
                 title = article.title,
                 content = article.content,
