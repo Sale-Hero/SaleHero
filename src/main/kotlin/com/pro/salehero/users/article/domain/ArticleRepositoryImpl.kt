@@ -1,6 +1,7 @@
 package com.pro.salehero.users.article.domain
 
-import com.pro.salehero.admins.article.controller.dto.ArticleDTO
+import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
+import com.pro.salehero.admins.article.controller.dto.UserArticleDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.QueryDslSupport
@@ -13,37 +14,55 @@ class ArticleRepositoryImpl(
     queryFactory: JPAQueryFactory
 ) : QueryDslSupport(queryFactory), ArticleRepositoryCustom {
 
-    override fun getArticles(
-        pageable: Pageable,
-        isAdmin: Boolean
-    ): PageResponseDTO<ArticleDTO> {
-        val query = queryFactory
-            .select(
-                Projections.constructor(
-                    ArticleDTO::class.java,
-                    article.id,
-                    article.title,
-                    article.content,
-                    article.summary,
-                    article.category,
-                    article.viewCount,
-                    article.createdAt,
-                    article.isVisible,
-                    article.isDeleted,
+    override fun getAdminArticles(
+        pageable: Pageable
+    ): PageResponseDTO<AdminArticleDTO> =
+        fetchPageResponse(
+            pageable,
+            queryFactory
+                .select(
+                    Projections.constructor(
+                        AdminArticleDTO::class.java,
+                        article.id,
+                        article.title,
+                        article.content,
+                        article.summary,
+                        article.category,
+                        article.viewCount,
+                        article.createdAt,
+                        article.isVisible,
+                        article.isDeleted,
+                    )
                 )
-            )
-            .from(article)
-            .orderBy(article.createdAt.desc())
+                .from(article)
+                .orderBy(article.createdAt.desc())
+        )
 
-        if (!isAdmin) {
-            query.where(
-                article.isVisible.eq("Y"),
-                article.isDeleted.ne("Y")
-            )
-        }
-
-        return fetchPageResponse(pageable, query)
-    }
+    override fun getUserArticles(
+        pageable: Pageable
+    ): PageResponseDTO<UserArticleDTO> =
+        fetchPageResponse(
+            pageable,
+            queryFactory
+                .select(
+                    Projections.constructor(
+                        UserArticleDTO::class.java,
+                        article.id,
+                        article.title,
+                        article.content,
+                        article.summary,
+                        article.category,
+                        article.viewCount,
+                        article.createdAt,
+                    )
+                )
+                .from(article)
+                .where(
+                    article.isVisible.eq("Y"),
+                    article.isDeleted.eq("N")
+                )
+                .orderBy(article.createdAt.desc())
+        )
 
     override fun updateViewCount(viewCount: ViewCount) {
         queryFactory
