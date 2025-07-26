@@ -10,6 +10,6 @@ data class AdminAnnouncementDTO (
     val category: AnnouncementCategory,
     val viewCount: Long,
     val createdAt: LocalDateTime,
-    val isVisible: Boolean,
-    val isDeleted: Boolean,
+    val isVisible: String,
+    val isDeleted: String,
 )
