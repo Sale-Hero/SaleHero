@@ -5,22 +5,23 @@ import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 
 @Entity
-class Announcement (
+class Announcement () : CreateAndUpdateAudit() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long? = null
 
-    var title: String,
+    lateinit var title: String
+
     @Lob // text
-    var content: String,
+    lateinit var content: String
 
     @Enumerated(EnumType.STRING)
-    var category: AnnouncementCategory,
+    lateinit var category: AnnouncementCategory
 
-    @Column(nullable = true, length = 1)
-    var isVisible: String? = "N",
+    @Column(nullable = false, length = 1)
+    var isVisible: String = "N"
 
-    @Column(nullable = true, length = 1)
-    var isDeleted: String? = "N",
-    val viewCount: Long = 0,
-): CreateAndUpdateAudit()
+    @Column(nullable = false, length = 1)
+    var isDeleted: String = "N"
+    val viewCount: Long = 0
+}
