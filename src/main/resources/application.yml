@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev, secret
+    active: prod, secret
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

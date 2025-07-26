@@ -77,6 +77,9 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 //    testImplementation ("it.ozimov:embedded-redis:0.7.3")
 
+    // map struct
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
 }
 
