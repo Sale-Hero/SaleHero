@@ -5,6 +5,7 @@ import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.domain.announcement.Announcement
 import com.pro.salehero.domain.announcement.AnnouncementRepository
 import com.pro.salehero.domain.announcement.dto.AdminAnnouncementDTO
+import com.pro.salehero.domain.announcement.dto.AdminAnnouncementDeleteDTO
 import com.pro.salehero.domain.announcement.dto.AnnouncementPostDTO
 import com.pro.salehero.domain.announcement.mapper.AnnouncementMapper
 import com.pro.salehero.util.exception.CustomException
@@ -56,4 +57,11 @@ class AdminAnnouncementService(
         articleId: Long,
     ): Announcement = announcementRepository.findById(articleId)
         .orElseThrow { CustomException(ErrorCode.CODE_404) }
+
+    fun deleteAnnouncement(
+        dto: AdminAnnouncementDeleteDTO
+    ) {
+        announcementRepository.findAllById(dto.idxList)
+            .onEach { it.isDeleted = "Y" }
+    }
 }

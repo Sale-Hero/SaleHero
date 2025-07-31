@@ -3,6 +3,7 @@ package com.pro.salehero.admins.announcement.controller
 import com.pro.salehero.admins.announcement.service.AdminAnnouncementService
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.domain.announcement.dto.AdminAnnouncementDTO
+import com.pro.salehero.domain.announcement.dto.AdminAnnouncementDeleteDTO
 import com.pro.salehero.domain.announcement.dto.AnnouncementPostDTO
 import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
@@ -35,4 +36,9 @@ class AdminAnnouncementController(
         @RequestBody @Valid announcementDTO: AnnouncementPostDTO,
         @PathVariable("articleId") articleId: Long,
     ) = adminAnnouncementService.updateAnnouncement(announcementDTO, articleId)
+
+    @DeleteMapping
+    fun deleteAnnouncement(
+        @RequestBody @Valid announcementDeleteDTO: AdminAnnouncementDeleteDTO
+    ) = adminAnnouncementService.deleteAnnouncement(announcementDeleteDTO)
 }
