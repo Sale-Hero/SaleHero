@@ -1,6 +1,7 @@
 package com.pro.salehero.domain.announcement
 
 import com.pro.salehero.common.enums.AnnouncementCategory
+import com.pro.salehero.domain.announcement.dto.AnnouncementPostDTO
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 
@@ -24,4 +25,13 @@ class Announcement () : CreateAndUpdateAudit() {
     @Column(nullable = false, length = 1)
     var isDeleted: String = "N"
     val viewCount: Long = 0
+
+    fun update(
+        announcementPostDTO: AnnouncementPostDTO
+    ) {
+        this.title = announcementPostDTO.title
+        this.content = announcementPostDTO.content
+        this.category = announcementPostDTO.category
+        this.isVisible = announcementPostDTO.isVisible
+    }
 }
