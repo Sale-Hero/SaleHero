@@ -8,11 +8,7 @@ import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/admin/announcements")
@@ -33,4 +29,10 @@ class AdminAnnouncementController(
             page = 1
         ) pageable: Pageable,
     ): PageResponseDTO<AdminAnnouncementDTO> = adminAnnouncementService.getAdminAnnouncements(pageable)
+
+    @PutMapping("{articleId}")
+    fun updateAnnouncement(
+        @RequestBody @Valid announcementDTO: AnnouncementPostDTO,
+        @PathVariable("articleId") articleId: Long,
+    ) = adminAnnouncementService.updateAnnouncement(announcementDTO, articleId)
 }
