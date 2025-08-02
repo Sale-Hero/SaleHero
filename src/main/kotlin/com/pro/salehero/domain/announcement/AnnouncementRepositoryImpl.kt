@@ -5,7 +5,6 @@ import com.pro.salehero.config.QueryDslSupport
 import com.pro.salehero.domain.announcement.QAnnouncement.announcement
 import com.pro.salehero.domain.announcement.dto.AdminAnnouncementDTO
 import com.pro.salehero.domain.announcement.dto.UserAnnouncementDTO
-import com.pro.salehero.users.article.domain.QArticle.article
 import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Pageable
@@ -34,6 +33,9 @@ class AnnouncementRepositoryImpl(
                     )
                 )
                 .from(announcement)
+                .where(
+                    announcement.isDeleted.eq("N")
+                )
                 .orderBy(announcement.createdAt.desc())
         )
 
