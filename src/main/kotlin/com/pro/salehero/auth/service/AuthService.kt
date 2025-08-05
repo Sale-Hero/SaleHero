@@ -10,13 +10,13 @@ import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.config.JwtTokenProvider
 import com.pro.salehero.users.subscribe.domain.subscriber.SubscribeRepository
-import com.pro.salehero.users.subscribe.domain.subscriber.Subscriber
 import com.pro.salehero.users.user.domain.User
 import com.pro.salehero.users.user.domain.UserRepository
 import com.pro.salehero.users.user.domain.enums.UserRole
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
+import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -70,10 +70,13 @@ class AuthService(
             "refreshToken" to jwtToken.refreshToken
         )
 
-        val queryString = params.entries.joinToString("&") { (key, value) ->
-            "$key=${URLEncoder.encode(value, "UTF-8")}"
-        }
-        val authUrl = "$origin/success?$queryString"
+        val accessTokenCookie = createTokenCookie("accessToken", jwtToken.accessToken, 3600)
+        val refreshTokenCookie = createTokenCookie("refreshToken", jwtToken.refreshToken, 7 * 24 * 3600)
+
+        response.addCookie(accessTokenCookie)
+        response.addCookie(refreshTokenCookie)
+
+        val authUrl = "$origin/success"
         response.sendRedirect(authUrl)
     }
 
@@ -167,5 +170,16 @@ class AuthService(
 
         println("minutesDifference = ${minutesDifference}")
         return minutesDifference > 2
+    }
+
+    private fun createTokenCookie(
+        name: String,
+        token: String,
+        age: Int
+    ): Cookie = Cookie(name, token).apply {
+        maxAge = age
+        path = "/"
+        isHttpOnly = false
+        secure = true
     }
 }
