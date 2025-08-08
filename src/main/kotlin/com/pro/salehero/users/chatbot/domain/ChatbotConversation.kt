@@ -1,4 +1,4 @@
-package com.pro.salehero.users.chatbot.doomain
+package com.pro.salehero.users.chatbot.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
