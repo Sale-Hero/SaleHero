@@ -81,6 +81,10 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
+    // arch unit test
+    testImplementation("com.tngtech.archunit:archunit-junit5:1.2.1")
+
+
 }
 
 kotlin {
