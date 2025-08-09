@@ -1,8 +1,8 @@
 package com.pro.salehero.common.support.service
 
 import com.pro.salehero.common.support.controller.dto.SupportPostDTO
-import com.pro.salehero.common.support.domain.Support
-import com.pro.salehero.common.support.domain.SupportRepository
+import com.pro.salehero.domain.support.Support
+import com.pro.salehero.domain.support.SupportRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service

@@ -1,7 +1,7 @@
 package com.pro.salehero.users.user.service
 
 import com.pro.salehero.users.user.controller.dto.UserResponseDTO
-import com.pro.salehero.users.user.domain.UserRepository
+import com.pro.salehero.domain.user.UserRepository
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.http.ResponseEntity

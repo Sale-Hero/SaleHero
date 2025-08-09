@@ -1,14 +1,14 @@
-package com.pro.salehero.users.community.domain
+package com.pro.salehero.domain.community
 
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.config.IntegrationTestSupport
 import com.pro.salehero.config.TransactionHelper
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.users.community.domain.enums.CommunityCategory
-import com.pro.salehero.users.user.domain.User
-import com.pro.salehero.users.user.domain.UserRepository
-import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.domain.community.enums.CommunityCategory
+import com.pro.salehero.domain.user.User
+import com.pro.salehero.domain.user.UserRepository
+import com.pro.salehero.domain.user.enums.UserRole
 import jakarta.persistence.EntityManager
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.groups.Tuple.tuple
@@ -103,7 +103,7 @@ class CommunityRepositoryImplTest : IntegrationTestSupport() {
 
         // when
         transactionHelper.executeInNewTransaction {
-            communityRepository.updateViewCount(viewCount)
+            communityRepository.increaseViewCount(viewCount)
         }
 
         val updatedCommunity = communityRepository.findById(savedCommunity.id!!)

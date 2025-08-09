@@ -1,6 +1,6 @@
 package com.pro.salehero.admins.rawnewsletter.controller.dto
 
-import com.pro.salehero.admins.rawnewsletter.domain.RawNewsLetter
+import com.pro.salehero.domain.rawnewsletter.RawNewsLetter
 
 data class RawNewsLetterDTO(
     val id: Long,

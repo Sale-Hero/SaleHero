@@ -5,8 +5,8 @@ import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
 import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.service.dto.ViewCount
-import com.pro.salehero.users.article.domain.Article
-import com.pro.salehero.users.article.domain.ArticleRepository
+import com.pro.salehero.domain.article.Article
+import com.pro.salehero.domain.article.ArticleRepository
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.data.domain.Pageable

@@ -2,17 +2,17 @@ package com.pro.salehero.auth.service
 
 import com.pro.salehero.auth.controller.dto.MailRequestDTO
 import com.pro.salehero.auth.controller.dto.MailVerifyDTO
-import com.pro.salehero.auth.domain.UserAuthentication
-import com.pro.salehero.auth.domain.UserAuthenticationRepository
+import com.pro.salehero.domain.auth.UserAuthentication
+import com.pro.salehero.domain.auth.UserAuthenticationRepository
 import com.pro.salehero.auth.service.dto.OauthUserInfo
 import com.pro.salehero.auth.service.dto.TokenResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.config.JwtTokenProvider
-import com.pro.salehero.users.subscribe.domain.subscriber.SubscribeRepository
-import com.pro.salehero.users.user.domain.User
-import com.pro.salehero.users.user.domain.UserRepository
-import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.domain.subscribe.subscriber.SubscribeRepository
+import com.pro.salehero.domain.user.User
+import com.pro.salehero.domain.user.UserRepository
+import com.pro.salehero.domain.user.enums.UserRole
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode

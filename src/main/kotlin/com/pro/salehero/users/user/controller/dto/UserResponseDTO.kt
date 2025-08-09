@@ -1,6 +1,6 @@
 package com.pro.salehero.users.user.controller.dto
 
-import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.domain.user.enums.UserRole
 
 data class UserResponseDTO(
     val id: Long,

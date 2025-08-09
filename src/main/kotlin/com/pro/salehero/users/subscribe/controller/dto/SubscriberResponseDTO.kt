@@ -1,6 +1,6 @@
 package com.pro.salehero.users.subscribe.controller.dto
 
-import com.pro.salehero.users.subscribe.domain.subscriber.Subscriber
+import com.pro.salehero.domain.subscribe.subscriber.Subscriber
 import java.time.LocalDateTime
 
 data class SubscriberResponseDTO(

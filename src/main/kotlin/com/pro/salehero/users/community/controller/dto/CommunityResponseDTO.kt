@@ -1,6 +1,6 @@
 package com.pro.salehero.users.community.controller.dto
 
-import com.pro.salehero.users.community.domain.Community
+import com.pro.salehero.domain.community.Community
 import java.time.LocalDateTime
 
 data class CommunityResponseDTO(

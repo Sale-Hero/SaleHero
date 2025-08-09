@@ -1,6 +1,6 @@
 package com.pro.salehero.users.newsletter.controller.dto
 
-import com.pro.salehero.users.newsletter.domain.NewsLetter
+import com.pro.salehero.domain.newsletter.NewsLetter
 import java.time.LocalDateTime
 
 data class NewsLetterResponseDTO(

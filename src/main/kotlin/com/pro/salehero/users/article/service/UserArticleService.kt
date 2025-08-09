@@ -5,8 +5,8 @@ import com.pro.salehero.admins.article.controller.dto.UserArticleDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
-import com.pro.salehero.users.article.domain.Article
-import com.pro.salehero.users.article.domain.ArticleRepository
+import com.pro.salehero.domain.article.Article
+import com.pro.salehero.domain.article.ArticleRepository
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode

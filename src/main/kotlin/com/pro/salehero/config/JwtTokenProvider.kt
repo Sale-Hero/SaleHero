@@ -1,9 +1,9 @@
 package com.pro.salehero.config
 
 import com.pro.salehero.auth.service.dto.TokenChangeResponseDTO
-import com.pro.salehero.users.user.domain.User
+import com.pro.salehero.domain.user.User
 import com.pro.salehero.auth.service.dto.TokenResponseDTO
-import com.pro.salehero.users.user.domain.UserRepository
+import com.pro.salehero.domain.user.UserRepository
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import io.jsonwebtoken.ExpiredJwtException

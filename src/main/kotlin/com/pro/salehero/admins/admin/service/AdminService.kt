@@ -2,8 +2,8 @@ package com.pro.salehero.admins.admin.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
-import com.pro.salehero.users.newsletter.domain.NewsLetter
-import com.pro.salehero.users.newsletter.domain.NewsLetterRepository
+import com.pro.salehero.domain.newsletter.NewsLetter
+import com.pro.salehero.domain.newsletter.NewsLetterRepository
 import org.springframework.stereotype.Service
 
 @Service

@@ -6,9 +6,9 @@ import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
 import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
 import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.users.community.domain.Community
-import com.pro.salehero.users.community.domain.CommunityRepository
-import com.pro.salehero.users.user.domain.User
+import com.pro.salehero.domain.community.Community
+import com.pro.salehero.domain.community.CommunityRepository
+import com.pro.salehero.domain.user.User
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
@@ -87,7 +87,7 @@ class CommunityService(
         return CommunityResponseDTO.of(article.get())
     }
 
-    fun updateViewCount(viewCount: ViewCount) = communityRepository.updateViewCount(viewCount)
+    fun updateViewCount(viewCount: ViewCount) = communityRepository.increaseViewCount(viewCount)
 
     private fun validatePostDTO(communityPostDTO: CommunityPostDTO) {
         require(communityPostDTO.title.isNotEmpty()) { throw CustomException(ErrorCode.CODE_4043) }

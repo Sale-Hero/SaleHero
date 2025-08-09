@@ -2,7 +2,7 @@ package com.pro.salehero.users.user.controller
 
 
 import com.pro.salehero.users.user.controller.dto.UserResponseDTO
-import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.domain.user.enums.UserRole
 import com.pro.salehero.users.user.service.UserService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

@@ -1,7 +1,7 @@
 package com.pro.salehero.admins.article.controller.dto
 
-import com.pro.salehero.users.article.domain.Article
-import com.pro.salehero.users.community.domain.enums.ContentsCategory
+import com.pro.salehero.domain.article.Article
+import com.pro.salehero.domain.community.enums.ContentsCategory
 import java.time.LocalDateTime
 
 data class AdminArticleDTO (

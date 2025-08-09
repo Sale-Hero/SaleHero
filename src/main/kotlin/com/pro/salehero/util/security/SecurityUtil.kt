@@ -1,7 +1,7 @@
 package com.pro.salehero.util.security
 
-import com.pro.salehero.users.user.domain.User
-import com.pro.salehero.users.user.domain.enums.UserRole
+import com.pro.salehero.domain.user.User
+import com.pro.salehero.domain.user.enums.UserRole
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.security.core.context.SecurityContextHolder

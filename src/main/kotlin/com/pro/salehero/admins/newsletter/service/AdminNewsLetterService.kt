@@ -6,8 +6,8 @@ import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
-import com.pro.salehero.users.newsletter.domain.NewsLetter
-import com.pro.salehero.users.newsletter.domain.NewsLetterRepository
+import com.pro.salehero.domain.newsletter.NewsLetter
+import com.pro.salehero.domain.newsletter.NewsLetterRepository
 import com.pro.salehero.users.subscribe.service.UnsubscribeTokenService
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
