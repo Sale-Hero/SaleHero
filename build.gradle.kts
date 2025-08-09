@@ -83,8 +83,6 @@ dependencies {
 
     // arch unit test
     testImplementation("com.tngtech.archunit:archunit-junit5:1.2.1")
-
-
 }
 
 kotlin {
