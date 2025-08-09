@@ -5,8 +5,11 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
 
 @AnalyzeClasses(packages = ["com.pro.salehero"])
-class ArchitectTest {
+class ArchitectLayerClassTest {
 
+    /**
+     * 레이어별 클래스 규칙
+     */
     @ArchTest
     val `서비스_파일들은_당연히_서비스_피키지_안에_있어야한다` =
         classes()
