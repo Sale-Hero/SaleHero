@@ -8,7 +8,9 @@ import com.pro.salehero.domain.announcement.dto.UserAnnouncementDTO
 import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Repository
 
+@Repository
 class AnnouncementRepositoryImpl(
     queryFactory: JPAQueryFactory
 ) : QueryDslSupport(queryFactory), AnnouncementRepositoryCustom {

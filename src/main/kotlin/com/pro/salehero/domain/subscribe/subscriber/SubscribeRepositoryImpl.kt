@@ -2,7 +2,9 @@ package com.pro.salehero.domain.subscribe.subscriber
 
 import com.pro.salehero.domain.subscribe.subscriber.QSubscriber.subscriber
 import com.querydsl.jpa.impl.JPAQueryFactory
+import org.springframework.stereotype.Repository
 
+@Repository
 class SubscribeRepositoryImpl(
     private val queryFactory: JPAQueryFactory
 ) : SubscribeRepositoryCustom {
