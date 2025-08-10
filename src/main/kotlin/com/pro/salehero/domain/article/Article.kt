@@ -1,6 +1,5 @@
 package com.pro.salehero.domain.article
 
-import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
 import com.pro.salehero.domain.community.enums.ContentsCategory
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
@@ -27,12 +26,16 @@ class Article(
     val viewCount: Long = 0,
 ) : CreateAndUpdateAudit() {
     fun update(
-        articlePostDTO: AdminArticlePostDTO
+        title: String,
+        content: String,
+        summary: String,
+        category: ContentsCategory,
+        isVisible: String?,
     ) {
-        this.title = articlePostDTO.title
-        this.content = articlePostDTO.content
-        this.summary = articlePostDTO.summary
-        this.category = articlePostDTO.category
-        this.isVisible = articlePostDTO.isVisible
+        this.title = title
+        this.content = content
+        this.summary = summary
+        this.category =category
+        this.isVisible = isVisible
     }
 }
