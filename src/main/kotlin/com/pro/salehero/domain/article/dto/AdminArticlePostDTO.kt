@@ -1,4 +1,4 @@
-package com.pro.salehero.admins.article.controller.dto
+package com.pro.salehero.domain.article.dto
 
 import com.pro.salehero.domain.community.enums.ContentsCategory
 import jakarta.validation.constraints.NotBlank
