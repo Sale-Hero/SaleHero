@@ -1,8 +1,8 @@
 package com.pro.salehero.admins.article.service
 
-import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
-import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
-import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
+import com.pro.salehero.domain.article.dto.AdminArticleDTO
+import com.pro.salehero.domain.article.dto.AdminArticleDeleteDTO
+import com.pro.salehero.domain.article.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.domain.article.Article
@@ -42,7 +42,13 @@ class AdminArticleService(
         dto: AdminArticlePostDTO
     ): AdminArticleDTO {
         val article = existsArticle(articleId)
-        article.update(dto)
+        article.update(
+            title = dto.title,
+            content = dto.content,
+            category = dto.category,
+            summary = dto.summary,
+            isVisible = dto.isVisible,
+        )
 
         return AdminArticleDTO.of(article)
     }

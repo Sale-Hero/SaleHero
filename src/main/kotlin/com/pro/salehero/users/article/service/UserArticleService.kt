@@ -1,7 +1,6 @@
 package com.pro.salehero.users.article.service
 
-import com.pro.salehero.admins.article.controller.dto.AdminArticleDTO
-import com.pro.salehero.admins.article.controller.dto.UserArticleDTO
+import com.pro.salehero.domain.article.dto.UserArticleDTO
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService

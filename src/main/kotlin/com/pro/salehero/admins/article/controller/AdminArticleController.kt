@@ -1,7 +1,7 @@
 package com.pro.salehero.admins.article.controller
 
-import com.pro.salehero.admins.article.controller.dto.AdminArticleDeleteDTO
-import com.pro.salehero.admins.article.controller.dto.AdminArticlePostDTO
+import com.pro.salehero.domain.article.dto.AdminArticleDeleteDTO
+import com.pro.salehero.domain.article.dto.AdminArticlePostDTO
 import com.pro.salehero.admins.article.service.AdminArticleService
 import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
