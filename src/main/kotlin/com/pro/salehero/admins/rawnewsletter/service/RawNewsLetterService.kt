@@ -6,6 +6,7 @@ import com.pro.salehero.domain.rawnewsletter.RawNewsLetter
 import com.pro.salehero.domain.rawnewsletter.RawNewsLetterRepository
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
+import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RawNewsLetterService(
-    private val rawNewsLetterRepository: RawNewsLetterRepository
+    private val rawNewsLetterRepository: RawNewsLetterRepository,
+    private val mailSenderService: MailSenderService
 ) {
     @Transactional
     fun generateRawNewsLetter(
@@ -34,7 +36,8 @@ class RawNewsLetterService(
             keyword = rawNewsLetterPostDTO.keyword,
         )
 
-        rawNewsLetterRepository.save(rawNewsLetter)
+//        rawNewsLetterRepository.save(rawNewsLetter)
+//            .also { mailSenderService.sendEmail() }
 
         return ResponseDTO(false, "데이터 추가 완료", false)
     }
