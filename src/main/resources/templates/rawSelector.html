@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
-    <title>세일히어로 - 신규 할인정보 승인 요청</title>
+    <title>세일히어로 - 관리자용 로우데이터</title>
 </head>
 
 <body style="margin: 0; padding: 0; background-color: #f6f6f6;">
@@ -38,37 +38,19 @@
 
         <!-- 제목 -->
         <div style="text-align: center; padding: 0 20px;">
-            <h2 style="font-size: 20px; color: #333333; margin: 0 0 15px 0;" th:text="${dealTitle}">
-                SM하이플러스, QR 주차번호·하이패스 결합상품 출시
+            <h2 style="font-size: 20px; color: #333333; margin: 0 0 15px 0;" th:text="${title}">
+                프로모션 제목
             </h2>
         </div>
 
         <!-- 본문 -->
-        <div style="padding: 0 25px 25px 25px; text-align: left;" th:utext="${dealContent}">
-            <div style="font-family: sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
-                <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">SM하이플러스</div>
-                <div style="font-weight: bold; margin-top: 12px;">프로모션 상세정보</div>
-                <div style="margin-left: 10px;">
-                    1. 기간: <span style="color: #444;">상시 진행</span><br>
-                    2. 대상: <span style="color: #444;">차량 소유자 및 운전자</span><br>
-                    3. 혜택: <span style="color: #e94e77;">개인정보 보호 및 편리한 주차 및 통행</span>
-                </div>
-                <div style="font-weight: bold; margin-top: 12px;">프로모션 정보 요약</div>
-                <div style="margin-left: 10px;">
-                    SM하이플러스가 QR 안심주차번호판과 스마트 하이패스 카드를 결합한 신규 상품 출시
-                </div>
-                <div style="font-weight: bold; margin-top: 12px;">프로모션 상세</div>
-                <div style="margin-left: 10px;">
-                    SM하이플러스는 차량에서 노출될 수 있는 연락처 등 개인정보를 보호하는 QR 안심주차번호판과
-                    스마트 하이패스 카드로 구성된 신규 결합상품을 출시했다고 밝혔습니다.
-                    이를 통해 차량 소유자와 운전자들은 안심하고 주차 및 통행을 할 수 있게 됐습니다.
-                </div>
-            </div>
+        <div style="padding: 0 25px 25px 25px; text-align: left;" th:utext="${content}">
+            <!-- 여기에 프로모션 HTML 본문 들어감 -->
         </div>
 
         <!-- 버튼 영역 -->
         <div style="text-align: center; padding-bottom: 35px;">
-            <a th:href="@{https://salehero.kr/api/deal/approve(id=${dealId})}" style="
+            <a href="#" style="
             display: inline-block;
             background-color: #28a745;
             color: white;
@@ -82,7 +64,7 @@
           ">
                 승인
             </a>
-            <a th:href="@{https://salehero.kr/api/deal/reject(id=${dealId})}" style="
+            <a href="#" style="
             display: inline-block;
             background-color: #FF3B30;
             color: white;
