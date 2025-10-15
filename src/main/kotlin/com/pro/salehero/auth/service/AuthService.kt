@@ -47,7 +47,6 @@ class AuthService(
 
         // 새 사용자 생성
         val userRole = if (userInfo.email.equals("pnci1029@gmail.com")) UserRole.ADMIN else UserRole.USER
-        println("create user ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
         val newUser = User(
             userEmail = userInfo.email,
             userName = userInfo.name,
@@ -169,7 +168,6 @@ class AuthService(
         val currentTime = LocalDateTime.now()
         val minutesDifference = Duration.between(authTime, currentTime).toMinutes()
 
-        println("minutesDifference = ${minutesDifference}")
         return minutesDifference > 2
     }
 

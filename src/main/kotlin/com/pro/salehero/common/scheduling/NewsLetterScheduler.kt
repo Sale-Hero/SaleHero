@@ -35,7 +35,6 @@ class NewsLetterScheduler(
 
             if (success) {
                 newsLetterRepository.updateToSent(newsLetter)
-                println("Sent email for ${newsLetter.title}")
             } else {
                 println("Failed to send email for ${newsLetter.title}")
             }

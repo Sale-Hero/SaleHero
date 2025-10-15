@@ -101,6 +101,5 @@ class AdminNewsLetterService(
             context = context,
             mailSender = noReplySender
         )
-        println("끝")
     }
 }

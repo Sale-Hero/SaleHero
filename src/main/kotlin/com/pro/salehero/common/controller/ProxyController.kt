@@ -27,7 +27,6 @@ class ProxyController {
         request.addHeader("User-Agent", "Mozilla/5.0")
         request.addHeader("Accept-Encoding", "gzip, deflate, br")
 
-        println("decodedUrl = ${decodedUrl}")
         return try {
             client.execute(request).use { response ->
                 val entity = response.entity
