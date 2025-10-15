@@ -177,6 +177,27 @@ class MailSenderService(
         )
     }
 
+    /**
+     * 로우데이터 관리자 송신용 함수
+     */
+    fun sendAminSelectEmail(
+        to: String,
+        title: String,
+        content: String,
+    ): Boolean {
+        val context = Context()
+        context.setVariable("title", title)
+        context.setVariable("content", content)
+
+        return sendEmail(
+            to = to,
+            subject = "세일히어로 - 관리자용 로우 데이터",
+            templateName = "rawSelector",
+            context = context,
+            mailSender = noReplySender
+        )
+    }
+
     private fun setupThymeleafTemplate(): SpringTemplateEngine {
         val templateEngine = SpringTemplateEngine()
         val templateResolver = ClassLoaderTemplateResolver()

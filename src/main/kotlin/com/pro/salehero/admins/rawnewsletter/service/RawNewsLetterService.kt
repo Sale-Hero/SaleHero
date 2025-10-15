@@ -8,6 +8,7 @@ import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -16,8 +17,11 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class RawNewsLetterService(
     private val rawNewsLetterRepository: RawNewsLetterRepository,
-    private val mailSenderService: MailSenderService
+    private val mailSenderService: MailSenderService,
+
+    @Value("\${admin-email}") private val adminEmail: String,
 ) {
+
     @Transactional
     fun generateRawNewsLetter(
         rawNewsLetterPostDTO: RawNewsLetterPostDTO
@@ -36,8 +40,15 @@ class RawNewsLetterService(
             keyword = rawNewsLetterPostDTO.keyword,
         )
 
-//        rawNewsLetterRepository.save(rawNewsLetter)
-//            .also { mailSenderService.sendEmail() }
+        rawNewsLetterRepository.save(rawNewsLetter)
+            // db 저장 후 메일 발송
+            .also {
+                mailSenderService.sendAminSelectEmail(
+                    adminEmail,
+                    rawNewsLetterPostDTO.title,
+                    rawNewsLetterPostDTO.content
+                )
+            }
 
         return ResponseDTO(false, "데이터 추가 완료", false)
     }
