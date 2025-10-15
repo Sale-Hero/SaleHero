@@ -1,5 +1,6 @@
 package com.pro.salehero.users.user.controller
 
+import com.pro.salehero.common.service.MailSenderService
 import com.pro.salehero.common.service.kakao.KakaoApiClient
 import com.pro.salehero.config.aws.AwsProperties
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,7 +14,8 @@ import software.amazon.awssdk.services.ses.model.*
 class TestController(
     private val kakaoApiClient: KakaoApiClient,
     private val sesClient: SesClient,
-    private val awsProperties: AwsProperties
+    private val awsProperties: AwsProperties,
+    private val mailSenderService: MailSenderService,
 ) {
     @GetMapping
     fun test(): String = "Hello World1"
@@ -56,8 +58,14 @@ class TestController(
                 .message(message)
                 .build()
 
-            val response = sesClient.sendEmail(emailRequest)
-            return "메일 전송 성공: ${response.messageId()}"
+//            val response = sesClient.sendEmail(emailRequest)
+            mailSenderService.sendAminSelectEmail(
+                "pnci1029@gmail.com",
+                title = "기사제목제목제목",
+                content = "기사 내용내용내용내용",
+            )
+//            return "메일 전송 성공: ${response.messageId()}"
+            return "메일 전송 성공:"
         } catch (e: Exception) {
             return "메일 전송 실패: ${e.message}"
         }
