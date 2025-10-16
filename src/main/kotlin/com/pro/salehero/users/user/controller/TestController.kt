@@ -61,6 +61,7 @@ class TestController(
 //            val response = sesClient.sendEmail(emailRequest)
             mailSenderService.sendAminSelectEmail(
                 "pnci1029@gmail.com",
+                1L,
                 title = "기사제목제목제목",
                 content = "기사 내용내용내용내용",
             )

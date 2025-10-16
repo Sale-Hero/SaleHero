@@ -45,6 +45,7 @@ class RawNewsLetterService(
             .also {
                 mailSenderService.sendAminSelectEmail(
                     adminEmail,
+                    it.id!!,
                     rawNewsLetterPostDTO.title,
                     rawNewsLetterPostDTO.content
                 )

@@ -182,10 +182,12 @@ class MailSenderService(
      */
     fun sendAminSelectEmail(
         to: String,
+        id: Long,
         title: String,
         content: String,
     ): Boolean {
         val context = Context()
+        context.setVariable("id", id)
         context.setVariable("title", title)
         context.setVariable("content", content)
 
