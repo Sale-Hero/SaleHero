@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org" data-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="color-scheme" content="light"/>
     <title>세일히어로 - 관리자용 로우데이터</title>
 </head>
 
@@ -27,7 +27,7 @@
         <!-- 로고 -->
         <a href="https://salehero.kr/" style="display: block; text-decoration: none; padding: 20px 0 10px 0;">
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="https://salehero.kr/images/sale_hero_ico.png" alt="logo" width="50" />
+                <img src="https://salehero.kr/images/sale_hero_ico.png" alt="logo" width="50"/>
                 <span style="font-size: 24px; color: #FF3B30; font-weight: bold; margin-left: 5px;">세일</span>
                 <span style="font-size: 24px; color: #333; font-weight: bold;">히어로</span>
             </div>
@@ -47,54 +47,58 @@
         <div style="padding: 0 25px 25px 25px; text-align: left;" th:utext="${content}">
             <!-- 여기에 프로모션 HTML 본문 들어감 -->
         </div>
-
         <!-- 버튼 영역 -->
-        <div style="text-align:center; margin:20px 0;">
-            <a href="#" style="
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 12px 30px;
-            margin: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-          ">
+        <!-- 버튼 영역 -->
+        <div style="text-align: center; padding-bottom: 35px;">
+            <a href="#"
+               style="
+      display: inline-block;
+      background-color: #28a745;
+      color: white;
+      padding: 12px 30px;
+      margin: 8px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+     ">
                 승인
             </a>
 
-            <a href="#" style="
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 12px 30px;
-            margin: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-          ">
+            <a href="#"
+               style="
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 30px;
+      margin: 8px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+     ">
                 수정하기
             </a>
 
-            <a href="#" style="
-            display: inline-block;
-            background-color: #FF3B30;
-            color: white;
-            padding: 12px 30px;
-            margin: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-          ">
+            <a href="#"
+               style="
+      display: inline-block;
+      background-color: #FF3B30;
+      color: white;
+      padding: 12px 30px;
+      margin: 8px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+     ">
                 반려
             </a>
         </div>
+
 
         <!-- 하단 -->
         <div style="height: 1px; width: 90%; background: #e1e1e1; margin: 0 auto;"></div>
