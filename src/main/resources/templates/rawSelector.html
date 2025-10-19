@@ -50,7 +50,7 @@
         <!-- 버튼 영역 -->
         <!-- 버튼 영역 -->
         <div style="text-align: center; padding-bottom: 35px;">
-            <a href="#"
+            <button onclick="approveArticle()"
                style="
       display: inline-block;
       background-color: #28a745;
@@ -62,9 +62,10 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
+      border: none;
      ">
                 승인
-            </a>
+            </button>
 
             <a th:href="@{'https://salehero.kr/admin/raw-newsletter?id=' + ${id}}"
                style="
@@ -108,5 +109,40 @@
         </p>
     </div>
 </div>
+
+<script>
+function approveArticle() {
+    const title = document.querySelector('h2').textContent.trim();
+    const content = document.querySelector('[th\\:utext]').innerHTML;
+    
+    const articleData = {
+        title: title,
+        content: content,
+        summary: "",
+        category: "PROMOTION",
+        isVisible: "Y"
+    };
+    
+    fetch('/api/admin/article', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(articleData)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('승인이 완료되었습니다.');
+            window.close();
+        } else {
+            alert('승인 처리 중 오류가 발생했습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('승인 처리 중 오류가 발생했습니다.');
+    });
+}
+</script>
 </body>
 </html>
