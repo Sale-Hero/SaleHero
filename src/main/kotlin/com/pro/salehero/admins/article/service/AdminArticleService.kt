@@ -7,6 +7,7 @@ import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.service.dto.ViewCount
 import com.pro.salehero.domain.article.Article
 import com.pro.salehero.domain.article.ArticleRepository
+import com.pro.salehero.domain.rawnewsletter.RawNewsLetterRepository
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.springframework.data.domain.Pageable
@@ -16,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class AdminArticleService(
-    private val articleRepository: ArticleRepository
+    private val articleRepository: ArticleRepository,
+    private val rawNewsLetterRepository: RawNewsLetterRepository
 ) {
 
     @Transactional
@@ -63,6 +65,24 @@ class AdminArticleService(
     fun updateViewCount(
         viewCount: ViewCount
     ) = articleRepository.updateViewCount(viewCount)
+
+    @Transactional
+    fun approveArticleFromRawNewsLetter(id: Long): AdminArticleDTO {
+        val rawNewsLetter = rawNewsLetterRepository.findById(id)
+            .orElseThrow { CustomException(ErrorCode.CODE_404) }
+
+        val article = articleRepository.save(
+            Article(
+                title = rawNewsLetter.title,
+                content = rawNewsLetter.content,
+                category = rawNewsLetter.category,
+                summary = "",
+                isVisible = "Y"
+            )
+        )
+
+        return AdminArticleDTO.of(article)
+    }
 
     private fun existsArticle(
         articleId: Long

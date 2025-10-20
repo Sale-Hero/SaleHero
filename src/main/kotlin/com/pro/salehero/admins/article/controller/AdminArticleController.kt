@@ -40,4 +40,12 @@ class AdminArticleController (
     fun deleteArticle(
         @RequestBody dto: AdminArticleDeleteDTO,
     ) = ResponseEntity.ok(adminArticleService.deleteArticle(dto))
+
+    /**
+     * 메일에서 보내는 뉴스레터 노출 API
+     */
+    @GetMapping("/approve")
+    fun approveArticle(
+        @RequestParam id: Long,
+    ) = ResponseEntity.ok(adminArticleService.approveArticleFromRawNewsLetter(id))
 }
