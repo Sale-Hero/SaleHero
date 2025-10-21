@@ -42,6 +42,10 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
+    // 웹소켓 및 스프링 메시징 의존성 추가
+    implementation("org.springframework:spring-websocket")
+    implementation("org.springframework:spring-messaging")
+
     // QueryDSL 의존성 추가
     implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
