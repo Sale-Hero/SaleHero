@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.domain.chat.ChatMessageRepository
 import com.pro.salehero.domain.chat.ChatMessage // Entity
 import com.pro.salehero.chat.dto.ChatMessageDto // DTO - Changed import and removed alias
-import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 @Service
@@ -38,10 +37,11 @@ class ChatPersistenceService(
                 val chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto::class.java) // Use DTO
                 val entity = ChatMessage( // Entity
                     type = chatMessageDto.type,
-                    sender = chatMessageDto.sender,
+                    sender = chatMessageDto.sender ?: "anonymous",
                     content = chatMessageDto.content
-                    // createdAt and updatedAt will be handled by CreateAndUpdateAudit
-                )
+                ).apply {
+                    chatMessageDto.createdAt?.let { this.createdAt = it }
+                }
                 messagesToPersist.add(entity)
                 count++
             } catch (e: Exception) {

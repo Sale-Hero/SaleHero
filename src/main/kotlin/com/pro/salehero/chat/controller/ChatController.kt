@@ -27,12 +27,13 @@ class ChatController(
 
     @MessageMapping("/chat.sendMessage")
     fun sendMessage(@Payload chatMessage: ChatMessageDto) { // Changed type
+        val newChatMessage = chatMessage.copy(createdAt = java.time.LocalDateTime.now())
         // 메시지를 Redis에 저장 (JSON 형태로)
-        val messageJson = objectMapper.writeValueAsString(chatMessage)
+        val messageJson = objectMapper.writeValueAsString(newChatMessage)
         redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
 
         // 메시지 브로드캐스팅
-        messagingTemplate.convertAndSend("/topic/chat", chatMessage)
+        messagingTemplate.convertAndSend("/topic/chat", newChatMessage)
     }
 
     @EventListener
@@ -43,7 +44,7 @@ class ChatController(
 
         headerAccessor.sessionAttributes?.put("username", anonymousUser)
 
-        val chatMessage = ChatMessageDto(MessageType.JOIN, anonymousUser, "$anonymousUser 님이 입장했습니다.") // Changed type
+        val chatMessage = ChatMessageDto(MessageType.JOIN, anonymousUser, "$anonymousUser 님이 입장했습니다.", createdAt = java.time.LocalDateTime.now()) // Changed type
         // 입장 메시지를 Redis에 저장
         val messageJson = objectMapper.writeValueAsString(chatMessage)
         redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
@@ -57,7 +58,7 @@ class ChatController(
         val username = headerAccessor.sessionAttributes?.get("username") as? String
 
         if (username != null) {
-            val chatMessage = ChatMessageDto(MessageType.LEAVE, username, "$username 님이 퇴장했습니다.") // Changed type
+            val chatMessage = ChatMessageDto(MessageType.LEAVE, username, "$username 님이 퇴장했습니다.", createdAt = java.time.LocalDateTime.now()) // Changed type
             // 퇴장 메시지를 Redis에 저장
             val messageJson = objectMapper.writeValueAsString(chatMessage)
             redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
