@@ -20,7 +20,7 @@
 
 ### 3.1. WebSocket 통신 흐름
 
-1. Client: 서버 WebSocket Endpoint로 연결 시도 (/ws-chat)
+1. Client: 서버 WebSocket Endpoint로 연결 시도 (/api/ws-chat)
    -> 서버는 SockJS 핸드셰이크 후 세션 수립
 
 2. Server: 연결 수립 시, 해당 세션에 익명 ID 부여 (e.g., "익명-12345")
