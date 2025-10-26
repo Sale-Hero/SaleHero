@@ -4,7 +4,7 @@ import org.springframework.context.event.EventListener
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.Payload
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+
 import org.springframework.messaging.simp.SimpMessageSendingOperations
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor
 import org.springframework.stereotype.Controller
@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.chat.dto.ChatMessageDto // Changed import
 import com.pro.salehero.domain.chat.MessageType
+
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor
 
 @Controller
 class ChatController(
@@ -26,8 +28,12 @@ class ChatController(
     private val CHAT_MESSAGE_KEY = "chat:messages" // Redis List/Stream Key
 
     @MessageMapping("/chat.sendMessage")
-    fun sendMessage(@Payload chatMessage: ChatMessageDto) { // Changed type
-        val newChatMessage = chatMessage.copy(createdAt = java.time.LocalDateTime.now())
+    fun sendMessage(@Payload chatMessage: ChatMessageDto, headerAccessor: SimpMessageHeaderAccessor) { // Changed type
+        val username = headerAccessor.sessionAttributes?.get("username") as? String
+        val newChatMessage = chatMessage.copy(
+            sender = username,
+            createdAt = java.time.LocalDateTime.now()
+        )
         // 메시지를 Redis에 저장 (JSON 형태로)
         val messageJson = objectMapper.writeValueAsString(newChatMessage)
         redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
