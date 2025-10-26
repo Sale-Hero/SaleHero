@@ -15,7 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.chat.dto.ChatMessageDto // Changed import
 import com.pro.salehero.domain.chat.MessageType
 
+import org.slf4j.LoggerFactory
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+import java.util.concurrent.ConcurrentHashMap
 
 @Controller
 class ChatController(
@@ -24,12 +26,14 @@ class ChatController(
     private val objectMapper: ObjectMapper
 ) {
 
+    private val log = LoggerFactory.getLogger(ChatController::class.java)
     private val userCount = AtomicInteger(0)
+    private val sessionUserMap = ConcurrentHashMap<String, String>()
     private val CHAT_MESSAGE_KEY = "chat:messages" // Redis List/Stream Key
 
     @MessageMapping("/chat.sendMessage")
     fun sendMessage(@Payload chatMessage: ChatMessageDto, headerAccessor: SimpMessageHeaderAccessor) { // Changed type
-        val username = headerAccessor.sessionAttributes?.get("username") as? String
+        val username = sessionUserMap[headerAccessor.sessionId]
         val newChatMessage = chatMessage.copy(
             sender = username,
             createdAt = java.time.LocalDateTime.now()
@@ -48,9 +52,9 @@ class ChatController(
         val sessionId = headerAccessor.sessionId ?: return
         val anonymousUser = "익명 ${userCount.incrementAndGet()}"
 
-        headerAccessor.sessionAttributes?.put("username", anonymousUser)
+        sessionUserMap[sessionId] = anonymousUser
 
-        val chatMessage = ChatMessageDto(MessageType.JOIN, anonymousUser, "$anonymousUser 님이 입장했습니다.", createdAt = java.time.LocalDateTime.now()) // Changed type
+        val chatMessage = ChatMessageDto(MessageType.JOIN, anonymousUser, "$anonymousUser 님이 입장했습니다.", createdAt = java.time.LocalDateTime.now(), sessionId = sessionId) // Changed type
         // 입장 메시지를 Redis에 저장
         val messageJson = objectMapper.writeValueAsString(chatMessage)
         redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
@@ -61,7 +65,8 @@ class ChatController(
     @EventListener
     fun handleWebSocketDisconnectListener(event: SessionDisconnectEvent) {
         val headerAccessor = StompHeaderAccessor.wrap(event.message)
-        val username = headerAccessor.sessionAttributes?.get("username") as? String
+        val sessionId = headerAccessor.sessionId ?: return
+        val username = sessionUserMap[sessionId]
 
         if (username != null) {
             val chatMessage = ChatMessageDto(MessageType.LEAVE, username, "$username 님이 퇴장했습니다.", createdAt = java.time.LocalDateTime.now()) // Changed type
@@ -70,6 +75,9 @@ class ChatController(
             redisTemplate.opsForList().rightPush(CHAT_MESSAGE_KEY, messageJson)
 
             messagingTemplate.convertAndSend("/topic/chat", chatMessage)
+
+            // Remove user from map
+            sessionUserMap.remove(sessionId)
         }
     }
 }

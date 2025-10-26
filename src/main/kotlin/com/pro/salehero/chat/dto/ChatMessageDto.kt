@@ -8,5 +8,6 @@ data class ChatMessageDto(
     val type: MessageType,
     val sender: String?,
     val content: String?,
-    val createdAt: LocalDateTime? = null
+    val createdAt: LocalDateTime? = null,
+    val sessionId: String? = null
 )
