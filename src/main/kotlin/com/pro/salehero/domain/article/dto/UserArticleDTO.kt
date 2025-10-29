@@ -1,7 +1,7 @@
 package com.pro.salehero.domain.article.dto
 
 import com.pro.salehero.domain.article.Article
-import com.pro.salehero.domain.community.enums.ContentsCategory
+import com.pro.salehero.common.enums.ContentsCategory
 import java.time.LocalDateTime
 
 data class UserArticleDTO (

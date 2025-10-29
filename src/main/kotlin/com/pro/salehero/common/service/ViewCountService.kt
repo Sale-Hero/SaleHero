@@ -1,7 +1,7 @@
 package com.pro.salehero.common.service
 
 import com.pro.salehero.common.enums.RedisContentType
-import com.pro.salehero.common.service.dto.ViewCount
+import com.pro.salehero.common.dto.ViewCount
 import com.pro.salehero.domain.newsletter.NewsLetterRepository
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.core.RedisTemplate

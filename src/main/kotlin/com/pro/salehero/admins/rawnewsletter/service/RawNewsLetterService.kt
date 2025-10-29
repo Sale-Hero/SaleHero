@@ -1,13 +1,13 @@
 package com.pro.salehero.admins.rawnewsletter.service
 
-import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterPostDTO
-import com.pro.salehero.admins.rawnewsletter.controller.dto.RawNewsLetterDTO
+import com.pro.salehero.admins.rawnewsletter.dto.RawNewsLetterPostDTO
+import com.pro.salehero.admins.rawnewsletter.dto.RawNewsLetterDTO
 import com.pro.salehero.domain.rawnewsletter.RawNewsLetter
 import com.pro.salehero.domain.rawnewsletter.RawNewsLetterRepository
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterDeleteDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
