@@ -1,6 +1,6 @@
 package com.pro.salehero.domain.article
 
-import com.pro.salehero.domain.community.enums.ContentsCategory
+import com.pro.salehero.common.enums.ContentsCategory
 import com.pro.salehero.util.CreateAndUpdateAudit
 import jakarta.persistence.*
 

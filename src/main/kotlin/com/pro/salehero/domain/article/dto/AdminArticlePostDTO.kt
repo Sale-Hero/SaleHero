@@ -1,6 +1,6 @@
 package com.pro.salehero.domain.article.dto
 
-import com.pro.salehero.domain.community.enums.ContentsCategory
+import com.pro.salehero.common.enums.ContentsCategory
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
