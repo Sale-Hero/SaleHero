@@ -1,7 +1,7 @@
 package com.pro.salehero.config
 
-import com.pro.salehero.util.security.AdminAuthInterceptor
-import com.pro.salehero.util.security.ApiKeyInterceptor
+import com.pro.salehero.auth.security.AdminAuthInterceptor
+import com.pro.salehero.auth.security.ApiKeyInterceptor
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

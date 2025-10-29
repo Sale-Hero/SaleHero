@@ -1,11 +1,11 @@
 package com.pro.salehero.domain.community
 
 import com.pro.salehero.common.enums.RedisContentType
-import com.pro.salehero.common.service.dto.ViewCount
+import com.pro.salehero.common.dto.ViewCount
 import com.pro.salehero.config.IntegrationTestSupport
 import com.pro.salehero.config.TransactionHelper
-import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.domain.community.enums.CommunityCategory
+import com.pro.salehero.users.community.dto.CommunitySearchDTO
+import com.pro.salehero.common.enums.CommunityCategory
 import com.pro.salehero.domain.user.User
 import com.pro.salehero.domain.user.UserRepository
 import com.pro.salehero.domain.user.enums.UserRole

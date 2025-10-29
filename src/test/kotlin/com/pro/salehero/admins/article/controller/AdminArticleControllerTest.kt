@@ -91,8 +91,8 @@ class AdminArticleControllerTest {
         // given
         val invalidId = 999L
 
-        whenever(adminArticleService.approveArticleFromRawNewsLetter(invalidId))
-            .thenThrow(CustomException(ErrorCode.CODE_404))
+        given(adminArticleService.approveArticleFromRawNewsLetter(invalidId))
+            .willAnswer { throw CustomException(ErrorCode.CODE_404) }
 
         // when & then
         assertThatThrownBy {
