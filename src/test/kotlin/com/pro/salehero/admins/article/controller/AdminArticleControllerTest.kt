@@ -5,18 +5,19 @@ import com.pro.salehero.domain.article.Article
 import com.pro.salehero.domain.article.dto.AdminArticleDTO
 import com.pro.salehero.domain.article.dto.AdminArticleDeleteDTO
 import com.pro.salehero.domain.article.dto.AdminArticlePostDTO
-import com.pro.salehero.domain.community.enums.ContentsCategory
+import com.pro.salehero.common.enums.ContentsCategory
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito.given
-import org.mockito.BDDMockito.willThrow
+
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.given
+
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
 
@@ -90,9 +91,8 @@ class AdminArticleControllerTest {
         // given
         val invalidId = 999L
 
-        willThrow(CustomException(ErrorCode.CODE_404))
-            .given(adminArticleService)
-            .approveArticleFromRawNewsLetter(invalidId)
+        whenever(adminArticleService.approveArticleFromRawNewsLetter(invalidId))
+            .thenThrow(CustomException(ErrorCode.CODE_404))
 
         // when & then
         assertThatThrownBy {

@@ -1,7 +1,7 @@
 package com.pro.salehero.users.user.service
 
 import com.pro.salehero.config.IntegrationTestSupport
-import com.pro.salehero.users.user.controller.dto.UserResponseDTO
+import com.pro.salehero.users.user.dto.UserResponseDTO
 import com.pro.salehero.domain.user.User
 import com.pro.salehero.domain.user.UserRepository
 import com.pro.salehero.domain.user.enums.UserRole

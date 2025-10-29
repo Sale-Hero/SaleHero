@@ -1,7 +1,7 @@
 package com.pro.salehero.users.community.controller
 
-import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
-import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
+import com.pro.salehero.users.community.dto.CommunityPostDTO
+import com.pro.salehero.users.community.dto.CommunitySearchDTO
 import com.pro.salehero.users.community.service.CommunityService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
