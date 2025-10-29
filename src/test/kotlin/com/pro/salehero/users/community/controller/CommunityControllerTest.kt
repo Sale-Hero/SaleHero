@@ -3,10 +3,10 @@ package com.pro.salehero.users.community.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.config.IntegrationControllerTestSupport
-import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
-import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
-import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
-import com.pro.salehero.domain.community.enums.CommunityCategory
+import com.pro.salehero.users.community.dto.CommunityPostDTO
+import com.pro.salehero.users.community.dto.CommunityResponseDTO
+import com.pro.salehero.users.community.dto.CommunitySearchDTO
+import com.pro.salehero.common.enums.CommunityCategory
 import com.pro.salehero.users.community.service.CommunityService
 import com.pro.salehero.util.exception.GlobalExceptionHandler
 import org.mockito.BDDMockito.given
