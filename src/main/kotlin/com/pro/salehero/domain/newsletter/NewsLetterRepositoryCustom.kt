@@ -1,8 +1,8 @@
 package com.pro.salehero.domain.newsletter
 
 import com.pro.salehero.common.dto.PageResponseDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterResponseDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPutDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterResponseDTO
 import org.springframework.data.domain.Pageable
 import java.time.LocalDateTime
 

@@ -2,8 +2,8 @@ package com.pro.salehero.domain.newsletter
 
 import com.pro.salehero.common.dto.PageResponseDTO
 import com.pro.salehero.config.QueryDslSupport
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterResponseDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPutDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterResponseDTO
 import com.pro.salehero.domain.newsletter.QNewsLetter.newsLetter
 import com.querydsl.core.types.Projections
 import com.querydsl.core.types.dsl.BooleanExpression
