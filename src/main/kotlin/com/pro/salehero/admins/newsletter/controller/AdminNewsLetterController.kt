@@ -1,10 +1,10 @@
 package com.pro.salehero.newsletter.controller
 
-import com.pro.salehero.admins.newsletter.controller.dto.SendTestMailDTO
+import com.pro.salehero.admins.newsletter.dto.SendTestMailDTO
 import com.pro.salehero.newsletter.service.AdminNewsLetterService
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterDeleteDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPostDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPutDTO
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault

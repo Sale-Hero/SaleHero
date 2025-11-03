@@ -1,7 +1,7 @@
 package com.pro.salehero.auth.service
 
-import com.pro.salehero.auth.controller.dto.MailRequestDTO
-import com.pro.salehero.auth.controller.dto.MailVerifyDTO
+import com.pro.salehero.auth.dto.MailRequestDTO
+import com.pro.salehero.auth.dto.MailVerifyDTO
 import com.pro.salehero.domain.auth.UserAuthentication
 import com.pro.salehero.domain.auth.UserAuthenticationRepository
 import com.pro.salehero.auth.service.dto.OauthUserInfo

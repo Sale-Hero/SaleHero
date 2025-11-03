@@ -1,17 +1,17 @@
 package com.pro.salehero.newsletter.service
 
-import com.pro.salehero.admins.newsletter.controller.dto.SendTestMailDTO
+import com.pro.salehero.admins.newsletter.dto.SendTestMailDTO
 import com.pro.salehero.common.dto.ResponseDTO
 import com.pro.salehero.common.service.MailSenderService
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterDeleteDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPostDTO
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterPutDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterDeleteDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPostDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterPutDTO
 import com.pro.salehero.domain.newsletter.NewsLetter
 import com.pro.salehero.domain.newsletter.NewsLetterRepository
 import com.pro.salehero.users.subscribe.service.UnsubscribeTokenService
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
-import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
+import com.pro.salehero.auth.security.SecurityUtil.Companion.getCurrentUser
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity

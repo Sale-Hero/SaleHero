@@ -2,17 +2,17 @@ package com.pro.salehero.users.community.service
 
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
-import com.pro.salehero.common.service.dto.ViewCount
-import com.pro.salehero.users.community.controller.dto.CommunityPostDTO
-import com.pro.salehero.users.community.controller.dto.CommunityResponseDTO
-import com.pro.salehero.users.community.controller.dto.CommunitySearchDTO
+import com.pro.salehero.common.dto.ViewCount
+import com.pro.salehero.users.community.dto.CommunityPostDTO
+import com.pro.salehero.users.community.dto.CommunityResponseDTO
+import com.pro.salehero.users.community.dto.CommunitySearchDTO
 import com.pro.salehero.domain.community.Community
 import com.pro.salehero.domain.community.CommunityRepository
 import com.pro.salehero.domain.user.User
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
 import com.pro.salehero.util.exception.ErrorCode
-import com.pro.salehero.util.security.SecurityUtil.Companion.getCurrentUser
+import com.pro.salehero.auth.security.SecurityUtil.Companion.getCurrentUser
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
