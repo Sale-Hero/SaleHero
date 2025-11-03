@@ -2,6 +2,7 @@ package com.pro.salehero.users.subscribe.controller
 
 import com.pro.salehero.config.IntegrationControllerTestSupport
 import com.pro.salehero.users.subscribe.service.SubscribeService
+import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -25,11 +26,14 @@ class SubscribeControllerTest: IntegrationControllerTestSupport() {
         // given
         val email = "test@example.com"
 
+        given(subscribeService.isEmailNotPresent(email)).willReturn(true)
+
         // when  // then
         mockMvc.perform(
             get("/api/subscribe/${email}")
                 .contentType(MediaType.APPLICATION_JSON)
         )
+            .andDo(print())
             .andExpect(status().isOk)
     }
 }

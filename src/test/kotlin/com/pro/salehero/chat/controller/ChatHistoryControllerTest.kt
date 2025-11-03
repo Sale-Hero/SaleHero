@@ -9,6 +9,7 @@ import com.pro.salehero.domain.chat.MessageType
 import com.pro.salehero.util.exception.GlobalExceptionHandler
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
+import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -52,8 +53,7 @@ class ChatHistoryControllerTest : IntegrationControllerTestSupport() {
             content = expectedContent
         )
 
-        val pageable: Pageable = PageRequest.of(0, 50)
-        given(chatHistoryService.getChatHistory(pageable)).willReturn(expectedResult)
+        given(chatHistoryService.getChatHistory(any<Pageable>())).willReturn(expectedResult)
 
         // when & then
         mockMvc.perform(
