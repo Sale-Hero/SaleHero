@@ -2,7 +2,7 @@ package com.pro.salehero.users.newsletter.service
 
 import com.pro.salehero.common.enums.RedisContentType
 import com.pro.salehero.common.service.ViewCountService
-import com.pro.salehero.users.newsletter.controller.dto.NewsLetterResponseDTO
+import com.pro.salehero.users.newsletter.dto.NewsLetterResponseDTO
 import com.pro.salehero.domain.newsletter.NewsLetterRepository
 import com.pro.salehero.util.comfortutil.ComfortUtil
 import com.pro.salehero.util.exception.CustomException
