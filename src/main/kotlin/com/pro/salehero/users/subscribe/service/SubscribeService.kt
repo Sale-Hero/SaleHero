@@ -1,9 +1,9 @@
 package com.pro.salehero.users.subscribe.service
 
 import com.pro.salehero.common.dto.ResponseDTO
-import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
-import com.pro.salehero.users.subscribe.controller.dto.SubscriberResponseDTO
-import com.pro.salehero.users.subscribe.controller.dto.UnSubscribeDTO
+import com.pro.salehero.users.subscribe.dto.SubscribePostDTO
+import com.pro.salehero.users.subscribe.dto.SubscriberResponseDTO
+import com.pro.salehero.users.subscribe.dto.UnSubscribeDTO
 import com.pro.salehero.domain.subscribe.subscriber.SubscribeRepository
 import com.pro.salehero.domain.subscribe.subscriber.Subscriber
 import com.pro.salehero.util.comfortutil.ComfortUtil

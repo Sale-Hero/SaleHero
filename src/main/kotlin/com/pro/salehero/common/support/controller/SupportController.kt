@@ -1,6 +1,6 @@
 package com.pro.salehero.common.support.controller
 
-import com.pro.salehero.common.support.controller.dto.SupportPostDTO
+import com.pro.salehero.common.support.dto.SupportPostDTO
 import com.pro.salehero.common.support.service.SupportService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

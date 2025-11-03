@@ -1,7 +1,7 @@
 package com.pro.salehero.users.subscribe.controller
 
-import com.pro.salehero.users.subscribe.controller.dto.SubscribePostDTO
-import com.pro.salehero.users.subscribe.controller.dto.UnSubscribeDTO
+import com.pro.salehero.users.subscribe.dto.SubscribePostDTO
+import com.pro.salehero.users.subscribe.dto.UnSubscribeDTO
 import com.pro.salehero.users.subscribe.service.SubscribeService
 import org.springframework.web.bind.annotation.*
 
