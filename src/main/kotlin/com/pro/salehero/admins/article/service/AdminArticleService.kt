@@ -4,7 +4,7 @@ import com.pro.salehero.domain.article.dto.AdminArticleDTO
 import com.pro.salehero.domain.article.dto.AdminArticleDeleteDTO
 import com.pro.salehero.domain.article.dto.AdminArticlePostDTO
 import com.pro.salehero.common.dto.PageResponseDTO
-import com.pro.salehero.common.service.dto.ViewCount
+import com.pro.salehero.common.dto.ViewCount
 import com.pro.salehero.domain.article.Article
 import com.pro.salehero.domain.article.ArticleRepository
 import com.pro.salehero.domain.rawnewsletter.RawNewsLetterRepository

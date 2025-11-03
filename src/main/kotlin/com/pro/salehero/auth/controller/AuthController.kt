@@ -1,8 +1,8 @@
 package com.pro.salehero.auth.controller
 
-import com.pro.salehero.auth.controller.dto.MailRequestDTO
-import com.pro.salehero.auth.controller.dto.MailVerifyDTO
-import com.pro.salehero.auth.controller.dto.TokenChangeDTO
+import com.pro.salehero.auth.dto.MailRequestDTO
+import com.pro.salehero.auth.dto.MailVerifyDTO
+import com.pro.salehero.auth.dto.TokenChangeDTO
 import com.pro.salehero.auth.service.GoogleAuthService
 import com.pro.salehero.auth.service.AuthService
 import jakarta.servlet.http.HttpServletResponse
