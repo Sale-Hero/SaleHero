@@ -1,6 +1,7 @@
 package com.pro.salehero.common.service
 
 import com.pro.salehero.config.aws.AwsProperties
+import com.pro.salehero.domain.verification.service.EmailTokenService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
@@ -23,6 +24,7 @@ class MailSenderService(
     private val javaMailSender: JavaMailSender,
     private val awsProperties: AwsProperties,
     private val sesClient: SesClient,
+    private val emailTokenService: EmailTokenService,
 
     ) {
     // 이메일 템플릿 엔진 초기화 (싱글톤으로 한 번만 생성)
@@ -186,10 +188,13 @@ class MailSenderService(
         title: String,
         content: String,
     ): Boolean {
+        val token = emailTokenService.generateAndSaveToken(id)
+
         val context = Context()
         context.setVariable("id", id)
         context.setVariable("title", title)
         context.setVariable("content", content)
+        context.setVariable("token", token)
 
         return sendEmail(
             to = to,
