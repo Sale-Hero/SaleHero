@@ -20,7 +20,7 @@ class ChatPersistenceService(
     private val CHAT_MESSAGE_KEY = "chat:messages" // Redis List/Stream Key
     private val BATCH_SIZE = 100 // 한 번에 처리할 메시지 수
 
-    @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.SECONDS) // 5초마다 실행
+    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES) // 5초마다 실행
     @Transactional
     fun persistChatMessages() {
         val messagesToPersist = mutableListOf<ChatMessage>() // Entity
