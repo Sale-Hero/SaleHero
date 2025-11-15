@@ -1,13 +1,13 @@
 package com.pro.salehero.chat.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.pro.salehero.chat.dto.ChatMessageDto
+import com.pro.salehero.domain.chat.ChatMessage
+import com.pro.salehero.domain.chat.ChatMessageRepository
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.pro.salehero.domain.chat.ChatMessageRepository
-import com.pro.salehero.domain.chat.ChatMessage // Entity
-import com.pro.salehero.chat.dto.ChatMessageDto // DTO - Changed import and removed alias
 import java.util.concurrent.TimeUnit
 
 @Service
@@ -17,41 +17,37 @@ class ChatPersistenceService(
     private val objectMapper: ObjectMapper
 ) {
 
-    private val CHAT_MESSAGE_KEY = "chat:messages" // Redis List/Stream Key
-    private val BATCH_SIZE = 100 // 한 번에 처리할 메시지 수
+    private val CHAT_MESSAGE_KEY = "chat:messages"
+    private val BATCH_SIZE = 100L
 
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES) // 5초마다 실행
+    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
     @Transactional
     fun persistChatMessages() {
-        val messagesToPersist = mutableListOf<ChatMessage>() // Entity
-        var count = 0
+        val messageJsonList = redisTemplate.opsForList().range(CHAT_MESSAGE_KEY, 0, BATCH_SIZE - 1)
 
-        // Redis에서 메시지를 배치로 가져옴
-        while (count < BATCH_SIZE) {
-            val messageJson = redisTemplate.opsForList().leftPop(CHAT_MESSAGE_KEY) // 왼쪽에서 가져옴
-            if (messageJson == null) {
-                break // 더 이상 메시지가 없으면 종료
-            }
+        if (messageJsonList.isNullOrEmpty()) {
+            return
+        }
 
+        val messagesToPersist = messageJsonList.mapNotNull { messageJson ->
             try {
-                val chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto::class.java) // Use DTO
-                val entity = ChatMessage( // Entity
+                val chatMessageDto = objectMapper.readValue(messageJson, ChatMessageDto::class.java)
+                ChatMessage(
                     type = chatMessageDto.type,
                     sender = chatMessageDto.sender ?: "anonymous",
                     content = chatMessageDto.content
                 ).apply {
                     chatMessageDto.createdAt?.let { this.createdAt = it }
                 }
-                messagesToPersist.add(entity)
-                count++
             } catch (e: Exception) {
-                // JSON 파싱 오류 처리 (로그 기록 등)
                 println("Error parsing chat message from Redis: $messageJson, Error: ${e.message}")
+                null
             }
         }
 
         if (messagesToPersist.isNotEmpty()) {
-            chatMessageRepository.saveAll(messagesToPersist) // 배치 저장
+            chatMessageRepository.saveAll(messagesToPersist)
+            redisTemplate.opsForList().trim(CHAT_MESSAGE_KEY, messageJsonList.size.toLong(), -1)
             println("Persisted ${messagesToPersist.size} chat messages to MySQL.")
         }
     }
