@@ -11,7 +11,7 @@ import java.time.Duration
 
 @Service
 class ViewCountService(
-    private val redisTemplate: RedisTemplate<String, Any>,
+    private val redisTemplate: RedisTemplate<String, String>,
     private val newsLetterRepository: NewsLetterRepository
 ) {
     companion object {
