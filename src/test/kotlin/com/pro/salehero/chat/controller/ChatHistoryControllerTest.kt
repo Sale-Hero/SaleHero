@@ -57,7 +57,7 @@ class ChatHistoryControllerTest : IntegrationControllerTestSupport() {
 
         // when & then
         mockMvc.perform(
-            get("/api/chat/history")
+            get("/api/v1/chat/history")
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andDo(print())
