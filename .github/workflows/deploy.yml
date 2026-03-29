@@ -41,27 +41,28 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          echo '${{ secrets.SSH_PRIVATE_KEY }}' > ~/.ssh/id_rsa
+          cat > ~/.ssh/id_rsa << 'EOF'
+          ${{ secrets.SSH_PRIVATE_KEY }}
+          EOF
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" > ~/.ssh/config
           chmod 644 ~/.ssh/known_hosts
 
       # 서버에 필요한 폴더 생성
       - name: Create directories on remote server
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
-            mkdir -p /salehero
-          "
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "mkdir -p /salehero"
 
       # ZIP 파일 전송
       - name: Copy ZIP to remote server
         run: |
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa salehero.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/salehero/
+          scp salehero.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/salehero/
 
       # 배포 스크립트 실행
       - name: Deploy on remote server
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
             cd /salehero &&
             rm -rf app || true &&
             mkdir -p app &&
