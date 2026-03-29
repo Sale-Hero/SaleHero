@@ -40,27 +40,26 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-          ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\tIdentityFile ~/.ssh/id_ed25519\n" > ~/.ssh/config
 
       # 서버에 필요한 폴더 생성
       - name: Create directories on remote server
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
             mkdir -p /salehero
           "
 
       # ZIP 파일 전송
       - name: Copy ZIP to remote server
         run: |
-          scp -i ~/.ssh/id_rsa salehero.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/salehero/
+          scp salehero.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/salehero/
 
       # 배포 스크립트 실행
       - name: Deploy on remote server
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
             cd /salehero &&
             rm -rf app || true &&
             mkdir -p app &&
