@@ -45,6 +45,13 @@ jobs:
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
 
+      # 서버에 필요한 폴더 생성
+      - name: Create directories on remote server
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+            mkdir -p /salehero
+          "
+
       # ZIP 파일 전송
       - name: Copy ZIP to remote server
         run: |
@@ -58,13 +65,11 @@ jobs:
             rm -rf app || true &&
             mkdir -p app &&
             unzip -o salehero.zip -d app &&
-            docker build -t salehero:latest . &&
-            if docker ps -a | grep -q salehero-container; then
-            docker stop salehero-container && docker rm salehero-container
-            fi &&
-            docker-compose up -d salehero
+            cd app &&
+            docker-compose down || true &&
+            docker-compose build --no-cache &&
+            docker-compose up -d
           "
-#            docker-compose up -d
 
       # 배포 완료 알림
       - name: Deployment notification
