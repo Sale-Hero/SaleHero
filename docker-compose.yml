@@ -35,14 +35,14 @@ services:
       - "443:443"
     user: "0"
     volumes:
-      - /salehero/app/nginx/conf:/etc/nginx/conf.d
-      - /salehero/app/nginx.conf:/etc/nginx/nginx.conf
+      - /salehero/nginx/conf:/etc/nginx/conf.d
+      - /salehero/nginx.conf:/etc/nginx/nginx.conf
       - /salehero/salehero_fe/build:/usr/share/nginx/html
-      - /salehero/app/certbot/conf:/etc/letsencrypt
-      - /salehero/app/certbot/www:/var/www/certbot
+      - /salehero/certbot/conf:/etc/letsencrypt
+      - /salehero/certbot/www:/var/www/certbot
       - /salehero/images:/salehero/images
-      - /salehero/app/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
-      - /salehero/app/main.conf:/etc/modsecurity.d/main.conf
+      - /salehero/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
+      - /salehero/main.conf:/etc/modsecurity.d/main.conf
     networks:
       - salehero-network
     depends_on:
