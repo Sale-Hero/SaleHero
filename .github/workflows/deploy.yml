@@ -72,7 +72,8 @@ jobs:
             unzip -o salehero.zip -d app &&
             cd app &&
             docker compose down || true &&
-            docker compose build --no-cache &&
+            docker system prune -f --volumes &&
+            docker compose build --no-cache --pull &&
             docker compose up -d
           "
 
