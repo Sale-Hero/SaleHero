@@ -11,7 +11,7 @@ services:
     depends_on:
       - mysql
       - redis
-  
+
   mysql:
     container_name: mysql-container
     image: mysql:8.0.28
@@ -26,7 +26,7 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - salehero-network
-  
+
   nginx:
     container_name: nginx-container
     image: owasp/modsecurity-crs:nginx
@@ -35,20 +35,20 @@ services:
       - "443:443"
     user: "0"
     volumes:
-      - /salehero/nginx/conf:/etc/nginx/conf.d
-      - /salehero/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - /salehero/salehero_fe/build:/usr/share/nginx/html
-      - /salehero/certbot/conf:/etc/letsencrypt
-      - /salehero/certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
       - /salehero/images:/salehero/images
-      - /salehero/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
-      - /salehero/main.conf:/etc/modsecurity.d/main.conf
+      - ./modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
+      - ./main.conf:/etc/modsecurity.d/main.conf
     networks:
       - salehero-network
     depends_on:
       - salehero
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  
+
   redis:
     container_name: redis-container
     image: redis:7.2-alpine

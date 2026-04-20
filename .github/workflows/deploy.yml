@@ -58,11 +58,11 @@ jobs:
             rm -rf app || true &&
             mkdir -p app &&
             unzip -o salehero.zip -d app &&
-            docker build -t salehero:latest . &&
-            if docker ps -a | grep -q salehero-container; then
-            docker stop salehero-container && docker rm salehero-container
-            fi &&
-            docker-compose up -d salehero
+            cd app &&
+            docker compose down || true &&
+            docker system prune -f --volumes &&
+            docker compose build --no-cache --pull &&
+            docker compose up -d
           "
       #            docker-compose up -d
 
