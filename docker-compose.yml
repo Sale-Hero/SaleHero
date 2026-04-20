@@ -87,8 +87,6 @@ services:
 
 networks:
   salehero-network:
-    external: true
-    name: salehero-network
     driver: bridge
 
 volumes:
