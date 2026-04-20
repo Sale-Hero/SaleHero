@@ -1,8 +1,7 @@
-version: '3'
 services:
   salehero:
     container_name: salehero-container
-    image: salehero:latest
+    build: .
     ports:
       - "8880:8880"
     networks:
