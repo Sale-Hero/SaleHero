@@ -58,11 +58,11 @@ jobs:
             rm -rf app || true &&
             mkdir -p app &&
             unzip -o salehero.zip -d app &&
-            cp nginx.conf app/ &&
-            cp main.conf app/ && 
-            cp modsecurity.conf app/ &&
-            cp -r nginx app/ &&
-            cp -r certbot app/ &&
+            cp nginx.conf app/ || true &&
+            cp main.conf app/ || true && 
+            cp modsecurity.conf app/ || true &&
+            cp -r nginx app/ || true &&
+            cp -r certbot app/ || true &&
             cd app &&
             docker compose down || true &&
             docker system prune -f --volumes &&
