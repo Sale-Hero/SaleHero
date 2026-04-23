@@ -27,27 +27,6 @@ services:
     networks:
       - salehero-network
 
-  nginx:
-    container_name: nginx-container
-    image: owasp/modsecurity-crs:nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    user: "0"
-    volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - /salehero/salehero_fe/build:/usr/share/nginx/html
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-      - /salehero/images:/salehero/images
-      - ./modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
-      - ./main.conf:/etc/modsecurity.d/main.conf
-    networks:
-      - salehero-network
-    depends_on:
-      - salehero
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   redis:
     container_name: redis-container
@@ -66,24 +45,6 @@ services:
       timeout: 10s
       retries: 3
 
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    container_name: certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    depends_on:
-      - nginx
-    networks:
-      - salehero-network
-    entrypoint: "/bin/sh -c 'trap exit TERM; if [ ! -d /etc/letsencrypt/live/salehero.kr ]; then certbot certonly --webroot -w /var/www/certbot --email your-email@example.com -d salehero.kr -d www.salehero.kr -d image.salehero.kr --agree-tos --no-eff-email; fi; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
 
 networks:
   salehero-network:
