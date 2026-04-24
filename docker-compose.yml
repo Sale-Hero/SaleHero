@@ -50,6 +50,20 @@ networks:
   salehero-network:
     driver: bridge
 
+  n8n:
+    container_name: n8n
+    image: n8nio/n8n:1.115.3
+    ports:
+      - "5678:5678"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - n8n-data:/home/node/.n8n
+    networks:
+      - salehero-network
+    restart: unless-stopped
+
 volumes:
   mysql-data:
   redis-data:
+  n8n-data:
