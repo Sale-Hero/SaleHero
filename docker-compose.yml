@@ -45,11 +45,6 @@ services:
       timeout: 10s
       retries: 3
 
-
-networks:
-  salehero-network:
-    driver: bridge
-
   n8n:
     container_name: n8n
     image: n8nio/n8n:1.115.3
@@ -62,6 +57,10 @@ networks:
     networks:
       - salehero-network
     restart: unless-stopped
+
+networks:
+  salehero-network:
+    driver: bridge
 
 volumes:
   mysql-data:
