@@ -52,6 +52,12 @@ services:
       - "5678:5678"
     environment:
       - NODE_ENV=production
+      - N8N_HOST=n8n.salehero.kr
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.salehero.kr/
+      - N8N_TRUST_PROXY=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
     volumes:
       - n8n-data:/home/node/.n8n
     networks:
